@@ -32,12 +32,14 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
+    @Transactional
     public boolean save(Stake stake) {
         em.persist(stake);
         return false;
     }
 
     @Override
+    @Transactional
     public boolean update(Stake stake) {
         em.merge(stake);
         return false;
@@ -49,5 +51,10 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
          em.createNamedQuery(Stake.DELETE)
                  .setParameter("id", id)
                  .executeUpdate();
+    }
+
+    @Override
+    public Stake get(int id) {
+        return em.find(Stake .class, id);
     }
 }

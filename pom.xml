@@ -18,7 +18,7 @@
 
         <spring.version>4.3.2.RELEASE</spring.version>
 
-        <!-- Logging -->
+         Logging
         <logback.version>1.1.7</logback.version>
         <slf4j.version>1.7.21</slf4j.version>
 

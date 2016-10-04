@@ -11,9 +11,9 @@ public interface HorseService {
 
     void delete(int id, int userId) throws NotFoundException;
 
-    Horse save(Horse meal, int userId);
+    Horse save(Horse horse, int userId);
 
-    Horse update(Horse meal, int userId) throws NotFoundException;
+    Horse update(Horse horse, int userId) throws NotFoundException;
 
     List<Horse> getAll();
 

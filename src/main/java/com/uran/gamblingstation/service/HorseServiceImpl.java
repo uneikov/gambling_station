@@ -4,6 +4,7 @@ import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.repository.HorseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import util.exception.NotFoundException;
 
 import java.util.List;
@@ -33,12 +34,14 @@ public class HorseServiceImpl implements HorseService {
     }
 
     @Override
-    public Horse save(Horse meal, int userId) {
+    public Horse save(Horse horse, int userId) {
+        Assert.notNull(horse, "horse must not be null");
         return null;
     }
 
     @Override
-    public Horse update(Horse meal, int userId) throws NotFoundException {
+    public Horse update(Horse horse, int userId) throws NotFoundException {
+        Assert.notNull(horse, "horse must not be null");
         return null;
     }
 

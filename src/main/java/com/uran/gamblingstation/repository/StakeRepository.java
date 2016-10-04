@@ -11,4 +11,5 @@ public interface StakeRepository {
     boolean save(Stake stake);
     boolean update(Stake stake);
     void delete(int id);
+    Stake get(int id);
 }

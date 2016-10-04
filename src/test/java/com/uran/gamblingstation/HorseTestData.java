@@ -35,6 +35,7 @@ public class HorseTestData {
     public static final Horse HORSE_9 = new Horse(HORSE_1_ID + 8, "Rabindranate", "Рабиндранат", 5, 0);
     public static final Horse HORSE_10 = new Horse(HORSE_1_ID + 9,"Angelfire", "Энджелфае", 5, 0);
 
+    public static final Horse WINNING_HORSE = HORSE_4;
 
     public static final List<Horse> HORSES =
             Arrays.asList(HORSE_7, HORSE_10, HORSE_1, HORSE_3, HORSE_8, HORSE_6, HORSE_9, HORSE_5, HORSE_4, HORSE_2);

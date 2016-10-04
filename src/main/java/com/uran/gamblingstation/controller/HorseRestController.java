@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class HorseRestController {
@@ -28,7 +28,7 @@ public class HorseRestController {
         service.delete(id, userId);
     }
 
-    public Collection<Horse> getAll() {
+    public List<Horse> getAll() {
         /*int userId = AuthorizedUser.id();
         LOG.info("getAll for User {}", userId);*/
         LOG.info("getAll in HORSE CONTROLLER");

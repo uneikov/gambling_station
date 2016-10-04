@@ -2,6 +2,7 @@ package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Stake;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +12,13 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import static com.uran.gamblingstation.StakeTestData.MATCHER;
-import static com.uran.gamblingstation.StakeTestData.STAKES;
+import static com.uran.gamblingstation.HorseTestData.WINNING_HORSE;
+import static com.uran.gamblingstation.StakeTestData.*;
+import static com.uran.gamblingstation.UserTestData.USER_ID_1;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -29,12 +33,10 @@ public class StakeServiceTest {
 
     @Before
     public void setUp() throws Exception {
-
     }
 
     @After
     public void tearDown() throws Exception {
-
     }
 
     @Test
@@ -44,28 +46,49 @@ public class StakeServiceTest {
     }
 
     @Test
-    public void getAllCash() throws Exception {
-
+    public void testGetAllCash() throws Exception {
+        Double cash = service.getAllCash();
+        Assert.assertEquals(cash, 501.25, 0.0001);
     }
 
     @Test
-    public void getWinningStakes() throws Exception {
-
+    public void testGetWinningStakes() throws Exception {
+        List<Stake> allStakes = service.getWinningStakes();
+        MATCHER.assertCollectionEquals(allStakes, Collections.singletonList(STAKE_1));
     }
 
     @Test
-    public void save() throws Exception {
-
+    public void testSave() throws Exception {
+        Stake created = getCreated();
+        service.save(created, USER_ID_1);
+        MATCHER.assertCollectionEquals(service.getAll(),
+                Arrays.asList(created, STAKE_5, STAKE_4, STAKE_3, STAKE_2, STAKE_1) );
     }
 
     @Test
-    public void update() throws Exception {
-
+    public void testUpdate() throws Exception {
+        Stake updated = getUpdated();
+        service.update(updated, USER_ID_1);
+        MATCHER.assertEquals(updated, service.get(STAKE_1_ID));
     }
 
     @Test
-    public void delete() throws Exception {
+    public void testDelete() throws Exception {
+        service.delete(STAKE_2_ID);
+        MATCHER.assertCollectionEquals(service.getAll(), Arrays.asList(STAKE_5, STAKE_4, STAKE_3, STAKE_1));
+    }
 
+    @Test
+    public void testGet() throws Exception {
+        Stake stake_3 = service.get(STAKE_3_ID);
+        MATCHER.assertEquals(stake_3, STAKE_3);
+    }
+
+    @Test
+    public void testSetWinningStakes(){
+        service.setWinningStakes(WINNING_HORSE, USER_ID_1);
+        List<Stake> list = service.getWinningStakes();
+        MATCHER.assertCollectionEquals(list, Arrays.asList(STAKE_1, STAKE_4_WIN, STAKE_5_WIN) );
     }
 
 }

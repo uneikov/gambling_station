@@ -54,6 +54,10 @@ public class ModelMatcher<T> {
         }
     }
 
+    /*public void assertDoubleEquals(Double expected, Double actual){
+        Assert.assertEquals(expected, actual);
+    }*/
+
     public void assertEquals(T expected, T actual) {
         Assert.assertEquals(wrap(expected), wrap(actual));
     }

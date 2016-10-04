@@ -30,10 +30,10 @@ public class Stake extends BaseEntity {
     @Column(name = "wins")
     private boolean wins;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Horse horse;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     public Stake(){
@@ -47,6 +47,23 @@ public class Stake extends BaseEntity {
 
     public Stake(Integer id, Double stakeValue, LocalDateTime dateTime, boolean wins) {
         super(id);
+        this.stakeValue = stakeValue;
+        this.dateTime = dateTime;
+        this.wins = wins;
+    }
+
+    public Stake(User user, Horse horse, Double stakeValue, LocalDateTime dateTime, boolean wins) {
+        this.user = user;
+        this.horse = horse;
+        this.stakeValue = stakeValue;
+        this.dateTime = dateTime;
+        this.wins = wins;
+    }
+
+    public Stake(Integer id, User user, Horse horse, Double stakeValue, LocalDateTime dateTime, boolean wins) {
+        super(id);
+        this.user = user;
+        this.horse = horse;
         this.stakeValue = stakeValue;
         this.dateTime = dateTime;
         this.wins = wins;
@@ -90,5 +107,16 @@ public class Stake extends BaseEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Stake{" +
+                "stakeValue=" + stakeValue +
+                ", dateTime=" + dateTime +
+                ", wins=" + wins +
+                ", horse=" + horse +
+                ", user=" + user +
+                '}';
     }
 }

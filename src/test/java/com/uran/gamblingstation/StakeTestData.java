@@ -24,17 +24,6 @@ public class StakeTestData {
     public static final int STAKE_5_ID = 100017;
     public static final User WINNING_USER = USER_1;
 
-
-    public static final ModelMatcher<Stake> MATCHER = new ModelMatcher<>(
-            (expected, actual) -> expected.equals(actual) ||
-                    ( Objects.equals(expected.getUser().getId(), actual.getUser().getId())
-                            && Objects.equals(expected.getHorse().getId(), actual.getHorse().getId())
-                            && Objects.equals(expected.getDateTime(), actual.getDateTime())
-                            && Objects.equals(expected.getStakeValue(), actual.getStakeValue())
-                            && Objects.equals(expected.getWins(), actual.getWins())
-                    )
-    );
-
     public static final Stake STAKE_1 =
             new Stake(USER_1, HORSE_4, 100.25, of(2016, Month.MAY, 30, 10, 0).truncatedTo(ChronoUnit.SECONDS), true);
 
@@ -64,4 +53,14 @@ public class StakeTestData {
     public static Stake getUpdated() {
         return new Stake(STAKE_1_ID, USER_1, HORSE_6, 100.25, of(2016, Month.MAY, 30, 10, 0).truncatedTo(ChronoUnit.SECONDS), false);
     }
+
+    public static final ModelMatcher<Stake> MATCHER = new ModelMatcher<>(
+            (expected, actual) -> expected.equals(actual) ||
+                    ( Objects.equals(expected.getUser().getId(), actual.getUser().getId())
+                            && Objects.equals(expected.getHorse().getId(), actual.getHorse().getId())
+                            && Objects.equals(expected.getDateTime(), actual.getDateTime())
+                            && Objects.equals(expected.getStakeValue(), actual.getStakeValue())
+                            && Objects.equals(expected.getWins(), actual.getWins())
+                    )
+    );
 }

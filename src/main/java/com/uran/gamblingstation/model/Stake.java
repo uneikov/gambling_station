@@ -4,8 +4,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 @NamedQueries({
         @NamedQuery(name = Stake.DELETE, query = "DELETE FROM Stake s WHERE s.id=:id "),
-        /*@NamedQuery(name = Meal.GET_BETWEEN, query =
-                "SELECT m FROM Meal m WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC"),*/
+        @NamedQuery(name = Stake.GET_BETWEEN, query =
+                "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate ORDER BY s.dateTime DESC"),
+        @NamedQuery(name = Stake.GET_BETWEEN_WITH_USER, query =
+                "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate AND s.user.id=:user_id ORDER BY s.dateTime DESC"),
+        @NamedQuery(name = Stake.GET_BETWEEN_WITH_HORSE, query =
+                "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate AND s.horse.id=:horse_id ORDER BY s.dateTime DESC"),
         @NamedQuery(name = Stake.ALL_SORTED, query =
                 "SELECT s FROM Stake s  ORDER BY s.dateTime DESC "),
         @NamedQuery(name = Stake.ALL_WINNING, query =
@@ -20,6 +24,9 @@ public class Stake extends BaseEntity {
     public static final String ALL_SORTED = "Stake.getAllSorted";
     public static final String DELETE = "Stake.delete";
     public static final String ALL_WINNING = "Stake.getWinningStakes";
+    public static final String GET_BETWEEN = "Stake.getBetween";
+    public static final String GET_BETWEEN_WITH_USER = "Stake.getBetweenWithUser";
+    public static final String GET_BETWEEN_WITH_HORSE = "Stake.getBetweenWithHorse";
 
     @Column(name = "stake_value")
     private Double stakeValue;
@@ -30,10 +37,12 @@ public class Stake extends BaseEntity {
     @Column(name = "wins")
     private boolean wins;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "horse_id", referencedColumnName = "id", nullable = false)
     private Horse horse;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
     public Stake(){

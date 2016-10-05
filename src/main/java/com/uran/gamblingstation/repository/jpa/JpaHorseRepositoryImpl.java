@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static com.uran.gamblingstation.model.BaseEntity.ADMIN_ID;
+
 @Repository
 @Transactional(readOnly = true)
 public class JpaHorseRepositoryImpl implements HorseRepository {
@@ -31,8 +33,22 @@ public class JpaHorseRepositoryImpl implements HorseRepository {
 
     @Override
     @Transactional
-    public Horse save(Horse meal, int userId) {
-        return null;
+    public Horse save(Horse horse, int userId) {
+        if (horse.isNew()) {
+            if (userId == ADMIN_ID) {
+                em.persist(horse);
+            }else { // Unauthorized operation
+                return null;
+            }
+        } else {
+            if (userId == ADMIN_ID) {
+                return em.merge(horse);
+            }
+            else { // Unauthorized operation
+                return null;
+            }
+        }
+        return horse;
     }
 
     @Override

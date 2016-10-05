@@ -7,9 +7,13 @@ import javax.persistence.*;
 public class BaseEntity {
 
     public static final int START_SEQ = 100000;
+    public static final int ADMIN_ID = START_SEQ + 2;
+    public static final int USER_1_ID = START_SEQ;
+
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @Access(AccessType.PROPERTY)
     protected Integer id;
 
     public BaseEntity() {

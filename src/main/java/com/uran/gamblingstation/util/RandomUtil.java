@@ -1,4 +1,4 @@
-package util;
+package com.uran.gamblingstation.util;
 
 import com.uran.gamblingstation.model.Horse;
 
@@ -14,5 +14,9 @@ public class RandomUtil {
             res.add(allHorses.get(ThreadLocalRandom.current().nextInt(allHorses.size())));
         }
         return res;
+    }
+
+    public static int getWinningHorse(){
+        return ThreadLocalRandom.current().nextInt(6);
     }
 }

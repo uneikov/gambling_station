@@ -1,7 +1,7 @@
 package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Horse;
-import util.exception.NotFoundException;
+import com.uran.gamblingstation.util.exception.NotFoundException;
 
 import java.util.List;
 

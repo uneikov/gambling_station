@@ -1,9 +1,8 @@
 package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Stake;
-import org.junit.After;
+import com.uran.gamblingstation.model.User;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,9 @@ import java.util.List;
 
 import static com.uran.gamblingstation.HorseTestData.WINNING_HORSE;
 import static com.uran.gamblingstation.StakeTestData.*;
-import static com.uran.gamblingstation.UserTestData.USER_ID_1;
+import static com.uran.gamblingstation.UserTestData.*;
+import static com.uran.gamblingstation.util.TimeUtil.VALID_END_DATETIME;
+import static com.uran.gamblingstation.util.TimeUtil.VALID_START_DATETIME;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -30,14 +31,6 @@ public class StakeServiceTest {
 
     @Autowired
     private StakeService service;
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
 
     @Test
     public void testGetAll() throws Exception {
@@ -52,8 +45,8 @@ public class StakeServiceTest {
     }
 
     @Test
-    public void testGetWinningStakes() throws Exception {
-        List<Stake> allStakes = service.getWinningStakes();
+    public void testGetAllWinningStakes() throws Exception {
+        List<Stake> allStakes = service.getAllWinningStakes();
         MATCHER.assertCollectionEquals(allStakes, Collections.singletonList(STAKE_1));
     }
 
@@ -62,7 +55,7 @@ public class StakeServiceTest {
         Stake created = getCreated();
         service.save(created, USER_ID_1);
         MATCHER.assertCollectionEquals(service.getAll(),
-                Arrays.asList(created, STAKE_5, STAKE_4, STAKE_3, STAKE_2, STAKE_1) );
+                Arrays.asList(created, STAKE_5, STAKE_4, STAKE_3, STAKE_2, STAKE_1));
     }
 
     @Test
@@ -85,10 +78,17 @@ public class StakeServiceTest {
     }
 
     @Test
-    public void testSetWinningStakes(){
-        service.setWinningStakes(WINNING_HORSE, USER_ID_1);
-        List<Stake> list = service.getWinningStakes();
-        MATCHER.assertCollectionEquals(list, Arrays.asList(STAKE_1, STAKE_4_WIN, STAKE_5_WIN) );
+    public void testSetWinningStakes() {
+        service.setWinningStakes(WINNING_HORSE, VALID_START_DATETIME, VALID_END_DATETIME, ADMIN_ID);
+        List<Stake> list = service.getWinningStakes(VALID_START_DATETIME, VALID_END_DATETIME);
+        MATCHER.assertCollectionEquals(list, Arrays.asList(STAKE_5_WIN, STAKE_4_WIN));
     }
 
+    @Test
+    public void testRaceResult() {
+        /*Horse winningHorse = HORSES.get(RandomUtil.getWinningHorse());*/
+        service.setWinningStakes(WINNING_HORSE, VALID_START_DATETIME, VALID_END_DATETIME, ADMIN_ID);
+        List<User> winningUsers = service.getWinningUsers(WINNING_HORSE, VALID_START_DATETIME, VALID_END_DATETIME, ADMIN_ID);
+        USER_MATCHER.assertCollectionEquals(winningUsers, Arrays.asList(USER_1, USER_2));
+    }
 }

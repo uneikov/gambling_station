@@ -2,7 +2,7 @@ package com.uran.gamblingstation;
 
 import com.uran.gamblingstation.matcher.ModelMatcher;
 import com.uran.gamblingstation.model.Horse;
-import util.RandomUtil;
+import com.uran.gamblingstation.util.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +34,12 @@ public class HorseTestData {
     public static final Horse HORSE_8 = new Horse(HORSE_1_ID + 7, "Gulfstream", "Гольфстрим", 3, 0);
     public static final Horse HORSE_9 = new Horse(HORSE_1_ID + 8, "Rabindranate", "Рабиндранат", 5, 0);
     public static final Horse HORSE_10 = new Horse(HORSE_1_ID + 9,"Angelfire", "Энджелфае", 5, 0);
+
+    public static final Horse HORSE_ADDED = new Horse(HORSE_1_ID + 10,"Captain", "Капитан", 5, 0);
+
+    public static Horse getUpdated(){
+        return new Horse(HORSE_1_ID, "Captain", "Капитан", 5, 0);
+    }
 
     public static final Horse WINNING_HORSE = HORSE_4;
 

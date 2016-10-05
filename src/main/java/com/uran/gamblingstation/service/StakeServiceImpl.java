@@ -2,11 +2,14 @@ package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.model.Stake;
+import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.repository.StakeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,9 +44,9 @@ public class StakeServiceImpl implements StakeService {
     }
 
     @Override
-    public void setWinningStakes(Horse horse, int userId) {
+    public void setWinningStakes(Horse horse, LocalDateTime startDate, LocalDateTime endDate, int userId) {
         // проверка user ID
-        List<Stake> list = repository.getALL().stream()
+        List<Stake> list = repository.getBetween(startDate, endDate).stream()
                 .filter(s -> s.getHorse().equals(horse))
                 .collect(Collectors.toList());
         list.forEach(s -> s.setWins(true));
@@ -51,8 +54,24 @@ public class StakeServiceImpl implements StakeService {
     }
 
     @Override
-    public List<Stake> getWinningStakes() {
-        return repository.getWinningStakes();
+    public List<Stake> getWinningStakes(LocalDateTime startDate, LocalDateTime endDate) {
+        return repository.getBetween(startDate, endDate).stream()
+                .filter(Stake::getWins)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> getWinningUsers(Horse horse, LocalDateTime startDate, LocalDateTime endDate, int userId){
+        // проверка user ID
+        return repository.getBetween(horse, startDate, endDate)
+                .stream()
+                .map(Stake::getUser)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Stake> getAllWinningStakes() {
+        return repository.getAllWinningStakes();
     }
 
     @Override
@@ -63,6 +82,30 @@ public class StakeServiceImpl implements StakeService {
     @Override
     public Stake get(int id) {
         return repository.get(id);
+    }
+
+    @Override
+    public Collection<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate) {
+        // проверка user ID
+        return repository.getBetween(startDate, endDate);
+    }
+
+    @Override
+    public Collection<Stake> getBetween(User user, LocalDateTime startDate, LocalDateTime endDate) {
+        // проверка user ID
+        return repository.getBetween(user, startDate, endDate);
+    }
+
+    @Override
+    public Collection<Stake> getBetween(Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
+        // проверка user ID
+        return repository.getBetween(horse, startDate, endDate);
+    }
+
+    @Override
+    public Collection<Stake> getBetween(User user, Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
+        // проверка user ID
+        return repository.getBetween(user, horse, startDate, endDate);
     }
 
 }

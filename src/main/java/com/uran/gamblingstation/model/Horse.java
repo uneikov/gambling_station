@@ -46,16 +46,6 @@ public class Horse extends NamedEntity {
         this.wins = wins;
     }
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getRuName() {
         return ruName;
     }

@@ -26,7 +26,7 @@ public class StakeTestData {
 
 
     public static final ModelMatcher<Stake> MATCHER = new ModelMatcher<>(
-            (expected, actual) -> expected == actual ||
+            (expected, actual) -> expected.equals(actual) ||
                     ( Objects.equals(expected.getUser().getId(), actual.getUser().getId())
                             && Objects.equals(expected.getHorse().getId(), actual.getHorse().getId())
                             && Objects.equals(expected.getDateTime(), actual.getDateTime())

@@ -1,6 +1,5 @@
 package com.uran.gamblingstation.service;
 
-import com.uran.gamblingstation.HorseTestData;
 import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.junit.Rule;
@@ -70,7 +69,7 @@ public class HorseServiceTest {
 
     @Test
     public void testUpdate() throws Exception {
-        Horse updated = HorseTestData.getUpdated();
+        Horse updated = getUpdated();
         service.update(updated, ADMIN_ID);
         MATCHER.assertEquals(updated, service.get(HORSE_1_ID, ADMIN_ID));
     }

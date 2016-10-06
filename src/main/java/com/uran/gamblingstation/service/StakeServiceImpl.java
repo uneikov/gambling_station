@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +19,20 @@ public class StakeServiceImpl implements StakeService {
     private StakeRepository repository;
 
     @Override
-    public List<Stake> getAll() {
-        return repository.getALL();
+    public Stake get(int id, int userId) {
+        // проверка user ID
+        return repository.get(id);
+    }
+
+    @Override
+    public void delete(int id, int userId) {
+        // проверка user ID
+        repository.delete(id);
+    }
+
+    @Override
+    public List<Stake> getAll(int userId) {
+        return repository.getAll();
     }
 
     @Override
@@ -30,17 +41,17 @@ public class StakeServiceImpl implements StakeService {
     }
 
     @Override
-    public boolean save(Stake stake, int userId) {
+    public Stake save(Stake stake, int userId) {
         // проверка user ID
         Assert.notNull(stake, "stake must not be null");
         return repository.save(stake);
     }
 
     @Override
-    public boolean update(Stake stake, int userId) {
+    public void update(Stake stake, int userId) {
         // проверка user ID
         Assert.notNull(stake, "stake must not be null");
-        return repository.update(stake);
+        repository.update(stake);
     }
 
     @Override
@@ -75,35 +86,25 @@ public class StakeServiceImpl implements StakeService {
     }
 
     @Override
-    public void delete(int id) {
-        repository.delete(id);
-    }
-
-    @Override
-    public Stake get(int id) {
-        return repository.get(id);
-    }
-
-    @Override
-    public Collection<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate) {
+    public List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate) {
         // проверка user ID
         return repository.getBetween(startDate, endDate);
     }
 
     @Override
-    public Collection<Stake> getBetween(User user, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<Stake> getBetween(User user, LocalDateTime startDate, LocalDateTime endDate) {
         // проверка user ID
         return repository.getBetween(user, startDate, endDate);
     }
 
     @Override
-    public Collection<Stake> getBetween(Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<Stake> getBetween(Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
         // проверка user ID
         return repository.getBetween(horse, startDate, endDate);
     }
 
     @Override
-    public Collection<Stake> getBetween(User user, Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<Stake> getBetween(User user, Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
         // проверка user ID
         return repository.getBetween(user, horse, startDate, endDate);
     }

@@ -11,10 +11,14 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static com.uran.gamblingstation.HorseTestData.HORSE_6;
 import static com.uran.gamblingstation.HorseTestData.WINNING_HORSE;
 import static com.uran.gamblingstation.StakeTestData.*;
 import static com.uran.gamblingstation.UserTestData.*;
@@ -34,7 +38,7 @@ public class StakeServiceTest {
 
     @Test
     public void testGetAll() throws Exception {
-        List<Stake> allStakes = service.getAll();
+        List<Stake> allStakes = service.getAll(ADMIN_ID);
         MATCHER.assertCollectionEquals(allStakes, STAKES);
     }
 
@@ -54,7 +58,7 @@ public class StakeServiceTest {
     public void testSave() throws Exception {
         Stake created = getCreated();
         service.save(created, USER_ID_1);
-        MATCHER.assertCollectionEquals(service.getAll(),
+        MATCHER.assertCollectionEquals(service.getAll(ADMIN_ID),
                 Arrays.asList(created, STAKE_5, STAKE_4, STAKE_3, STAKE_2, STAKE_1));
     }
 
@@ -62,18 +66,18 @@ public class StakeServiceTest {
     public void testUpdate() throws Exception {
         Stake updated = getUpdated();
         service.update(updated, USER_ID_1);
-        MATCHER.assertEquals(updated, service.get(STAKE_1_ID));
+        MATCHER.assertEquals(updated, service.get(STAKE_1_ID, ADMIN_ID));
     }
 
     @Test
     public void testDelete() throws Exception {
-        service.delete(STAKE_2_ID);
-        MATCHER.assertCollectionEquals(service.getAll(), Arrays.asList(STAKE_5, STAKE_4, STAKE_3, STAKE_1));
+        service.delete(STAKE_2_ID, ADMIN_ID);
+        MATCHER.assertCollectionEquals(service.getAll(ADMIN_ID), Arrays.asList(STAKE_5, STAKE_4, STAKE_3, STAKE_1));
     }
 
     @Test
     public void testGet() throws Exception {
-        Stake stake_3 = service.get(STAKE_3_ID);
+        Stake stake_3 = service.get(STAKE_3_ID, ADMIN_ID);
         MATCHER.assertEquals(stake_3, STAKE_3);
     }
 
@@ -90,5 +94,16 @@ public class StakeServiceTest {
         service.setWinningStakes(WINNING_HORSE, VALID_START_DATETIME, VALID_END_DATETIME, ADMIN_ID);
         List<User> winningUsers = service.getWinningUsers(WINNING_HORSE, VALID_START_DATETIME, VALID_END_DATETIME, ADMIN_ID);
         USER_MATCHER.assertCollectionEquals(winningUsers, Arrays.asList(USER_1, USER_2));
+    }
+
+    @Test
+    public void testGetBetweenWithUserAndHorse(){
+        List<Stake> stake = service.getBetween(
+                USER_1,
+                HORSE_6,
+                LocalDateTime.of(2016, Month.JUNE, 1, 0, 0).truncatedTo(ChronoUnit.SECONDS),
+                LocalDateTime.of(2016, Month.JUNE, 30, 23, 49).truncatedTo(ChronoUnit.SECONDS)
+        );
+        MATCHER.assertCollectionEquals(stake, Collections.singletonList(STAKE_3));
     }
 }

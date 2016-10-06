@@ -47,15 +47,8 @@ public class StakeTestData {
 
     public static final List<Stake> STAKES = Arrays.asList(STAKE_5, STAKE_4, STAKE_3, STAKE_2, STAKE_1);
 
-    public static Stake getCreated() {
-        return new Stake(USER_1, HORSE_1, 80.25, of(2016, Month.OCTOBER, 3, 10, 35).truncatedTo(ChronoUnit.SECONDS), false);
-    }
-    public static Stake getUpdated() {
-        return new Stake(STAKE_1_ID, USER_1, HORSE_6, 100.25, of(2016, Month.MAY, 30, 10, 0).truncatedTo(ChronoUnit.SECONDS), false);
-    }
-
     public static final ModelMatcher<Stake> MATCHER = new ModelMatcher<>(
-            (expected, actual) -> expected.equals(actual) ||
+            (expected, actual) -> expected==actual ||
                     ( Objects.equals(expected.getUser().getId(), actual.getUser().getId())
                             && Objects.equals(expected.getHorse().getId(), actual.getHorse().getId())
                             && Objects.equals(expected.getDateTime(), actual.getDateTime())
@@ -63,4 +56,11 @@ public class StakeTestData {
                             && Objects.equals(expected.getWins(), actual.getWins())
                     )
     );
+
+    public static Stake getCreated() {
+        return new Stake(USER_1, HORSE_1, 80.25, of(2016, Month.OCTOBER, 3, 10, 35).truncatedTo(ChronoUnit.SECONDS), false);
+    }
+    public static Stake getUpdated() {
+        return new Stake(STAKE_1_ID, USER_1, HORSE_6, 100.25, of(2016, Month.MAY, 30, 10, 0).truncatedTo(ChronoUnit.SECONDS), false);
+    }
 }

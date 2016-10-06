@@ -7,31 +7,44 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
-
+@NamedQueries({
+        @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
+        @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
+        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
+})
 @Entity
 @Table(name = "users",
         uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
-public class User extends NamedEntity{
+public class User extends NamedEntity {
+
+    public static final String DELETE = "User.delete";
+    public static final String BY_EMAIL = "User.getByEmail";
+    public static final String ALL_SORTED = "User.getAllSorted";
 
     @Column(name = "email", nullable = false, unique = true)
     @NotEmpty
-    protected String email;
+    private String email;
 
     @Column(name = "password", nullable = false)
     @NotEmpty
     @Length(min = 6)
-    protected String password;
+    private String password;
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
-    protected Date registered = new Date();
+    private Date registered = new Date();
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
-    protected Set<Role> roles;
+    private Set<Role> roles;
 
-    public User(){
+   /* @Column(name = "cash_value")
+    @CollectionTable(name = "cash_value", joinColumns = @JoinColumn(name = "user_id"))
+    @OneToOne(optional = false, fetch = FetchType.EAGER)
+    protected Wallet wallet;*/
+
+    public User() {
     }
 
     public User(User u) {

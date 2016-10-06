@@ -24,6 +24,10 @@ public class Wallet extends BaseEntity{
         this.cash = cash;
     }
 
+    public boolean isEmpty(){
+        return Double.compare(this.cash, 0.0) == 0;
+    }
+
     public Double getCash() {
         return cash;
     }

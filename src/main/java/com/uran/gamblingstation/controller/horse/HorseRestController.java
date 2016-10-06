@@ -37,6 +37,12 @@ public class HorseRestController {
         return service.getAll();
     }
 
+    public void update(Horse horse, int id) {
+        horse.setId(id);
+        int userId = ADMIN_ID;
+        LOG.info("update {} for User {}", horse, userId);
+        service.update(horse, userId);
+    }
     public Horse create(Horse horse) {
         horse.setId(null);
         /*int userId = AuthorizedUser.id();*/
@@ -44,12 +50,4 @@ public class HorseRestController {
         LOG.info("create {} for User {}", horse, userId);
         return service.save(horse, userId);
     }
-
-    public void update(Horse horse, int id) {
-        horse.setId(id);
-        int userId = ADMIN_ID;
-        LOG.info("update {} for User {}", horse, userId);
-        service.update(horse, userId);
-    }
-
 }

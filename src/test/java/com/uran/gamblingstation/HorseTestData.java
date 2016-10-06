@@ -28,10 +28,6 @@ public class HorseTestData {
 
     public static final Horse HORSE_ADDED = new Horse(HORSE_1_ID + 10,"Captain", "Капитан", 5, 0);
 
-    public static Horse getUpdated(){
-        return new Horse(HORSE_1_ID, "Captain", "Капитан", 5, 0);
-    }
-
     public static final Horse WINNING_HORSE = HORSE_4;
 
     public static final List<Horse> HORSES =
@@ -40,7 +36,7 @@ public class HorseTestData {
     public static final List<Horse> HORSES_FOR_RACE = RandomUtil.getHorsesListForRace(new ArrayList<>(HORSES));
 
     public static final ModelMatcher<Horse> MATCHER = new ModelMatcher<>(
-            (expected, actual) -> expected.equals(actual) ||
+            (expected, actual) -> expected==actual ||
                     (Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getName(), actual.getName())
                             && Objects.equals(expected.getRuName(), actual.getRuName())
@@ -48,4 +44,8 @@ public class HorseTestData {
                             && Objects.equals(expected.getWins(), actual.getWins())
                     )
     );
+
+    public static Horse getUpdated(){
+        return new Horse(HORSE_1_ID, "Captain", "Капитан", 5, 0);
+    }
 }

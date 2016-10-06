@@ -46,9 +46,12 @@
     <orderEntry type="library" name="Spring-4.3.3.RELEASE" level="project" />
     <orderEntry type="library" name="Spring Security-3.2.5" level="project" />
     <orderEntry type="library" name="Spring MVC-4.3.3.RELEASE" level="project" />
-    <orderEntry type="library" name="JBoss Weld-2.0.3" level="project" />
     <orderEntry type="library" name="Spring Data JPA-1.3.3" level="project" />
     <orderEntry type="library" name="Hibernate 5.2.2-5.2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.21" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:jcl-over-slf4j:1.7.21" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: ch.qos.logback:logback-classic:1.1.7" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: ch.qos.logback:logback-core:1.1.7" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:4.3.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:4.3.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.3.2.RELEASE" level="project" />

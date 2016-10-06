@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,16 +22,15 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
 
     @Override
     @Transactional
-    public boolean save(Stake stake) {
+    public Stake save(Stake stake) {
         em.persist(stake);
-        return false;
+        return stake;
     }
 
     @Override
     @Transactional
-    public boolean update(Stake stake) {
+    public void update(Stake stake) {
         em.merge(stake);
-        return false;
     }
 
     @Override
@@ -50,13 +48,13 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
-    public List<Stake> getALL() {
+    public List<Stake> getAll() {
         return em.createNamedQuery(Stake.ALL_SORTED, Stake.class).getResultList();
     }
 
     @Override
     public Double getAllCash() {
-        return getALL().stream().mapToDouble(Stake::getStakeValue).sum();
+        return getAll().stream().mapToDouble(Stake::getStakeValue).sum();
     }
 
     @Override
@@ -70,7 +68,7 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
-    public Collection<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate) {
+    public List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate) {
         return em.createNamedQuery(Stake.GET_BETWEEN, Stake.class)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
@@ -78,7 +76,7 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
-    public Collection<Stake> getBetween(User user, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<Stake> getBetween(User user, LocalDateTime startDate, LocalDateTime endDate) {
         return em.createNamedQuery(Stake.GET_BETWEEN_WITH_USER, Stake.class)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
@@ -87,7 +85,7 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
-    public Collection<Stake> getBetween(Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<Stake> getBetween(Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
         return em.createNamedQuery(Stake.GET_BETWEEN_WITH_HORSE, Stake.class)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
@@ -96,8 +94,8 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
-    public Collection<Stake> getBetween(User user, Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
-        return em.createNamedQuery(Stake.GET_BETWEEN, Stake.class)
+    public List<Stake> getBetween(User user, Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
+        return em.createNamedQuery(Stake.GET_BETWEEN_WITH_USER_AND_HORSE, Stake.class)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
                 .setParameter("user_id", user.getId())

@@ -7,6 +7,10 @@
           <element id="module-output" name="gambling_station" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.21" />
+          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.21" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.1.7" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.1.7" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.3.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.3.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.3.2.RELEASE" />

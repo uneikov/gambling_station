@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
                 "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate ORDER BY s.dateTime DESC"),
         @NamedQuery(name = Stake.GET_BETWEEN_WITH_USER, query =
                 "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate AND s.user.id=:user_id ORDER BY s.dateTime DESC"),
+        @NamedQuery(name = Stake.GET_BETWEEN_WITH_USER_AND_HORSE, query =
+                "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate AND s.user.id=:user_id AND s.horse.id=:horse_id ORDER BY s.dateTime DESC"),
         @NamedQuery(name = Stake.GET_BETWEEN_WITH_HORSE, query =
                 "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate AND s.horse.id=:horse_id ORDER BY s.dateTime DESC"),
         @NamedQuery(name = Stake.ALL_SORTED, query =
@@ -27,6 +29,7 @@ public class Stake extends BaseEntity {
     public static final String GET_BETWEEN = "Stake.getBetween";
     public static final String GET_BETWEEN_WITH_USER = "Stake.getBetweenWithUser";
     public static final String GET_BETWEEN_WITH_HORSE = "Stake.getBetweenWithHorse";
+    public static final String GET_BETWEEN_WITH_USER_AND_HORSE = "Stake.getBetweenWithUserAndHorse";
 
     @Column(name = "stake_value")
     private Double stakeValue;

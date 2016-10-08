@@ -64,7 +64,9 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
 
     @Override
     public List<Stake> getWinningStakes(LocalDateTime startDate, LocalDateTime endDate) {
-        return getBetween(startDate, endDate).stream().filter(Stake::getWins).collect(Collectors.toList());
+        return getBetween(startDate, endDate).stream()
+                .filter(Stake::getWins)
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -1,26 +1,32 @@
 package com.uran.gamblingstation.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "wallets")
-public class Wallet extends BaseEntity{
+@Table(name = "wallets", uniqueConstraints =
+        {@UniqueConstraint(columnNames = "user_id", name = "wallets_unique_user_id_idx")})
+public class Wallet {
+
+    @Id
+    @Column(name = "user_id")
+    private Integer id;
 
     @Column(name = "cash_value")
-    protected Double cash;
+    private Double cash;
 
-    @OneToOne
-    private User user;
+    /*@OneToOne
+    @PrimaryKeyJoinColumn
+    private User user;*/
+
+    public Wallet(){
+    }
 
     public Wallet(Double cash) {
         this.cash = cash;
     }
 
     public Wallet(Integer id, Double cash) {
-        super(id);
+        this.id = id;
         this.cash = cash;
     }
 
@@ -36,11 +42,19 @@ public class Wallet extends BaseEntity{
         this.cash = cash;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Wallet{" +
+                "id=" + id +
+                ", cash=" + cash +
+                '}';
     }
 }

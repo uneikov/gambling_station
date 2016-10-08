@@ -3,6 +3,7 @@ package com.uran.gamblingstation.service;
 import com.uran.gamblingstation.model.Role;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.util.exception.NotFoundException;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +83,10 @@ public class UserServiceTest {
         USER_MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, USER_1, USER_2), users);
     }
 
+    @Test
+    public void testUserWallet(){
+        Double cash = service.get(USER_ID_2).getWallet().getCash();
+        Assert.assertEquals(new Double(10.0), cash);
+    }
 
 }

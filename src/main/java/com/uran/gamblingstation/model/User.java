@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
+
+import static com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation.ANONYMOUS.optional;
+
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
         @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
@@ -39,10 +42,13 @@ public class User extends NamedEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-   /* @Column(name = "cash_value")
-    @CollectionTable(name = "cash_value", joinColumns = @JoinColumn(name = "user_id"))
-    @OneToOne(optional = false, fetch = FetchType.EAGER)
-    protected Wallet wallet;*/
+    /*@Column(name = "cash_value")
+    @CollectionTable(name = "cash_value", joinColumns = @JoinColumn(name = "user_id"))*/
+
+   /* @OneToOne(mappedBy = "user", optional = false, fetch = FetchType.EAGER, cascade = CascadeType.ALL)*/
+    @OneToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Wallet wallet;
 
     public User() {
     }
@@ -92,6 +98,14 @@ public class User extends NamedEntity {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 
     @Override

@@ -8,6 +8,8 @@ public interface WalletRepository {
 
     Wallet save(Wallet wallet);
 
+    void update(Wallet wallet);
+
     // false if not found
     boolean delete(int id);
 

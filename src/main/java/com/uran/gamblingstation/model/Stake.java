@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "stakes", uniqueConstraints =
         {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "stakes_unique_user_id_idx")})
-
 public class Stake extends BaseEntity {
 
     public static final String ALL_SORTED = "Stake.getAllSorted";
@@ -40,6 +39,9 @@ public class Stake extends BaseEntity {
     @Column(name = "wins")
     private boolean wins;
 
+    @Column(name = "amount")
+    private Double amount;
+
     @OneToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "horse_id", referencedColumnName = "id", nullable = false)
     private Horse horse;
@@ -51,34 +53,38 @@ public class Stake extends BaseEntity {
     public Stake(){
     }
 
-    public Stake(Double stakeValue, LocalDateTime dateTime, boolean wins) {
+    public Stake(Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount) {
         this.stakeValue = stakeValue;
         this.dateTime = dateTime;
         this.wins = wins;
+        this.amount = amount;
     }
 
-    public Stake(Integer id, Double stakeValue, LocalDateTime dateTime, boolean wins) {
+    public Stake(Integer id, Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount) {
         super(id);
         this.stakeValue = stakeValue;
         this.dateTime = dateTime;
         this.wins = wins;
+        this.amount = amount;
     }
 
-    public Stake(User user, Horse horse, Double stakeValue, LocalDateTime dateTime, boolean wins) {
+    public Stake(User user, Horse horse, Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount) {
         this.user = user;
         this.horse = horse;
         this.stakeValue = stakeValue;
         this.dateTime = dateTime;
         this.wins = wins;
+        this.amount = amount;
     }
 
-    public Stake(Integer id, User user, Horse horse, Double stakeValue, LocalDateTime dateTime, boolean wins) {
+    public Stake(Integer id, User user, Horse horse, Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount) {
         super(id);
         this.user = user;
         this.horse = horse;
         this.stakeValue = stakeValue;
         this.dateTime = dateTime;
         this.wins = wins;
+        this.amount = amount;
     }
 
     public Double getStakeValue() {
@@ -121,12 +127,21 @@ public class Stake extends BaseEntity {
         this.user = user;
     }
 
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
     @Override
     public String toString() {
         return "Stake{" +
                 "stakeValue=" + stakeValue +
                 ", dateTime=" + dateTime +
                 ", wins=" + wins +
+                ", amount=" + amount +
                 ", horse=" + horse +
                 ", user=" + user +
                 '}';

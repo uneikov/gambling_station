@@ -18,7 +18,4 @@ public class AuthorizedUser {
         AuthorizedUser.id = id;
     }
 
-    /*public static int getCaloriesPerDay() {
-        return MealsUtil.DEFAULT_CALORIES_PER_DAY;
-    }*/
 }

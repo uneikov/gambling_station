@@ -17,13 +17,22 @@ public class JpaWalletRepositoryImpl implements WalletRepository {
     private EntityManager em;
 
     @Override
+    @Transactional
     public Wallet save(Wallet wallet) {
-        return null;
+        em.persist(wallet);
+        return wallet;
     }
 
     @Override
+    @Transactional
+    public void update(Wallet wallet) {
+        em.merge(wallet);
+    }
+
+    @Override
+    @Transactional
     public boolean delete(int id) {
-        return false;
+        return em.createNamedQuery(Wallet.DELETE).setParameter("id", id).executeUpdate() != 0;
     }
 
     @Override
@@ -33,6 +42,6 @@ public class JpaWalletRepositoryImpl implements WalletRepository {
 
     @Override
     public List<Wallet> getAll() {
-        return null;
+        return em.createNamedQuery(Wallet.ALL_SORTED, Wallet.class).getResultList();
     }
 }

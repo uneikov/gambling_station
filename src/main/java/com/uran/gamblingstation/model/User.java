@@ -6,9 +6,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
-import static com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation.ANONYMOUS.optional;
 
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
@@ -42,10 +42,9 @@ public class User extends NamedEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    /*@Column(name = "cash_value")
-    @CollectionTable(name = "cash_value", joinColumns = @JoinColumn(name = "user_id"))*/
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Stake> stakes;
 
-   /* @OneToOne(mappedBy = "user", optional = false, fetch = FetchType.EAGER, cascade = CascadeType.ALL)*/
     @OneToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Wallet wallet;
@@ -66,6 +65,14 @@ public class User extends NamedEntity {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    public User(Integer id, String name, String email, String password, Set<Role> roles, Wallet wallet) {
+        super(id, name);
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.wallet = wallet;
     }
 
     public String getEmail() {
@@ -106,6 +113,14 @@ public class User extends NamedEntity {
 
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
+    }
+
+    public List<Stake> getStakes() {
+        return stakes;
+    }
+
+    public void setStakes(List<Stake> stakes) {
+        this.stakes = stakes;
     }
 
     @Override

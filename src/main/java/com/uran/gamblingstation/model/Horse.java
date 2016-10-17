@@ -6,11 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 
 @NamedQueries({
-       @NamedQuery(name = Horse.DELETE, query = "DELETE FROM Horse h WHERE h.id=:id"),
-        /*@NamedQuery(name = Meal.GET_BETWEEN, query =
-                "SELECT m FROM Meal m WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC"),*/
-        @NamedQuery(name = Horse.ALL_SORTED, query =
-                "SELECT h FROM Horse h  ORDER BY h.name"),
+        @NamedQuery(name = Horse.DELETE, query = "DELETE FROM Horse h WHERE h.id=:id"),
+        @NamedQuery(name = Horse.ALL_SORTED, query = "SELECT h FROM Horse h  ORDER BY h.name"),
 })
 @Entity
 @Table(name = "horses", uniqueConstraints =

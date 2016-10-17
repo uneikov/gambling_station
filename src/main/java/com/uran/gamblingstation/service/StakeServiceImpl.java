@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,13 +56,11 @@ public class StakeServiceImpl implements StakeService {
     }
 
     @Override
-    public void setWinningStakes(Horse horse, LocalDateTime startDate, LocalDateTime endDate, int userId) {
-        // проверка user ID
-        List<Stake> list = repository.getBetween(startDate, endDate).stream()
-                .filter(s -> s.getHorse().equals(horse))
-                .collect(Collectors.toList());
-        list.forEach(s -> s.setWins(true));
-        list.forEach(s -> repository.update(s));
+    public void setWinningStakes(int horseId, LocalDateTime startDate, LocalDateTime endDate) {
+        repository.getBetween(startDate, endDate).stream()
+                .filter(s -> s.getHorse().getId() == horseId)
+                .peek(s -> s.setWins(true))
+                .forEach(s -> repository.update(s));
     }
 
     @Override
@@ -72,10 +71,25 @@ public class StakeServiceImpl implements StakeService {
     }
 
     @Override
-    public List<User> getWinningUsers(Horse horse, LocalDateTime startDate, LocalDateTime endDate, int userId){
+    public List<Stake> getLoosingStakes(LocalDateTime startDate, LocalDateTime endDate) {
+        return repository.getBetween(startDate, endDate).stream()
+                .filter(s -> !s.getWins())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void processWinningStakes(List<Stake> winningStakes, Map<Integer, Double> winningMap) {
+        winningStakes.stream()
+                .peek(stake -> stake.setAmount(winningMap.get(stake.getUser().getId())))
+                .forEach(stake -> repository.update(stake));
+    }
+
+    @Override //?????????????????????????????????
+    public List<User> getWinningUsers(Horse horse, LocalDateTime startDate, LocalDateTime endDate){
         // проверка user ID
         return repository.getBetween(horse, startDate, endDate)
                 .stream()
+                .filter(s -> s.getHorse().equals(horse))
                 .map(Stake::getUser)
                 .collect(Collectors.toList());
     }

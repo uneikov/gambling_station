@@ -16,7 +16,7 @@ public class RandomUtil {
         return res;
     }
 
-    public static int getWinningHorse(){
-        return ThreadLocalRandom.current().nextInt(6);
+    public static Horse getRandomHorseFromList(List<Horse> allHorses){
+        return allHorses.get(ThreadLocalRandom.current().nextInt(6));
     }
 }

@@ -6,6 +6,7 @@ import com.uran.gamblingstation.model.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface StakeService {
 
@@ -23,9 +24,13 @@ public interface StakeService {
 
     List<Stake> getAllWinningStakes();
 
-    List<User> getWinningUsers(Horse horse, LocalDateTime startDate, LocalDateTime endDate, int userId);
+    List<User> getWinningUsers(Horse horse, LocalDateTime startDate, LocalDateTime endDate);
 
-    void setWinningStakes(Horse horse, LocalDateTime startDate, LocalDateTime endDate, int userId);
+    void setWinningStakes(int horseId, LocalDateTime startDate, LocalDateTime endDate);
+
+    void processWinningStakes(List<Stake> winningStakes, Map<Integer, Double> winningMap);
+
+    List<Stake> getLoosingStakes(LocalDateTime startDate, LocalDateTime endDate);
 
     List<Stake> getWinningStakes(LocalDateTime startDate, LocalDateTime endDate);
 

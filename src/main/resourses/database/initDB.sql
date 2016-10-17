@@ -57,6 +57,7 @@ CREATE TABLE stakes
   stake_value DOUBLE NOT NULL ,
   date_time   TIMESTAMP ,
   wins        BOOLEAN DEFAULT FALSE ,
+  amount      DOUBLE NOT NULL ,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
   FOREIGN KEY (horse_id) REFERENCES horses (id) ON DELETE CASCADE
 );

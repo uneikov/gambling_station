@@ -36,7 +36,7 @@ public class StakeServiceTest {
 
     @Test
     public void testGetAll() throws Exception {
-        List<Stake> allStakes = service.getAll(ADMIN_ID);
+        List<Stake> allStakes = service.getAllByUserId(ADMIN_ID);
         STAKE_MATCHER.assertCollectionEquals(allStakes, STAKES);
     }
 
@@ -51,12 +51,12 @@ public class StakeServiceTest {
         List<Stake> allStakes = service.getAllWinningStakes();
         STAKE_MATCHER.assertCollectionEquals(allStakes, Collections.singletonList(STAKE_1));
     }
-
+//foreign key no parent
     @Test
     public void testSave() throws Exception {
         Stake created = getCreated();
-        service.save(created, USER_ID_1);
-        STAKE_MATCHER.assertCollectionEquals(service.getAll(ADMIN_ID),
+        service.save(created, USER_ID_1); //
+        STAKE_MATCHER.assertCollectionEquals(service.getAllByUserId(ADMIN_ID),
                 Arrays.asList(created, STAKE_5, STAKE_4, STAKE_3, STAKE_2, STAKE_1));
     }
 
@@ -70,7 +70,7 @@ public class StakeServiceTest {
     @Test
     public void testDelete() throws Exception {
         service.delete(STAKE_2_ID, ADMIN_ID);
-        STAKE_MATCHER.assertCollectionEquals(service.getAll(ADMIN_ID), Arrays.asList(STAKE_5, STAKE_4, STAKE_3, STAKE_1));
+        STAKE_MATCHER.assertCollectionEquals(service.getAllByUserId(ADMIN_ID), Arrays.asList(STAKE_5, STAKE_4, STAKE_3, STAKE_1));
     }
 
     @Test
@@ -102,7 +102,7 @@ public class StakeServiceTest {
     public void testRaceResult() {
         /*Horse winningHorse = HORSES.get(RandomUtil.getWinningHorse());*/
         service.setWinningStakes(WINNING_HORSE.getId(), VALID_START_DATETIME, VALID_END_DATETIME);
-        List<User> winningUsers = service.getWinningUsers(WINNING_HORSE, VALID_START_DATETIME, VALID_END_DATETIME);
+        List<User> winningUsers = service.getWinningUsers(WINNING_HORSE.getId(), VALID_START_DATETIME, VALID_END_DATETIME);
         USER_MATCHER.assertCollectionEquals(winningUsers, Arrays.asList(USER_1, USER_2));
     }
 
@@ -113,6 +113,15 @@ public class StakeServiceTest {
                 HORSE_6,
                 LocalDateTime.of(2016, Month.JUNE, 1, 0, 0).truncatedTo(ChronoUnit.SECONDS),
                 LocalDateTime.of(2016, Month.JUNE, 30, 23, 49).truncatedTo(ChronoUnit.SECONDS)
+        );
+        STAKE_MATCHER.assertCollectionEquals(stake, Collections.singletonList(STAKE_3));
+    }
+
+    @Test
+    public void testGetBetween(){
+        List<Stake> stake = service.getBetween(
+                LocalDateTime.of(2016, Month.JUNE, 13, 16, 0).truncatedTo(ChronoUnit.SECONDS),
+                LocalDateTime.of(2016, Month.JUNE, 13, 20, 0).truncatedTo(ChronoUnit.SECONDS)
         );
         STAKE_MATCHER.assertCollectionEquals(stake, Collections.singletonList(STAKE_3));
     }

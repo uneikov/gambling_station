@@ -40,4 +40,12 @@ public class TimeUtil {
     public static LocalTime parseLocalTime(String str) {
         return StringUtils.isEmpty(str) ? null : LocalTime.parse(str);
     }
+
+    // new
+    public static LocalDateTime parseToLocalDateTime(String localDate, String localTime){
+        if (StringUtils.isEmpty(localDate) || StringUtils.isEmpty(localTime)) return null;
+        LocalDate ld = parseLocalDate(localDate);
+        LocalTime lt = parseLocalTime(localTime);
+        return ld ==null || lt == null ? null : LocalDateTime.of(ld, lt);
+    }
 }

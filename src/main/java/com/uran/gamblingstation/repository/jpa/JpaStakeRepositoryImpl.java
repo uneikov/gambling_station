@@ -48,6 +48,13 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
+    public List<Stake> getAllByUserId(int userId) {
+        return em.createNamedQuery(Stake.ALL_SORTED_WITH_USER, Stake.class)
+                .setParameter("userId", userId)
+                .getResultList();
+    }
+
+    @Override
     public List<Stake> getAll() {
         return em.createNamedQuery(Stake.ALL_SORTED, Stake.class).getResultList();
     }
@@ -63,8 +70,8 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
-    public List<Stake> getWinningStakes(LocalDateTime startDate, LocalDateTime endDate) {
-        return getBetween(startDate, endDate).stream()
+    public List<Stake> getWinningStakes(LocalDateTime startDate, LocalDateTime endDate, int userId) {
+        return getBetween(startDate, endDate, userId).stream()
                 .filter(Stake::getWins)
                 .collect(Collectors.toList());
     }
@@ -78,6 +85,15 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
+    public List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
+        return em.createNamedQuery(Stake.GET_BETWEEN_WITH_USER, Stake.class)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .setParameter("user_id", userId)
+                .getResultList();
+    }
+
+    @Override
     public List<Stake> getBetween(User user, LocalDateTime startDate, LocalDateTime endDate) {
         return em.createNamedQuery(Stake.GET_BETWEEN_WITH_USER, Stake.class)
                 .setParameter("startDate", startDate)
@@ -87,11 +103,11 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
-    public List<Stake> getBetween(Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<Stake> getBetweenWithHorse(int horseId, LocalDateTime startDate, LocalDateTime endDate) {
         return em.createNamedQuery(Stake.GET_BETWEEN_WITH_HORSE, Stake.class)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
-                .setParameter("horse_id", horse.getId())
+                .setParameter("horse_id", horseId)
                 .getResultList();
     }
 

@@ -29,54 +29,55 @@ import static com.uran.gamblingstation.WalletTestData.*;
 public class WalletServiceTest {
 
     @Autowired
-    private WalletService service;
+    private WalletService walletService;
+
     @Autowired
     private UserService userService;
 
     @Test
     public void testSave() throws Exception {
         User newUser = new User(
-                null, "GamblingStation", "station@gamblingstation.com", "gs_pass", Collections.singleton(Role.ROLE_ADMIN)
+                null, "Station", "station@gamblingstation.com", "stationpass", Collections.singleton(Role.ROLE_STATION)
         );
         userService.save(newUser);
         int userId = newUser.getId();
         newUser.setWallet(new Wallet(userId, 0.0d));
-        Wallet newWallet = service.save(newUser.getWallet(), userId);
+        Wallet newWallet = walletService.save(newUser.getWallet(), userId);
         WALLET_MATCHER.assertCollectionEquals(
-                service.getAll(),
-                Arrays.asList(WALLET_2, WALLET_1, WALLET_ADMIN, newWallet)
+                walletService.getAll(),
+                Arrays.asList(WALLET_2, WALLET_1, WALLET_ADMIN, WALLET_STATION, newWallet)
         );
     }
 
     @Test
     public void testUpdate() throws Exception {
-        service.update(new Wallet(USER_ID_1, 200.44d), ADMIN_ID);
-        List<Wallet> wallets = service.getAll();
-        WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_1_UP, WALLET_2, WALLET_ADMIN));
+        walletService.update(new Wallet(USER_ID_1, 200.44d), ADMIN_ID);
+        List<Wallet> wallets = walletService.getAll();
+        WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_1_UP, WALLET_2, WALLET_ADMIN, WALLET_STATION));
     }
 
     @Test
     public void testDelete() throws Exception {
-        service.delete(USER_ID_1, ADMIN_ID);
-        List<Wallet> wallets = service.getAll();
-        WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_2, WALLET_ADMIN));
+        walletService.delete(USER_ID_1, ADMIN_ID);
+        List<Wallet> wallets = walletService.getAll();
+        WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_2, WALLET_ADMIN, WALLET_STATION));
     }
 
     @Test
     public void testGet() throws Exception {
-        Wallet wallet = service.get(USER_ID_1, ADMIN_ID);
+        Wallet wallet = walletService.get(USER_ID_1, ADMIN_ID);
         WALLET_MATCHER.assertEquals(wallet, new Wallet(USER_ID_1, 10.0));
     }
 
     @Test
     public void testGetAll() throws Exception {
-        List<Wallet> wallets = service.getAll();
-        WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_2, WALLET_1, WALLET_ADMIN));
+        List<Wallet> wallets = walletService.getAll();
+        WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_2, WALLET_1, WALLET_ADMIN, WALLET_STATION));
     }
 
     @Test
     public void testWalletIsEmpty() throws Exception {
-        Wallet wallet = service.get(USER_ID_1, ADMIN_ID);
+        Wallet wallet = walletService.get(USER_ID_1, ADMIN_ID);
         Assert.assertEquals(wallet.isEmpty(), false);
     }
 

@@ -2,11 +2,11 @@ package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.repository.HorseRepository;
+import com.uran.gamblingstation.util.exception.ExceptionUtil;
+import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import com.uran.gamblingstation.util.exception.ExceptionUtil;
-import com.uran.gamblingstation.util.exception.NotFoundException;
 
 import java.util.List;
 
@@ -27,6 +27,10 @@ public class HorseServiceImpl implements HorseService {
             return repository.get(id, userId);
     }
 
+    @Override
+    public Horse getByName(String name) throws NotFoundException {
+        return getAll().stream().filter(horse -> name.equals(horse.getName())).findFirst().orElse(null);
+    }
 
     @Override
     public void delete(int id, int userId) throws NotFoundException {

@@ -2,6 +2,8 @@ package com.uran.gamblingstation.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
+@SuppressWarnings("JpaQlInspection")
 @NamedQueries({
         @NamedQuery(name = Stake.DELETE, query = "DELETE FROM Stake s WHERE s.id=:id "),
         @NamedQuery(name = Stake.GET_BETWEEN, query =
@@ -12,8 +14,10 @@ import java.time.LocalDateTime;
                 "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate AND s.user.id=:user_id AND s.horse.id=:horse_id ORDER BY s.dateTime DESC"),
         @NamedQuery(name = Stake.GET_BETWEEN_WITH_HORSE, query =
                 "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate AND s.horse.id=:horse_id ORDER BY s.dateTime DESC"),
+        @NamedQuery(name = Stake.ALL_SORTED_WITH_USER, query =
+                "SELECT s FROM Stake s WHERE s.user.id=:userId ORDER BY s.dateTime DESC "),
         @NamedQuery(name = Stake.ALL_SORTED, query =
-                "SELECT s FROM Stake s  ORDER BY s.dateTime DESC "),
+                "SELECT s FROM Stake s ORDER BY s.dateTime DESC "),
         @NamedQuery(name = Stake.ALL_WINNING, query =
                 "SELECT s FROM Stake s  WHERE s.wins=true ORDER BY s.dateTime ")
 })
@@ -23,6 +27,7 @@ import java.time.LocalDateTime;
 public class Stake extends BaseEntity {
 
     public static final String ALL_SORTED = "Stake.getAllSorted";
+    public static final String ALL_SORTED_WITH_USER = "Stake.getAllSortedWithUser";
     public static final String DELETE = "Stake.delete";
     public static final String ALL_WINNING = "Stake.getWinningStakes";
     public static final String GET_BETWEEN = "Stake.getBetween";

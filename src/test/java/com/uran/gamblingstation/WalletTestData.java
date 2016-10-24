@@ -5,9 +5,7 @@ import com.uran.gamblingstation.model.Wallet;
 
 import java.util.Objects;
 
-import static com.uran.gamblingstation.UserTestData.ADMIN_ID;
-import static com.uran.gamblingstation.UserTestData.USER_ID_1;
-import static com.uran.gamblingstation.UserTestData.USER_ID_2;
+import static com.uran.gamblingstation.UserTestData.*;
 
 public class WalletTestData {
     public static final ModelMatcher<Wallet> WALLET_MATCHER = new ModelMatcher<>(
@@ -21,6 +19,6 @@ public class WalletTestData {
     public static final Wallet WALLET_2 = new Wallet(USER_ID_2, 15.0d);
     public static final Wallet WALLET_ADMIN = new Wallet(ADMIN_ID, 0.0d);
 
-    public static final Wallet GS_WALLET = new Wallet(ADMIN_ID, 150.35d);
+    public static final Wallet WALLET_STATION = new Wallet(STATION_ID, 0.0d);
     public static final Wallet WALLET_1_UP = new Wallet(USER_ID_1, 200.44d);
 }

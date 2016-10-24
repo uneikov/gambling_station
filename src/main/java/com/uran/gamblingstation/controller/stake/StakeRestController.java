@@ -36,9 +36,13 @@ public class StakeRestController {
     public List<Stake> getAll(){
         int userId = AuthorizedUser.id();
         LOG.info("getAll stakes {} for User {}", userId);
-        return service.getAll(userId);
+        return service.getAll();
     }
-
+    public List<Stake> getAllByUserId(){
+        int userId = AuthorizedUser.id();
+        LOG.info("getAll stakes {} for User {}", userId);
+        return service.getAll();
+    }
     public void update(Stake stake, int id){
         int userId = AuthorizedUser.id();
         LOG.info("update {} for User {}", id, userId);
@@ -72,6 +76,6 @@ public class StakeRestController {
     }
 
     public List<User> getWinningUsers(Horse horse, LocalDateTime startDate, LocalDateTime endDate){
-        return service.getWinningUsers(horse, startDate, endDate);
+        return service.getWinningUsers(horse.getId(), startDate, endDate);
     }
 }

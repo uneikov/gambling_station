@@ -17,11 +17,11 @@ import static java.time.LocalDateTime.of;
 
 public class StakeTestData {
 
-    public static final int STAKE_1_ID = 100013;
-    public static final int STAKE_2_ID = 100014;
-    public static final int STAKE_3_ID = 100015;
-    public static final int STAKE_4_ID = 100016;
-    public static final int STAKE_5_ID = 100017;
+    public static final int STAKE_1_ID = 100014;
+    public static final int STAKE_2_ID = 100015;
+    public static final int STAKE_3_ID = 100016;
+    public static final int STAKE_4_ID = 100017;
+    public static final int STAKE_5_ID = 100018;
     public static final User WINNING_USER = USER_1;
 
     public static final Stake STAKE_1 =

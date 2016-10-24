@@ -8,7 +8,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface StakeRepository {
+
     List<Stake> getAll();
+
+    List<Stake> getAllByUserId(int userId);
 
     Double getAllCash();
 
@@ -22,13 +25,15 @@ public interface StakeRepository {
 
     List<Stake> getAllWinningStakes();
 
-    List<Stake> getWinningStakes(LocalDateTime startDate, LocalDateTime endDate);
+    List<Stake> getWinningStakes(LocalDateTime startDate, LocalDateTime endDate, int userId);
+
+    List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 
     List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate);
 
     List<Stake> getBetween(User user, LocalDateTime startDate, LocalDateTime endDate);
 
-    List<Stake> getBetween(Horse horse, LocalDateTime startDate, LocalDateTime endDate);
+    List<Stake> getBetweenWithHorse(int horseId, LocalDateTime startDate, LocalDateTime endDate);
 
     List<Stake> getBetween(User user, Horse horse, LocalDateTime startDate, LocalDateTime endDate);
 }

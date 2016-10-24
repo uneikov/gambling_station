@@ -32,8 +32,12 @@ public class StakeServiceImpl implements StakeService {
     }
 
     @Override
-    public List<Stake> getAll(int userId) {
+    public List<Stake> getAll() {
         return repository.getAll();
+    }
+
+    public List<Stake> getAllByUserId(int userId) {
+        return repository.getAllByUserId(userId);
     }
 
     @Override
@@ -57,8 +61,8 @@ public class StakeServiceImpl implements StakeService {
 
     @Override
     public void setWinningStakes(int horseId, LocalDateTime startDate, LocalDateTime endDate) {
-        repository.getBetween(startDate, endDate).stream()
-                .filter(s -> s.getHorse().getId() == horseId)
+        repository.getBetweenWithHorse(horseId, startDate, endDate).stream()
+                //.filter(s -> s.getHorse().getId() == horseId)
                 .peek(s -> s.setWins(true))
                 .forEach(s -> repository.update(s));
     }
@@ -84,12 +88,12 @@ public class StakeServiceImpl implements StakeService {
                 .forEach(stake -> repository.update(stake));
     }
 
-    @Override //?????????????????????????????????
-    public List<User> getWinningUsers(Horse horse, LocalDateTime startDate, LocalDateTime endDate){
+    @Override
+    public List<User> getWinningUsers(int horseId, LocalDateTime startDate, LocalDateTime endDate){
         // проверка user ID
-        return repository.getBetween(horse, startDate, endDate)
+        return repository.getBetweenWithHorse(horseId, startDate, endDate)
                 .stream()
-                .filter(s -> s.getHorse().equals(horse))
+                //.filter(s -> s.getHorse().equals(horseId))
                 .map(Stake::getUser)
                 .collect(Collectors.toList());
     }
@@ -106,6 +110,13 @@ public class StakeServiceImpl implements StakeService {
     }
 
     @Override
+    public List<Stake> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
+        Assert.notNull(startDateTime, "startDateTime must not be null");
+        Assert.notNull(endDateTime, "endDateTime  must not be null");
+        return repository.getBetween(startDateTime, endDateTime, userId);
+    }
+
+    @Override
     public List<Stake> getBetween(User user, LocalDateTime startDate, LocalDateTime endDate) {
         // проверка user ID
         return repository.getBetween(user, startDate, endDate);
@@ -114,7 +125,7 @@ public class StakeServiceImpl implements StakeService {
     @Override
     public List<Stake> getBetween(Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
         // проверка user ID
-        return repository.getBetween(horse, startDate, endDate);
+        return repository.getBetweenWithHorse(horse.getId(), startDate, endDate);
     }
 
     @Override

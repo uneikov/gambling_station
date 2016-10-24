@@ -1,6 +1,7 @@
 package com.uran.gamblingstation;
 
 import com.uran.gamblingstation.controller.RootController;
+import com.uran.gamblingstation.controller.horse.HorseRestController;
 import com.uran.gamblingstation.controller.stake.StakeRestController;
 import com.uran.gamblingstation.controller.user.AdminRestController;
 import com.uran.gamblingstation.controller.wallet.WalletRestController;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.uran.gamblingstation.model.BaseEntity.START_SEQ;
+import static com.uran.gamblingstation.model.BaseEntity.WALLET_ID;
 
 public class SpringMain {
    /* private static UserService userService = new UserServiceImpl();
@@ -25,7 +27,7 @@ public class SpringMain {
     private static HorseService horseService = new HorseServiceImpl();*/
 
     private static boolean RACE_DATA_READY = false;
-    private static final int HORSE_1_ID = START_SEQ + 3;
+    private static final int HORSE_1_ID = START_SEQ + 4;
 
     private static final Horse HORSE_1 = new Horse(HORSE_1_ID, "Black Ghost", "Черный призрак", 5, 0);
     private static final Horse HORSE_2 = new Horse(HORSE_1_ID + 1, "White Ghost", "Белый призрак", 5, 0);
@@ -64,7 +66,7 @@ public class SpringMain {
         try (ConfigurableApplicationContext appCtx =
                      new ClassPathXmlApplicationContext("spring/spring-app.xml","spring/spring-database.xml")) {
             AdminRestController userRestController = appCtx.getBean(AdminRestController.class);
-            //HorseRestController horseRestController = appCtx.getBean(HorseRestController.class);
+            HorseRestController horseRestController = appCtx.getBean(HorseRestController.class);
             StakeRestController stakeController = appCtx.getBean(StakeRestController.class);
             WalletRestController walletController = appCtx.getBean(WalletRestController.class);
             RootController rootController = appCtx.getBean(RootController.class);
@@ -99,12 +101,14 @@ public class SpringMain {
                 List<Stake> winningStakes = stakeController.getWinningStakes(VALID_START, VALID_END);
                 Double cash = stakeController.getAllStakesCash();
                 Double sum = winningStakes.stream().mapToDouble(Stake::getStakeValue).sum();
+                Double stationCash = walletController.get(WALLET_ID).getCash();
                 System.out.println("\nПервой пришла лошадь " + WINNING_HORSE.getName());
                 System.out.println("\nРазыграна сумма ставок  " + cash);
                 System.out.println("\nОбщая сумма выигрыша   " + sum);
-
+                System.out.println("\nВыигрыш организатора   " + stationCash);
                 System.out.println("\nА вот и наши победители:\n");
                 winningStakes.forEach(s -> System.out.println(s.getUser().getName() +" сумма выигрыша - " + s.getAmount()));
+                System.out.println();
                /* List<User> winningUsers = winningStakes.stream().map(Stake::getUser).collect(Collectors.toList());*/
 
                 RACE_DATA_READY = false;

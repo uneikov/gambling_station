@@ -5,9 +5,12 @@ import com.uran.gamblingstation.util.exception.NotFoundException;
 
 import java.util.List;
 
-public interface HorseService {
+public interface
+HorseService {
 
     Horse get(int id, int userId) throws NotFoundException;
+
+    Horse getByName(String name);
 
     void delete(int id, int userId) throws NotFoundException;
 

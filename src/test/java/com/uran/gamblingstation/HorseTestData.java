@@ -13,7 +13,7 @@ import static com.uran.gamblingstation.model.BaseEntity.START_SEQ;
 
 public class HorseTestData {
 
-    public static final int HORSE_1_ID = START_SEQ + 3;
+    public static final int HORSE_1_ID = START_SEQ + 4;
 
     public static final Horse HORSE_1 = new Horse(HORSE_1_ID,     "Black Ghost", "Черный призрак", 5, 0);
     public static final Horse HORSE_2 = new Horse(HORSE_1_ID + 1, "White Ghost", "Белый призрак", 5, 0);

@@ -35,11 +35,11 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
 
     @Override
     @Transactional
-    public void delete(int id) {
+    public boolean delete(int id) {
       /*  em.remove(em.find(Stake.class, id));*/
-        em.createNamedQuery(Stake.DELETE)
+        return em.createNamedQuery(Stake.DELETE)
                  .setParameter("id", id)
-                 .executeUpdate();
+                 .executeUpdate() != 0;
     }
 
     @Override

@@ -35,7 +35,7 @@ public class HorseTestData {
 
     public static final List<Horse> HORSES_FOR_RACE = RandomUtil.getHorsesListForRace(new ArrayList<>(HORSES));
 
-    public static final ModelMatcher<Horse> MATCHER = new ModelMatcher<>(
+    public static final ModelMatcher<Horse> MATCHER = new ModelMatcher<>(Horse.class,
             (expected, actual) -> expected == actual ||
                     (Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getName(), actual.getName())

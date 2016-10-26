@@ -1,17 +1,13 @@
 package com.uran.gamblingstation.service.time;
 
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.concurrent.Future;
-
-@Service
-public class TimeProducer {
+/*public class TimeProducer {
     private static final Logger LOG = LoggerFactory.getLogger(TimeProducer.class);
 
     @Async
@@ -32,4 +28,22 @@ public class TimeProducer {
         return new AsyncResult<>(start);
     }
 
+}*/
+
+
+//@Component
+public class TimeProducer implements Job {
+
+    private static final Logger LOG = LoggerFactory.getLogger(TimeProducer.class);
+
+    public TimeProducer() {}
+
+    @Autowired
+    private TimeJobService timeJobService;
+
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        LOG.info("Job ** {} ** fired @ {}", context.getJobDetail().getKey().getName(), context.getFireTime());
+        timeJobService.executeJob();
+        LOG.info("Next job scheduled @ {}", context.getNextFireTime());
+    }
 }

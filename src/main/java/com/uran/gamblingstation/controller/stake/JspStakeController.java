@@ -1,4 +1,4 @@
-package com.uran.gamblingstation.controller;
+package com.uran.gamblingstation.controller.stake;
 
 import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.Horse;
@@ -22,8 +22,10 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping(value="/stakes")
 public class JspStakeController extends AbstractStakeController{
+
     @Autowired
     private HorseService horseService;
+
     @Autowired
     private UserService userService;
 

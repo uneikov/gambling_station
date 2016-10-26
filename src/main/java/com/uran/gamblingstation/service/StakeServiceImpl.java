@@ -4,6 +4,7 @@ import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.repository.StakeRepository;
+import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -12,6 +13,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.uran.gamblingstation.model.BaseEntity.ADMIN_ID;
 
 @Service
 public class StakeServiceImpl implements StakeService {
@@ -25,9 +28,11 @@ public class StakeServiceImpl implements StakeService {
         return repository.get(id);
     }
 
-    @Override
+    @Override // only admin can delete stakes!!!
     public void delete(int id, int userId) {
+        if (userId != ADMIN_ID) throw new NotFoundException("Unauthorized operation!");
         // проверка user ID
+        //ExceptionUtil.checkNotFoundWithId(repository.delete(id, userId), id);
         repository.delete(id);
     }
 

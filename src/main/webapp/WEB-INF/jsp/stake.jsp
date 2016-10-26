@@ -23,6 +23,7 @@
         <dl>
             <dt><fmt:message key="stake.value"/>:</dt>
             <dd><input type="number" value="${stake.stakeValue}" size=40 name="stake_value"></dd>
+           <%-- <dd><fmt:formatNumber type="number" maxFractionDigits="2" value="${stake.stakeValue}" /></dd>--%>
         </dl>
         <dl>
             <dt><fmt:message key="stake.horse"/>:</dt>

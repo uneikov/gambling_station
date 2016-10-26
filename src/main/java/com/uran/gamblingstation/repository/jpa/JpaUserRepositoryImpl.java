@@ -19,15 +19,6 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class JpaUserRepositoryImpl implements UserRepository {
 
-/*
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    private Session openSession() {
-        return sessionFactory.getCurrentSession();
-    }
-*/
-
     @PersistenceContext
     private EntityManager em;
 

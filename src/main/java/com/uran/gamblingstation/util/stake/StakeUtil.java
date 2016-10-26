@@ -6,7 +6,6 @@ import com.uran.gamblingstation.util.TimeUtil;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class StakeUtil {
 
@@ -17,7 +16,6 @@ public class StakeUtil {
 
   public static List<Stake> getFilteredByTimeAndWins(List<Stake> stakes, LocalTime start, LocalTime end, String option){
       final String filterOption = option == null ? "all": option;
-      Stream stream;
       if ("all".equals(filterOption)){
           return stakes.stream()
                   .filter(stake -> TimeUtil.isBetween(stake.getDateTime().toLocalTime(), start, end))
@@ -29,4 +27,5 @@ public class StakeUtil {
                   . collect(Collectors.toList());
       }
   }
+
 }

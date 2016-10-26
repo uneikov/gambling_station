@@ -1,81 +1,67 @@
 package com.uran.gamblingstation.controller.stake;
 
-import com.uran.gamblingstation.AuthorizedUser;
-import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.model.Stake;
-import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.service.StakeService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.time.LocalDateTime;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
 
-@Controller
-public class StakeRestController {
-    private static final Logger LOG = LoggerFactory.getLogger(StakeRestController.class);
+@RestController
+@RequestMapping(StakeRestController.REST_URL)
+public class StakeRestController extends AbstractStakeController{
 
-    @Autowired
-    private StakeService service;
+    public static final String REST_URL = "/rest/stakes";
+    private static final String contentType = MediaType.APPLICATION_JSON_VALUE;
 
-    public Stake get(int id){
-        int userId = AuthorizedUser.id();
-        LOG.info("get stake {} for User {}", id, userId);
-        return service.get(id, userId);
+    @GetMapping(produces = contentType)
+    public List<Stake> getAll() {
+        return super.getAll();
     }
 
-    public void delete(int id){
-        int userId = AuthorizedUser.id();
-        LOG.info("delete stake {} for User {}", id, userId);
-        service.delete(id, userId);
+    @GetMapping(value = "/by", produces = contentType)
+    public List<Stake> getAllByUserId(@PathVariable("id") int userId) {
+        return super.getAllByUserId(userId);
     }
 
-    public List<Stake> getAll(){
-        int userId = AuthorizedUser.id();
-        LOG.info("getAll stakes {} for User {}", userId);
-        return service.getAll();
-    }
-    public List<Stake> getAllByUserId(){
-        int userId = AuthorizedUser.id();
-        LOG.info("getAll stakes {} for User {}", userId);
-        return service.getAll();
-    }
-    public void update(Stake stake, int id){
-        int userId = AuthorizedUser.id();
-        LOG.info("update {} for User {}", id, userId);
-        service.update(stake, userId);
+    @GetMapping(value = "/{id}", produces = contentType)
+    public Stake get(@PathVariable("id") int id) {
+        return super.get(id);
     }
 
-    public Stake create(Stake stake, int userId){
-        //int userId = AuthorizedUser.id();
-        LOG.info("create {} for User {}", stake,  userId);
-        return service.save(stake, userId);
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable("id")int id) {
+        super.delete(id);
     }
 
-    public void processWinningStakes(List<Stake> winningStakes, Map<Integer, Double> winningMap){
-        service.processWinningStakes(winningStakes, winningMap);
+    @PutMapping(value = "/{id}", consumes = contentType)
+    public void update(@RequestBody Stake stake, @PathVariable int id) {
+        super.update(stake, id);
     }
 
-    public void setWinningStakes(int horseId, LocalDateTime startDate, LocalDateTime endDate){
-        service.setWinningStakes(horseId, startDate, endDate);
+    @PostMapping(consumes = contentType, produces = contentType)
+    public ResponseEntity<Stake> createWithLocation(@RequestBody Stake stake) {
+        Stake created = super.create(stake);
+
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + "/{id}")
+                .buildAndExpand(created.getId()).toUri();
+
+        return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    public List<Stake> getWinningStakes(LocalDateTime startDate, LocalDateTime endDate){
-        return service.getWinningStakes(startDate, endDate);
-    }
-
-    public List<Stake> getLoosingStakes(LocalDateTime startDate, LocalDateTime endDate){
-        return service.getLoosingStakes(startDate, endDate);
-    }
-
-    public Double getAllStakesCash(){
-        return service.getAllCash();
-    }
-
-    public List<User> getWinningUsers(Horse horse, LocalDateTime startDate, LocalDateTime endDate){
-        return service.getWinningUsers(horse.getId(), startDate, endDate);
+    @GetMapping(value = "/{sd}/{st}/{ed}/{et}/{opt}", produces = contentType)
+    public List<Stake> getBetween(
+            @PathVariable("sd") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @PathVariable("st") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime,
+            @PathVariable("ed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @PathVariable("et") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime endTime,
+            @PathVariable("opt") String option) {
+        return super.getBetween(startDate, startTime, endDate, endTime, option);
     }
 }

@@ -1,32 +1,12 @@
 package com.uran.gamblingstation;
 
-import com.uran.gamblingstation.controller.RootController;
-import com.uran.gamblingstation.controller.horse.HorseRestController;
-import com.uran.gamblingstation.controller.stake.StakeRestController;
-import com.uran.gamblingstation.controller.user.AdminRestController;
-import com.uran.gamblingstation.controller.wallet.WalletRestController;
-import com.uran.gamblingstation.model.*;
-import com.uran.gamblingstation.util.RandomUtil;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
-import static com.uran.gamblingstation.model.BaseEntity.START_SEQ;
-import static com.uran.gamblingstation.model.BaseEntity.WALLET_ID;
-
 public class SpringMain {
    /* private static UserService userService = new UserServiceImpl();
     private static WalletService walletService = new WalletServiceImpl();
     private static StakeService stakeService = new StakeServiceImpl();
     private static HorseService horseService = new HorseServiceImpl();*/
 
-    private static boolean RACE_DATA_READY = false;
+   /* private static boolean RACE_DATA_READY = false;
     private static final int HORSE_1_ID = START_SEQ + 4;
 
     private static final Horse HORSE_1 = new Horse(HORSE_1_ID, "Black Ghost", "Черный призрак", 5, 0);
@@ -67,14 +47,14 @@ public class SpringMain {
                      new ClassPathXmlApplicationContext("spring/spring-app.xml","spring/spring-database.xml")) {
             AdminRestController userRestController = appCtx.getBean(AdminRestController.class);
             HorseRestController horseRestController = appCtx.getBean(HorseRestController.class);
-            StakeRestController stakeController = appCtx.getBean(StakeRestController.class);
+            OldStakeRestController stakeController = appCtx.getBean(OldStakeRestController.class);
             WalletRestController walletController = appCtx.getBean(WalletRestController.class);
             RootController rootController = appCtx.getBean(RootController.class);
 
             VALID_START = LocalDateTime.now();
             VALID_END = VALID_START.plusMinutes(10);
 
-           /* while (RACE_DATA_READY){*/
+           *//* while (RACE_DATA_READY){*//*
                 for (int i = 0; i < 50; i++) {
                     // ----------------------------------- create random user ----------------------------------
                     User user = new User(null, "testuser"+i, "testuser"+i+"@yandex.ru", "testpassword"+i, Collections.singleton(Role.ROLE_USER));
@@ -91,8 +71,8 @@ public class SpringMain {
                     Stake stake = new Stake(user, randomHorseForStake, randomStakeValue, LocalDateTime.now(), false, winningAmount);
                     stakeController.create(stake, user.getId());
                     // ------------------------------------------------------------------------------------
-                    /*users.add(user);
-                    stakes.add(stake);*/
+                    *//*users.add(user);
+                    stakes.add(stake);*//*
                 }
                 // ----------------------- get winning horse & process race results -----------------------
                 WINNING_HORSE = getWinningHorse(getHorsesForRace());
@@ -109,13 +89,13 @@ public class SpringMain {
                 System.out.println("\nА вот и наши победители:\n");
                 winningStakes.forEach(s -> System.out.println(s.getUser().getName() +" сумма выигрыша - " + s.getAmount()));
                 System.out.println();
-               /* List<User> winningUsers = winningStakes.stream().map(Stake::getUser).collect(Collectors.toList());*/
+               *//* List<User> winningUsers = winningStakes.stream().map(Stake::getUser).collect(Collectors.toList());*//*
 
                 RACE_DATA_READY = false;
 
-           /* }*/
+           *//* }*//*
 
-            /*new Thread() {
+            *//*new Thread() {
                 Map<Integer, Double> winningMap = new HashMap<>();
 
                 @Override
@@ -152,13 +132,13 @@ public class SpringMain {
                                 System.out.println(WINNING_HORSE);
                                 afterList.forEach(System.out::println);
                                 Thread.sleep(1000);
-                            *//*System.out.println(WINNING_HORSE.toString());*//*
+                            *//**//*System.out.println(WINNING_HORSE.toString());*//**//*
                             }
                         } catch (InterruptedException ie) {}
                     }
                 }
-            }.start();*/
+            }.start();*//*
 
         }
-    }
+    }*/
 }

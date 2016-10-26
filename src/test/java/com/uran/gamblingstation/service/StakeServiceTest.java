@@ -36,7 +36,7 @@ public class StakeServiceTest {
 
     @Test
     public void testGetAll() throws Exception {
-        List<Stake> allStakes = service.getAllByUserId(ADMIN_ID);
+        List<Stake> allStakes = service.getAll();
         STAKE_MATCHER.assertCollectionEquals(allStakes, STAKES);
     }
 
@@ -56,8 +56,8 @@ public class StakeServiceTest {
     public void testSave() throws Exception {
         Stake created = getCreated();
         service.save(created, USER_ID_1); //
-        STAKE_MATCHER.assertCollectionEquals(service.getAllByUserId(ADMIN_ID),
-                Arrays.asList(created, STAKE_5, STAKE_4, STAKE_3, STAKE_2, STAKE_1));
+        STAKE_MATCHER.assertCollectionEquals(service.getAllByUserId(USER_ID_1),
+                Arrays.asList(created, STAKE_5, STAKE_3, STAKE_1));
     }
 
     @Test
@@ -67,10 +67,10 @@ public class StakeServiceTest {
         STAKE_MATCHER.assertEquals(updated, service.get(STAKE_1_ID, ADMIN_ID));
     }
 
-    @Test
+    @Test // only admin can delete stakes!!!
     public void testDelete() throws Exception {
         service.delete(STAKE_2_ID, ADMIN_ID);
-        STAKE_MATCHER.assertCollectionEquals(service.getAllByUserId(ADMIN_ID), Arrays.asList(STAKE_5, STAKE_4, STAKE_3, STAKE_1));
+        STAKE_MATCHER.assertCollectionEquals(service.getAllByUserId(USER_ID_2), Collections.singletonList(STAKE_4));
     }
 
     @Test

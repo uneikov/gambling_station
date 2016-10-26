@@ -21,14 +21,14 @@ public class UserTestData {
     public static final User STATION = new User(STATION_ID, "Station", "station@gamblestation.com", "stationpass", Role.ROLE_STATION);
 
 
-    public static final ModelMatcher<User> USER_MATCHER = new ModelMatcher<>(
+    public static final ModelMatcher<User> USER_MATCHER = new ModelMatcher<>(User.class,
             (expected, actual) -> expected == actual ||
                     (Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getName(), actual.getName())
                             && Objects.equals(expected.getEmail(), actual.getEmail())
                             && Objects.equals(expected.getPassword(), actual.getPassword())
                            /* && Objects.equals(expected.getRegistered(), actual.getRegistered())*/
-                            /*&& Objects.equals(expected.getRoles(), actual.getRoles())*/
+                            && Objects.equals(expected.getRoles(), actual.getRoles())
                     )
     );
 }

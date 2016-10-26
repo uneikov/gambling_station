@@ -47,7 +47,7 @@ public class StakeTestData {
 
     public static final List<Stake> STAKES = Arrays.asList(STAKE_5, STAKE_4, STAKE_3, STAKE_2, STAKE_1);
 
-    public static final ModelMatcher<Stake> STAKE_MATCHER = new ModelMatcher<>(
+    public static final ModelMatcher<Stake> STAKE_MATCHER = new ModelMatcher<>(Stake.class,
             (expected, actual) -> expected == actual ||
                     ( Objects.equals(expected.getUser().getId(), actual.getUser().getId())
                             && Objects.equals(expected.getHorse().getId(), actual.getHorse().getId())

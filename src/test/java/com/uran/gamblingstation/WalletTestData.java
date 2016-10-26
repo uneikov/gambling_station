@@ -8,7 +8,7 @@ import java.util.Objects;
 import static com.uran.gamblingstation.UserTestData.*;
 
 public class WalletTestData {
-    public static final ModelMatcher<Wallet> WALLET_MATCHER = new ModelMatcher<>(
+    public static final ModelMatcher<Wallet> WALLET_MATCHER = new ModelMatcher<>(Wallet.class,
             (expected, actual) -> expected == actual ||
                     (Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getCash(), actual.getCash())

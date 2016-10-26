@@ -19,7 +19,7 @@ public interface StakeRepository {
 
     void update(Stake stake);
 
-    void delete(int id);
+    boolean delete(int id);
 
     Stake get(int id);
 

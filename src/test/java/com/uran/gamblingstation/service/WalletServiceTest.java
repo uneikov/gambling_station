@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.uran.gamblingstation.UserTestData.ADMIN_ID;
 import static com.uran.gamblingstation.UserTestData.USER_ID_1;
 import static com.uran.gamblingstation.WalletTestData.*;
 
@@ -36,13 +35,14 @@ public class WalletServiceTest {
 
     @Test
     public void testSave() throws Exception {
-        User newUser = new User(
-                null, "Station", "station@gamblingstation.com", "stationpass", Collections.singleton(Role.ROLE_STATION)
+        User newUser = userService.save(
+                new User(null, "agent007", "agent007@mi6.com", "stationpass", true, Collections.singleton(Role.ROLE_USER))
         );
-        userService.save(newUser);
-        int userId = newUser.getId();
-        newUser.setWallet(new Wallet(userId, 0.0d));
-        Wallet newWallet = walletService.save(newUser.getWallet(), userId);
+        Wallet newWallet = new Wallet(newUser.getId(), 0.0d);
+        walletService.save(newWallet);
+        newUser.setWallet(newWallet);
+        userService.update(newUser);
+        newWallet = newUser.getWallet();
         WALLET_MATCHER.assertCollectionEquals(
                 walletService.getAll(),
                 Arrays.asList(WALLET_2, WALLET_1, WALLET_ADMIN, WALLET_STATION, newWallet)
@@ -51,21 +51,21 @@ public class WalletServiceTest {
 
     @Test
     public void testUpdate() throws Exception {
-        walletService.update(new Wallet(USER_ID_1, 200.44d), ADMIN_ID);
+        walletService.update(new Wallet(USER_ID_1, 200.44d));
         List<Wallet> wallets = walletService.getAll();
         WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_1_UP, WALLET_2, WALLET_ADMIN, WALLET_STATION));
     }
 
     @Test
     public void testDelete() throws Exception {
-        walletService.delete(USER_ID_1, ADMIN_ID);
+        walletService.delete(USER_ID_1);
         List<Wallet> wallets = walletService.getAll();
         WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_2, WALLET_ADMIN, WALLET_STATION));
     }
 
     @Test
     public void testGet() throws Exception {
-        Wallet wallet = walletService.get(USER_ID_1, ADMIN_ID);
+        Wallet wallet = walletService.get(USER_ID_1);
         WALLET_MATCHER.assertEquals(wallet, new Wallet(USER_ID_1, 10.0));
     }
 
@@ -77,7 +77,7 @@ public class WalletServiceTest {
 
     @Test
     public void testWalletIsEmpty() throws Exception {
-        Wallet wallet = walletService.get(USER_ID_1, ADMIN_ID);
+        Wallet wallet = walletService.get(USER_ID_1);
         Assert.assertEquals(wallet.isEmpty(), false);
     }
 

@@ -33,6 +33,9 @@ public class User extends NamedEntity {
     @Length(min = 6)
     private String password;
 
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled = true;
+
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
     private Date registered = new Date();
 
@@ -53,27 +56,29 @@ public class User extends NamedEntity {
     }
 
     public User(User u) {
-        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getRoles());
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRoles());
     }
 
     public User(Integer id, String name, String email, String password, Role role, Role... roles) {
-        this(id, name, email, password, EnumSet.of(role, roles));
+        this(id, name, email, password, true, EnumSet.of(role, roles));
     }
 
-    public User(Integer id, String name, String email, String password, Set<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, Set<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
+        this.enabled = enabled;
         this.roles = roles;
     }
 
-    public User(Integer id, String name, String email, String password, Set<Role> roles, Wallet wallet) {
+   /* public User(Integer id, String name, String email, String password, boolean enabled, Set<Role> roles, Wallet wallet) {
         super(id, name);
         this.email = email;
         this.password = password;
+        this.enabled = enabled;
         this.roles = roles;
         this.wallet = wallet;
-    }
+    }*/
 
     public String getEmail() {
         return email;
@@ -121,6 +126,14 @@ public class User extends NamedEntity {
 
     public void setStakes(List<Stake> stakes) {
         this.stakes = stakes;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

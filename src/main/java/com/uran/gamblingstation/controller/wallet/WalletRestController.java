@@ -20,13 +20,13 @@ public class WalletRestController {
     public Wallet get(int id) {
         int userId = AuthorizedUser.id();
         LOG.info("get wallet {} for User {}", id, userId);
-        return service.get(id, userId);
+        return service.get(id);
     }
 
     public void delete(int id) {
         int userId = AuthorizedUser.id();
         LOG.info("delete wallet {} for User {}", id, userId);
-        service.delete(id, userId);
+        service.delete(id);
     }
 
     public List<Wallet> getAll() {
@@ -39,13 +39,13 @@ public class WalletRestController {
         wallet.setId(id);
         int userId = AuthorizedUser.id();
         LOG.info("update {} for User {}", wallet, userId);
-        service.update(wallet, userId);
+        service.update(wallet);
     }
     public Wallet create(Wallet wallet, int userId) {
         wallet.setId(userId);
         /*int userId = AuthorizedUser.id();*/
         LOG.info("create {} for User {}", wallet, userId);
-        return service.save(wallet, userId);
+        return service.save(wallet);
     }
 }
 /*

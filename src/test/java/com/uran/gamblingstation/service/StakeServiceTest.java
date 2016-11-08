@@ -2,6 +2,7 @@ package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.model.User;
+import com.uran.gamblingstation.util.TimeUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +43,7 @@ public class StakeServiceTest {
 
     @Test
     public void testGetAllCash() throws Exception {
-        Double cash = service.getAllCash();
+        Double cash = service.getAllCash(TimeUtil.MIN_DATE_TIME, TimeUtil.MAX_DATE_TIME);
         Assert.assertEquals(cash, 501.25, 0.0001);
     }
 
@@ -64,7 +65,7 @@ public class StakeServiceTest {
     public void testUpdate() throws Exception {
         Stake updated = getUpdated();
         service.update(updated, USER_ID_1);
-        STAKE_MATCHER.assertEquals(updated, service.get(STAKE_1_ID, ADMIN_ID));
+        STAKE_MATCHER.assertEquals(updated, service.get(STAKE_1_ID));
     }
 
     @Test // only admin can delete stakes!!!
@@ -75,7 +76,7 @@ public class StakeServiceTest {
 
     @Test
     public void testGet() throws Exception {
-        Stake stake_3 = service.get(STAKE_3_ID, ADMIN_ID);
+        Stake stake_3 = service.get(STAKE_3_ID);
         STAKE_MATCHER.assertEquals(stake_3, STAKE_3);
     }
 
@@ -128,7 +129,7 @@ public class StakeServiceTest {
 
     @Test
     public void testGetUser(){
-        Stake stake = service.get(STAKE_2_ID, USER_ID_2);
+        Stake stake = service.get(STAKE_2_ID);
         USER_MATCHER.assertEquals(USER_2, stake.getUser());
     }
 }

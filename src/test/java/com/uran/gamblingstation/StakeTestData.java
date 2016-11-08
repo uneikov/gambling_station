@@ -39,11 +39,14 @@ public class StakeTestData {
     public static final Stake STAKE_5 =
             new Stake(USER_1, HORSE_4, 100.25, of(2016, Month.AUGUST, 5, 10, 10).truncatedTo(ChronoUnit.SECONDS), false, 0.0);
 
+    public static final Stake STAKE_6 =
+            new Stake(USER_1, HORSE_7, 100.25, of(2016, Month.AUGUST, 5, 10, 25).truncatedTo(ChronoUnit.SECONDS), false, 0.0);
+
     public static final Stake STAKE_4_WIN =
-            new Stake(USER_2, HORSE_4, 100.25, of(2016, Month.AUGUST, 5, 10, 9).truncatedTo(ChronoUnit.SECONDS), true, 10.0);
+            new Stake(USER_2, HORSE_4_WINS, 100.25, of(2016, Month.AUGUST, 5, 10, 9).truncatedTo(ChronoUnit.SECONDS), true, 250.625);
 
     public static final Stake STAKE_5_WIN =
-            new Stake(USER_1, HORSE_4, 100.25, of(2016, Month.AUGUST, 5, 10, 10).truncatedTo(ChronoUnit.SECONDS), true, 20.0);
+            new Stake(USER_1, HORSE_4_WINS, 100.25, of(2016, Month.AUGUST, 5, 10, 10).truncatedTo(ChronoUnit.SECONDS), true, 250.625);
 
     public static final List<Stake> STAKES = Arrays.asList(STAKE_5, STAKE_4, STAKE_3, STAKE_2, STAKE_1);
 

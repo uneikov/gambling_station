@@ -5,8 +5,6 @@ DELETE FROM wallets;
 DELETE FROM horses;
 DELETE FROM stakes;
 
-/*DELETE FROM stats;*/
-
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (name, email, password, registered)
@@ -18,7 +16,7 @@ INSERT INTO users (name, email, password, registered)
 VALUES ('Admin', 'admin@gmail.com', 'admin', '2016-10-1 10:00:00');
 
 INSERT INTO users (name, email, password, registered)
-VALUES ('Station', 'station@gamblestation.com', 'stationpass', '2016-10-1 10:00:00');
+VALUES ('Station', 'station@gamblingstation.com', 'stationpass', '2016-10-1 10:00:00');
 
 INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 100000),
@@ -39,10 +37,10 @@ INSERT INTO horses (name, ru_name, age, wins) VALUES
   ('Angelfire', 'Энджелфае', 5, 0);         -- HORSE_10 100013
 
 INSERT INTO stakes (user_id, horse_id, stake_value, date_time, wins, amount) VALUES
-  (100000, 100007, 100.25, '2016-05-30 10:00:00', TRUE , 0.0),
+  (100000, 100007, 100.25, '2016-05-30 10:00:00', TRUE , 10.0),
   (100001, 100008, 100.25, '2016-06-12 13:30:00', FALSE, 0.0),
   (100000, 100009, 100.25, '2016-06-13 19:45:00', FALSE, 0.0),
-  (100001, 100007, 100.25, '2016-08-05 10:09:00', FALSE, 0.0),
+  (100001, 100007, 100.25, '2016-08-05 10:09:00', FALSE, 0.0),-- change
   (100000, 100007, 100.25, '2016-08-05 10:10:00', FALSE, 0.0);
 
 INSERT INTO wallets (user_id, cash_value) VALUES

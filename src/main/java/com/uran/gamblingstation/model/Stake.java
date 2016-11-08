@@ -39,7 +39,8 @@ public class Stake extends BaseEntity {
     private Double stakeValue;
 
     @Column(name = "date_time", columnDefinition = "timestamp default now()")
-    private LocalDateTime dateTime;
+    //private Date dateTime = new Date();
+    private LocalDateTime dateTime = LocalDateTime.now();
 
     @Column(name = "wins")
     private boolean wins;
@@ -60,7 +61,7 @@ public class Stake extends BaseEntity {
 
     public Stake(Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount) {
         this.stakeValue = stakeValue;
-        this.dateTime = dateTime;
+        //this.dateTime = dateTime;
         this.wins = wins;
         this.amount = amount;
     }
@@ -68,7 +69,7 @@ public class Stake extends BaseEntity {
     public Stake(Integer id, Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount) {
         super(id);
         this.stakeValue = stakeValue;
-        this.dateTime = dateTime;
+        //this.dateTime = dateTime;
         this.wins = wins;
         this.amount = amount;
     }
@@ -77,11 +78,19 @@ public class Stake extends BaseEntity {
         this.user = user;
         this.horse = horse;
         this.stakeValue = stakeValue;
-        this.dateTime = dateTime;
+
         this.wins = wins;
         this.amount = amount;
     }
 
+    public Stake(Integer id, User user, Horse horse, Double stakeValue, boolean wins, Double amount) {
+        super(id);
+        this.user = user;
+        this.horse = horse;
+        this.stakeValue = stakeValue;
+        this.wins = wins;
+        this.amount = amount;
+    }
     public Stake(Integer id, User user, Horse horse, Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount) {
         super(id);
         this.user = user;
@@ -91,7 +100,6 @@ public class Stake extends BaseEntity {
         this.wins = wins;
         this.amount = amount;
     }
-
     public Double getStakeValue() {
         return stakeValue;
     }

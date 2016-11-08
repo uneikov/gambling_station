@@ -8,6 +8,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "wallets", uniqueConstraints =
         {@UniqueConstraint(columnNames = "user_id", name = "wallets_unique_user_id_idx")})
+/*@Table(name = "wallets", uniqueConstraints =
+        {@UniqueConstraint(columnNames = "id", name = "wallets_unique_user_id_idx")})*/
 public class Wallet {
 
     public static final String DELETE = "Wallet.delete";
@@ -16,16 +18,15 @@ public class Wallet {
     @Id
     @Column(name = "user_id")
     private Integer id;
-
     @Column(name = "cash_value")
     private Double cash;
 
     public Wallet(){
     }
 
-    /*public Wallet(Double cash) {
+    public Wallet(Double cash) {
         this.cash = cash;
-    }*/
+    }
 
     public Wallet(Integer id, Double cash) {
         this.id = id;

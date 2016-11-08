@@ -8,8 +8,6 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -22,10 +20,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class StakeRestControllerTest extends AbstractControllerTest {
     private static final String contentType = MediaType.APPLICATION_JSON_VALUE;
     private static final String REST_URL = StakeRestController.REST_URL + '/';
-    private static final LocalDate START_DATE = LocalDate.of(2016, 6, 13);
-    private static final LocalDate END_DATE = LocalDate.of(2016, 6, 13);
-    private static final LocalTime START_TIME = LocalTime.of(16, 0);
-    private static final LocalTime END_TIME = LocalTime.of(20, 0);
+
+    private static final String START = "2016-06-13T16:00";
+    private static final String END = "2016-06-13T20:00";
 
     @Test
     public void testGet() throws Exception {
@@ -62,7 +59,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
                 .contentType(contentType)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk()));
-        STAKE_MATCHER.assertEquals(updated, stakeService.get(STAKE_1_ID, STAKE_1.getUser().getId()));
+        STAKE_MATCHER.assertEquals(updated, stakeService.get(STAKE_1_ID));
     }
 
     @Test
@@ -85,8 +82,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
     @Test
     public void testBetween() throws Exception {
         TestUtil.print(mockMvc.perform(get(
-                REST_URL + START_DATE + '/' + START_TIME + '/' + END_DATE + '/' + END_TIME + '/' + "loosed")
-        )
+                REST_URL + "between?startDateTime=" + START + "&endDateTime=" + END + "&option=loosed"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(contentType))
                 .andExpect(STAKE_MATCHER.contentListMatcher(Collections.singletonList(STAKE_3))));

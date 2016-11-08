@@ -60,8 +60,9 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
-    public Double getAllCash() {
-        return getAll().stream().mapToDouble(Stake::getStakeValue).sum();
+    public Double getAllCash(LocalDateTime startDate, LocalDateTime endDate) {
+        List<Stake> between = getBetween(startDate, endDate);
+        return getBetween(startDate, endDate).stream().mapToDouble(Stake::getStakeValue).sum();
     }
 
     @Override

@@ -23,8 +23,9 @@ public class StakeServiceImpl implements StakeService {
     private StakeRepository repository;
 
     @Override
-    public Stake get(int id, int userId) {
+    public Stake get(int id) {
         // проверка user ID
+        //int userId = AuthorizedUser.id();
         return repository.get(id);
     }
 
@@ -46,8 +47,8 @@ public class StakeServiceImpl implements StakeService {
     }
 
     @Override
-    public Double getAllCash() {
-        return repository.getAllCash();
+    public Double getAllCash(LocalDateTime startDate, LocalDateTime endDate) {
+        return repository.getAllCash(startDate, endDate);
     }
 
     @Override

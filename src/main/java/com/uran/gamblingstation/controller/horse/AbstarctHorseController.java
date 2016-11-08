@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import java.util.List;
 
 @Controller
-public class HorseRestController {
-    private static final Logger LOG = LoggerFactory.getLogger(HorseRestController.class);
+public class AbstarctHorseController {
+    private static final Logger LOG = LoggerFactory.getLogger(AbstarctHorseController.class);
 
     @Autowired
     private HorseService service;

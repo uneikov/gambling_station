@@ -13,7 +13,7 @@ public interface StakeRepository {
 
     List<Stake> getAllByUserId(int userId);
 
-    Double getAllCash();
+    Double getAllCash(LocalDateTime startDate, LocalDateTime endDate);
 
     Stake save(Stake stake);
 

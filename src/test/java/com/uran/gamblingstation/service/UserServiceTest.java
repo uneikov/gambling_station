@@ -32,11 +32,11 @@ public class UserServiceTest {
 
     @Test
     public void testSave() throws Exception {
-        User newUser = new User(null, "New", "new@gmail.com", "newPass", Collections.singleton(Role.ROLE_USER));
+        User newUser = new User(null, "New", "new@gmail.com", "newPass", true, Collections.singleton(Role.ROLE_USER));
         userService.save(newUser);
         int userId = newUser.getId();
         newUser.setWallet(new Wallet(userId, 0.0d));
-        walletService.save(newUser.getWallet(), userId);
+        walletService.save(newUser.getWallet());
         USER_MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, newUser, STATION, USER_1, USER_2), userService.getAll());
     }
 

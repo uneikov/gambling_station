@@ -12,18 +12,19 @@
     <hr>
     <jsp:useBean id="stake" type="com.uran.gamblingstation.model.Stake" scope="request"/>
     <form method="post" action="stakes">
+        <!-- TODO stake value tranferred from user`s wallet to station wallet ! -->
         <input type="hidden" name="id" value="${stake.id}">
         <input type="hidden" name="user_id" value="${stake.user.id}">
         <input type="hidden" name="dateTime" value="${stake.dateTime}">
         <c:set var="selected" value="${stake.horse.name}"/>
+        <c:set var="max_value" value="${stake.user.wallet.cash.toString()}"/>
         <dl>
             <dt><fmt:message key="stake.date"/>:</dt>
             <dd><input type="datetime-local" value="${stake.dateTime}" name="dateTime" disabled></dd>
         </dl>
         <dl>
             <dt><fmt:message key="stake.value"/>:</dt>
-            <dd><input type="number" value="${stake.stakeValue}" size=40 name="stake_value"></dd>
-           <%-- <dd><fmt:formatNumber type="number" maxFractionDigits="2" value="${stake.stakeValue}" /></dd>--%>
+            <dd><input type="number" step="0.01" min="0" max="${max_value}" value="${stake.stakeValue}" name="stake_value"></dd>
         </dl>
         <dl>
             <dt><fmt:message key="stake.horse"/>:</dt>

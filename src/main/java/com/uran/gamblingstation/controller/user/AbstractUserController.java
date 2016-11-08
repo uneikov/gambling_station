@@ -1,7 +1,9 @@
 package com.uran.gamblingstation.controller.user;
 
 import com.uran.gamblingstation.model.User;
+import com.uran.gamblingstation.model.Wallet;
 import com.uran.gamblingstation.service.UserService;
+import com.uran.gamblingstation.service.WalletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,38 +16,42 @@ import java.util.List;
 public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private UserService service;
+    @Autowired private UserService userService
+            ;
+    @Autowired private WalletService walletService;
 
     public List<User> getAll() {
         log.info("getAll");
-        return service.getAll();
+        return userService.getAll();
     }
 
     public User get(int id) {
         log.info("get " + id);
-        return service.get(id);
+        return userService.get(id);
     }
 
     public User create(User user) {
         user.setId(null);
         log.info("create " + user);
-        return service.save(user);
+        //даем ему кошелек!!!
+        User created = userService.save(user);
+        walletService.save(new Wallet(created.getId(), 0.0d));
+        return created;
     }
 
     public void delete(int id) {
         log.info("delete " + id);
-        service.delete(id);
+        userService.delete(id);
     }
 
     public void update(User user, int id) {
         user.setId(id);
         log.info("update " + user);
-        service.update(user);
+        userService.update(user);
     }
 
     public User getByMail(String email) {
         log.info("getByEmail " + email);
-        return service.getByEmail(email);
+        return userService.getByEmail(email);
     }
 }

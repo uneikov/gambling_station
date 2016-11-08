@@ -7,5 +7,11 @@
       <jdbc-driver>org.hsqldb.jdbc.JDBCDriver</jdbc-driver>
       <jdbc-url>jdbc:hsqldb:file:E:/temp/gamblingstation</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="PostgreSQL - gamblingstation@localhost" uuid="d22ae63d-ed2e-4f6b-b77f-f13b1c140922">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/gamblingstation</jdbc-url>
+    </data-source>
   </component>
 </project>

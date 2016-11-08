@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -55,13 +54,11 @@ public class StakeRestController extends AbstractStakeController{
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @GetMapping(value = "/{sd}/{st}/{ed}/{et}/{opt}", produces = contentType)
+    @GetMapping(value = "/between", produces = contentType)
     public List<Stake> getBetween(
-            @PathVariable("sd") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @PathVariable("st") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime,
-            @PathVariable("ed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @PathVariable("et") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime endTime,
-            @PathVariable("opt") String option) {
-        return super.getBetween(startDate, startTime, endDate, endTime, option);
+           @RequestParam("startDateTime")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+           @RequestParam("endDateTime")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end,
+           @RequestParam("option") String option) {
+        return super.getBetween(start.toLocalDate(), start.toLocalTime(), end.toLocalDate(), end.toLocalTime(), option);
     }
 }

@@ -5,29 +5,26 @@ import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.service.HorseService;
 import com.uran.gamblingstation.service.UserService;
+import com.uran.gamblingstation.service.WalletService;
 import com.uran.gamblingstation.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Controller
-@RequestMapping(value="/stakes")
+//@Controller
+//@RequestMapping(value="/oldstakes")
 public class JspStakeController extends AbstractStakeController{
 
-    @Autowired
-    private HorseService horseService;
-
-    @Autowired
-    private UserService userService;
+    @Autowired private HorseService horseService;
+    @Autowired private UserService userService;
+    @Autowired private WalletService walletService;
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(HttpServletRequest request) {
@@ -45,13 +42,13 @@ public class JspStakeController extends AbstractStakeController{
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(Model model) {
         model.addAttribute("stake",
-                new Stake(null, userService.get(AuthorizedUser.id), null, 0.0d , LocalDateTime.now(), false, 0.0d) );
+                new Stake(null, userService.get(AuthorizedUser.id), null, 0.0d , false, 0.0d) );
         model.addAttribute("horses", horseService.getAll().stream().map(Horse::getName).collect(Collectors.toList()));
         return "stake";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String updateOrCreate(HttpServletRequest request) {
+    public String updateOrCreate(HttpServletRequest request, Model model) {
         String id = request.getParameter("id");
         //String horseName = request.getParameter("horse_name");
         //String userId = request.getParameter("user_id");
@@ -62,7 +59,6 @@ public class JspStakeController extends AbstractStakeController{
                 userService.get(Integer.parseInt(request.getParameter("user_id"))),
                 horseService.getByName(request.getParameter("horse_name")),
                 Double.valueOf(request.getParameter("stake_value")),
-                LocalDateTime.now(),
                 false,
                 0.0d
         );
@@ -72,16 +68,17 @@ public class JspStakeController extends AbstractStakeController{
         } else {
             super.update(userStake, userStake.getId());
         }
+        model.addAttribute("available_value", walletService.get(AuthorizedUser.id()).getCash());
         return "redirect:/stakes";
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.POST)
     public String getBetween(HttpServletRequest request, Model model) {
-        LocalDate startDate = TimeUtil.parseLocalDate(resetParam("startDate", request));
-        LocalDate endDate = TimeUtil.parseLocalDate(resetParam("endDate", request));
-        LocalTime startTime = TimeUtil.parseLocalTime(resetParam("startTime", request));
-        LocalTime endTime = TimeUtil.parseLocalTime(resetParam("endTime", request));
-        String options = resetParam("option", request);
+        LocalDate startDate = TimeUtil.parseLocalDate(request.getParameter("startDate"));
+        LocalDate endDate = TimeUtil.parseLocalDate(request.getParameter("endDate"));
+        LocalTime startTime = TimeUtil.parseLocalTime(request.getParameter("startTime"));
+        LocalTime endTime = TimeUtil.parseLocalTime(request.getParameter("endTime"));
+        String options = request.getParameter("option");
         model.addAttribute("stakes", super.getBetween(startDate, startTime, endDate, endTime, options));
         return "stakes";
     }
@@ -117,9 +114,9 @@ public class JspStakeController extends AbstractStakeController{
         String paramId = Objects.requireNonNull(request.getParameter("id"));
         return Integer.valueOf(paramId);
     }
-    private String resetParam(String param, HttpServletRequest request) {
+   /* private String resetParam(String param, HttpServletRequest request) {
         String value = request.getParameter(param);
         request.setAttribute(param, value);
         return value;
-    }
+    }*/
 }

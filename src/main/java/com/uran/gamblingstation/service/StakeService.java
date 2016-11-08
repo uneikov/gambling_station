@@ -12,7 +12,7 @@ import java.util.Map;
 
 public interface StakeService {
 
-    Stake get(int id, int userId);
+    Stake get(int id);
 
     void delete(int id, int userId);
 
@@ -20,7 +20,7 @@ public interface StakeService {
 
     List<Stake> getAllByUserId(int userId);
 
-    Double getAllCash();
+    Double getAllCash(LocalDateTime startDate, LocalDateTime endDate);
 
     Stake save(Stake stake, int userId);
 

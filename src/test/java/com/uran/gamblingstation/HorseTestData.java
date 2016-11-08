@@ -18,7 +18,9 @@ public class HorseTestData {
     public static final Horse HORSE_1 = new Horse(HORSE_1_ID,     "Black Ghost", "Черный призрак", 5, 0);
     public static final Horse HORSE_2 = new Horse(HORSE_1_ID + 1, "White Ghost", "Белый призрак", 5, 0);
     public static final Horse HORSE_3 = new Horse(HORSE_1_ID + 2, "Enisei", "Енисей", 3, 0);
+    public static final Horse HORSE_4_WINS = new Horse(HORSE_1_ID + 3, "Thunderbird", "Гром", 5, 1);
     public static final Horse HORSE_4 = new Horse(HORSE_1_ID + 3, "Thunderbird", "Гром", 5, 0);
+    public static final Horse HORSE_5_WINS = new Horse(HORSE_1_ID + 4, "Ruby Rose", "Рубироуз", 4, 1);
     public static final Horse HORSE_5 = new Horse(HORSE_1_ID + 4, "Ruby Rose", "Рубироуз", 4, 0);
     public static final Horse HORSE_6 = new Horse(HORSE_1_ID + 5, "Predator", "Хищник", 5, 0);
     public static final Horse HORSE_7 = new Horse(HORSE_1_ID + 6, "Alien", "Чужой", 6, 0);

@@ -22,6 +22,7 @@
         </form>
         <ul>
             <li><a href="users"><fmt:message key="users.title"/></a></li>
+         <%--   <li><a href="wallet"><fmt:message key="users.title"/></a></li>--%>
             <li><a href="stakes"><fmt:message key="stakes.title"/></a></li>
         </ul>
     </div>

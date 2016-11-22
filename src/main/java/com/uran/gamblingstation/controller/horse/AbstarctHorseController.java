@@ -20,13 +20,13 @@ public class AbstarctHorseController {
     public Horse get(int id) {
         int userId = AuthorizedUser.id();
         LOG.info("get horse {} for User {}", id, userId);
-        return service.get(id, userId);
+        return service.get(id);
     }
 
     public void delete(int id) {
         int userId = AuthorizedUser.id();
         LOG.info("delete horse {} for User {}", id, userId);
-        service.delete(id, userId);
+        service.delete(id);
     }
 
     public List<Horse> getAll() {
@@ -39,12 +39,12 @@ public class AbstarctHorseController {
         horse.setId(id);
         int userId = AuthorizedUser.id();
         LOG.info("update {} for User {}", horse, userId);
-        service.update(horse, userId);
+        service.update(horse);
     }
     public Horse create(Horse horse) {
         horse.setId(null);
         int userId = AuthorizedUser.id();
         LOG.info("create {} for User {}", horse, userId);
-        return service.save(horse, userId);
+        return service.save(horse);
     }
 }

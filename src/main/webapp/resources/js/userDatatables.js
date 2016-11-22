@@ -1,4 +1,5 @@
 var ajaxUrl = 'ajax/admin/users/';
+//var ajaxWalletsUrl = 'ajax/profile/wallets/';
 
 var datatableApi;
 
@@ -13,8 +14,9 @@ $(function () {
             url: ajaxUrl,
             dataSrc: ""
         },
-        paging: false,
+        paging: true,
         info: true,
+        width: true,
         columns: [
             {
                 data: "name"
@@ -23,7 +25,6 @@ $(function () {
                 data: "email",
                 render: function (data, type, row) {
                     if (type == 'display') {
-                        debugger;
                         return '<a href="mailto:' + data + '">' + data + '</a>';
                     }
                     return data;
@@ -50,16 +51,8 @@ $(function () {
                     return date;
                 }
             },
-            {
-                orderable: false,
-                defaultContent: "",
-                render: renderEditBtn
-            },
-            {
-                orderable: false,
-                defaultContent: "",
-                render: renderDeleteBtn
-            }
+            {orderable: false, defaultContent: "", render: renderEditBtn},
+            {orderable: false, defaultContent: "", render: renderDeleteBtn}
         ],
         order: [
             [

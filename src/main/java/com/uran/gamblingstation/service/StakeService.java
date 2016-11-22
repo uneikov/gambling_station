@@ -14,30 +14,42 @@ public interface StakeService {
 
     Stake get(int id);
 
-    void delete(int id, int userId);
+    void delete(int id);
 
     List<Stake> getAll();
 
     List<Stake> getAllByUserId(int userId);
 
+    List<Stake> getAllByRaceId(int raceId);
+
+    Stake save(Stake stake);
+
+    void update(Stake stake);
+    //-------------------------------------------------------------
+    void setNotEditable(LocalDateTime start, LocalDateTime finish);
+
+    void setNotEditable(int raceId);
+    //-------------------------------------------------------------
     Double getAllCash(LocalDateTime startDate, LocalDateTime endDate);
 
-    Stake save(Stake stake, int userId);
-
-    void update(Stake stake, int userId);
+    Double getAllCash(int raceId);
 
     List<Stake> getAllWinningStakes();
 
     List<User> getWinningUsers(int horseId, LocalDateTime startDate, LocalDateTime endDate);
-
+    //-------------------------------------------------------------
     void setWinningStakes(int horseId, LocalDateTime startDate, LocalDateTime endDate);
 
+    void setWinningStakes(int horseId, int raceId);
+    //-------------------------------------------------------------
     void processWinningStakes(List<Stake> winningStakes, Map<Integer, Double> winningMap);
 
     List<Stake> getLoosingStakes(LocalDateTime startDate, LocalDateTime endDate);
-
+    //-------------------------------------------------------------
     List<Stake> getWinningStakes(LocalDateTime startDate, LocalDateTime endDate);
 
+    List<Stake> getWinningStakes(int raceId);
+    //-------------------------------------------------------------
     List<Stake> getBetween(User user, LocalDateTime startDate, LocalDateTime endDate);
 
     List<Stake> getBetween(Horse horse, LocalDateTime startDate, LocalDateTime endDate);

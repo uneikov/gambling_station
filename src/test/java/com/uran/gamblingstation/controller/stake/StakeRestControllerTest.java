@@ -3,6 +3,7 @@ package com.uran.gamblingstation.controller.stake;
 import com.uran.gamblingstation.AbstractControllerTest;
 import com.uran.gamblingstation.TestUtil;
 import com.uran.gamblingstation.controller.json.JsonUtil;
+import com.uran.gamblingstation.controller.user.ProfileRestController;
 import com.uran.gamblingstation.model.Stake;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -19,23 +20,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class StakeRestControllerTest extends AbstractControllerTest {
     private static final String contentType = MediaType.APPLICATION_JSON_VALUE;
-    private static final String REST_URL = StakeRestController.REST_URL + '/';
+    private static final String STAKE_REST_URL = StakeRestController.REST_URL + '/';
+    private static final String USER_REST_URL = ProfileRestController.REST_URL + '/';
 
     private static final String START = "2016-06-13T16:00";
     private static final String END = "2016-06-13T20:00";
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + STAKE_1_ID))
+        final ResultActions perform = mockMvc.perform(get(STAKE_REST_URL + STAKE_1_ID));
+        mockMvc.perform(get(STAKE_REST_URL + STAKE_1_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(contentType))
-                .andExpect(STAKE_MATCHER.contentMatcher(STAKE_1));
+                .andExpect(STAKE_MATCHER.contentMatcher(STAKE_1)
+                );
     }
 
     @Test
     public void testGetAll() throws Exception {
-        mockMvc.perform(get(REST_URL))
+        mockMvc.perform(get(STAKE_REST_URL))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(contentType))
                 .andExpect(STAKE_MATCHER.contentListMatcher(STAKES));
@@ -43,7 +47,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + STAKE_1_ID))
+        mockMvc.perform(delete(STAKE_REST_URL + STAKE_1_ID))
                 .andDo(print())
                 .andExpect(status().isOk());
         STAKE_MATCHER.assertCollectionEquals(
@@ -55,17 +59,23 @@ public class StakeRestControllerTest extends AbstractControllerTest {
     @Test
     public void testUpdate() throws Exception {
         Stake updated = getUpdated();
-        TestUtil.print(mockMvc.perform(put(REST_URL + STAKE_1_ID)
+        TestUtil.print(mockMvc.perform(put(STAKE_REST_URL + STAKE_1_ID)
                 .contentType(contentType)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk()));
         STAKE_MATCHER.assertEquals(updated, stakeService.get(STAKE_1_ID));
+        //???????????????????????????????????????????????????????
+        /*TestUtil.print(mockMvc.perform(get(USER_REST_URL))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)));
+        Assert.assertEquals(100.0d, USER_1.getWallet().getCash(), 0.001);
+*/
     }
 
     @Test
     public void testCreate() throws Exception {
         Stake expected = getCreated();
-        ResultActions action = mockMvc.perform(post(REST_URL)
+        ResultActions action = mockMvc.perform(post(STAKE_REST_URL)
                 .contentType(contentType)
                 .content(JsonUtil.writeValue(expected)))
                 .andExpect(status().isCreated());
@@ -82,7 +92,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
     @Test
     public void testBetween() throws Exception {
         TestUtil.print(mockMvc.perform(get(
-                REST_URL + "between?startDateTime=" + START + "&endDateTime=" + END + "&option=loosed"))
+                STAKE_REST_URL + "between?startDateTime=" + START + "&endDateTime=" + END + "&option=loosed"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(contentType))
                 .andExpect(STAKE_MATCHER.contentListMatcher(Collections.singletonList(STAKE_3))));

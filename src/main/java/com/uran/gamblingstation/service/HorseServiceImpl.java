@@ -9,22 +9,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.List;
-
-import static com.uran.gamblingstation.model.BaseEntity.ADMIN_ID;
+import java.util.stream.Collectors;
 
 @Service
 public class HorseServiceImpl implements HorseService {
 
-    @Autowired
-    private HorseRepository repository;
-
+    @Autowired private HorseRepository repository;
 
     @Override
-    public Horse get(int id, int userId) throws NotFoundException {
-        if (userId != ADMIN_ID)
-            throw new NotFoundException("Unauthorized operation");
-        else
-            return repository.get(id, userId);
+    public Horse get(int id) throws NotFoundException {
+            return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
     }
 
     @Override
@@ -33,27 +27,29 @@ public class HorseServiceImpl implements HorseService {
     }
 
     @Override
-    public void delete(int id, int userId) throws NotFoundException {
-        if (userId != ADMIN_ID)
-            throw new NotFoundException("Unauthorized operation");
-        else
-            repository.delete(id);
+    public void delete(int id) throws NotFoundException {
+        ExceptionUtil.checkNotFoundWithId(repository.delete(id), id);
     }
 
     @Override
-    public Horse save(Horse horse, int userId) {
+    public Horse save(Horse horse) {
         Assert.notNull(horse, "horse must not be null");
-        return ExceptionUtil.checkNotFound(repository.save(horse, userId), "Unauthorized operation");
+        return repository.save(horse);
     }
 
     @Override
-    public Horse update(Horse horse, int userId) throws NotFoundException {
+    public void update(Horse horse) throws NotFoundException {
         Assert.notNull(horse, "horse must not be null");
-        return ExceptionUtil.checkNotFoundWithId(repository.save(horse, userId), horse.getId());
+        repository.save(horse);
     }
 
     @Override
     public List<Horse> getAll() {
         return repository.getAll();
+    }
+
+    @Override
+    public List<Horse> getReady() {
+        return repository.getAll().stream().filter(Horse::isReady).collect(Collectors.toList());
     }
 }

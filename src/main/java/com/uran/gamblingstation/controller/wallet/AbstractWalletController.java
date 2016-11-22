@@ -6,16 +6,13 @@ import com.uran.gamblingstation.service.WalletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@Controller
-public class WalletRestController {
-    private static final Logger LOG = LoggerFactory.getLogger(WalletRestController.class);
+public abstract class AbstractWalletController {
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractWalletController.class);
 
-    @Autowired
-    private WalletService service;
+    @Autowired private WalletService service;
 
     public Wallet get(int id) {
         int userId = AuthorizedUser.id();

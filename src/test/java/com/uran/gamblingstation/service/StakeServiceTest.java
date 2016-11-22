@@ -56,7 +56,7 @@ public class StakeServiceTest {
     @Test
     public void testSave() throws Exception {
         Stake created = getCreated();
-        service.save(created, USER_ID_1); //
+        service.save(created); //
         STAKE_MATCHER.assertCollectionEquals(service.getAllByUserId(USER_ID_1),
                 Arrays.asList(created, STAKE_5, STAKE_3, STAKE_1));
     }
@@ -64,13 +64,13 @@ public class StakeServiceTest {
     @Test
     public void testUpdate() throws Exception {
         Stake updated = getUpdated();
-        service.update(updated, USER_ID_1);
+        service.update(updated);
         STAKE_MATCHER.assertEquals(updated, service.get(STAKE_1_ID));
     }
 
     @Test // only admin can delete stakes!!!
     public void testDelete() throws Exception {
-        service.delete(STAKE_2_ID, ADMIN_ID);
+        service.delete(STAKE_2_ID);
         STAKE_MATCHER.assertCollectionEquals(service.getAllByUserId(USER_ID_2), Collections.singletonList(STAKE_4));
     }
 
@@ -81,9 +81,32 @@ public class StakeServiceTest {
     }
 
     @Test
+    public void testIsEditable() throws Exception {
+        Stake stake_3 = service.get(STAKE_3_ID);
+        Assert.assertFalse(stake_3.isEditable());
+    }
+
+    @Test
+    public void testSetEditable() throws Exception {
+        Stake stake_3 = service.get(STAKE_3_ID);
+        stake_3.setEditable(true);
+        service.update(stake_3);
+        Assert.assertTrue(service.get(STAKE_3_ID).isEditable());
+    }
+
+    @Test
+    public void testArchived() throws Exception {
+        Stake stake =getEditable();
+        service.setNotEditable(VALID_START_DATETIME, VALID_END_DATETIME);
+        Assert.assertFalse(service.get(STAKE_3_ID).isEditable());
+    }
+
+    @Test
     public void testSetWinningStakes() {
         service.setWinningStakes(WINNING_HORSE.getId(), VALID_START_DATETIME, VALID_END_DATETIME);
         List<Stake> list = service.getWinningStakes(VALID_START_DATETIME, VALID_END_DATETIME);
+        STAKE_5_WIN.setAmount(0.0d);
+        STAKE_4_WIN.setAmount(0.0d);
         STAKE_MATCHER.assertCollectionEquals(list, Arrays.asList(STAKE_5_WIN, STAKE_4_WIN));
     }
 

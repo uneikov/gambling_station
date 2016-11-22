@@ -10,7 +10,7 @@ public interface WalletService {
 
     void update(Wallet wallet);
     // false if not found
-    boolean delete(int id);
+    void delete(int id);
 
     // null if not found
     Wallet get(int id);

@@ -8,18 +8,20 @@ import java.util.List;
 public interface
 HorseService {
 
-    Horse get(int id, int userId) throws NotFoundException;
+    Horse get(int id) throws NotFoundException;
 
     Horse getByName(String name);
 
-    void delete(int id, int userId) throws NotFoundException;
+    void delete(int id) throws NotFoundException;
 
-    Horse save(Horse horse, int userId);
+    Horse save(Horse horse);
 
-    Horse update(Horse horse, int userId) throws NotFoundException;
+    void update(Horse horse) throws NotFoundException;
 
     List<Horse> getAll();
-
+    
+    List<Horse> getReady();
+    
     /*default Collection<Horse> getBetweenDates(LocalDate startDate, LocalDate endDate, int userId) {
         return getBetweenDateTimes(LocalDateTime.of(startDate, LocalTime.MIN), LocalDateTime.of(endDate, LocalTime.MAX), userId);
     }

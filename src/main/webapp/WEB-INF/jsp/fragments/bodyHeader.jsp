@@ -9,6 +9,8 @@
 
         <div class="collapse navbar-collapse">
             <form class="navbar-form navbar-right">
+                <a class="btn btn-danger" role="button" href="horses"><fmt:message key="horses.title"/></a>
+                <a class="btn btn-success" role="button" href="races"><fmt:message key="races.title"/></a>
                 <a class="btn btn-info" role="button" href="users"><fmt:message key="users.title"/></a>
                 <a class="btn btn-primary" role="button" href=""><fmt:message key="app.login"/></a>
             </form>

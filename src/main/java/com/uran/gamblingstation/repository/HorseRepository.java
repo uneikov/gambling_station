@@ -6,18 +6,12 @@ import java.util.List;
 
 public interface HorseRepository {
 
-    // null if meal do not belong to userId
-    Horse get(int id, int userId);
+    Horse get(int id);
 
-    // false if meal do not belong to userId
-    void delete(int id);
+    boolean delete(int id);
 
-    // null if updated meal do not belong to userId
-    Horse save(Horse meal, int userId);
+    Horse save(Horse meal);
 
-    // ORDERED dateTime
     List<Horse> getAll();
 
-   /* // ORDERED dateTime
-    Collection<Horse> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);*/
 }

@@ -60,12 +60,12 @@ public class SpringMain {
                     User user = new User(null, "testuser"+i, "testuser"+i+"@yandex.ru", "testpassword"+i, Collections.singleton(Role.ROLE_USER));
                     userRestController.create(user);
                     // ---------------------- create user`s wallet with random amount--------------------
-                    user.setWallet(new Wallet(user.getId(), 10 + ThreadLocalRandom.current().nextDouble(90.0)));
+                    user.setWallet(new Wallet(user.getId(), 10 + ThreadLocalRandom.currentRace().nextDouble(90.0)));
                     walletController.create(user.getWallet(), user.getId());
                     // -------------------------------- get random horse -----------------------------------
                     Horse randomHorseForStake = RandomUtil.getRandomHorseFromList(HORSES);
                     // ----------------------------------- make stake -----------------------------------
-                    Double randomStakeValue = 10 + ThreadLocalRandom.current().nextDouble(90.0);
+                    Double randomStakeValue = 10 + ThreadLocalRandom.currentRace().nextDouble(90.0);
                     if (randomStakeValue > user.getWallet().getCash()) randomStakeValue = user.getWallet().getCash();
                     Double winningAmount = 0.0d;
                     Stake stake = new Stake(user, randomHorseForStake, randomStakeValue, LocalDateTime.now(), false, winningAmount);
@@ -117,9 +117,9 @@ public class SpringMain {
                                     User user = new User(null, "user"+i, "user"+i+"@yandex.ru", "password"+i, Collections.singleton(Role.ROLE_USER));
                                     System.out.println(user.toString());
                                     userRestController.create(user);
-                                    user.setWallet(new Wallet(user.getId(), ThreadLocalRandom.current().nextDouble(100.0)));
+                                    user.setWallet(new Wallet(user.getId(), ThreadLocalRandom.currentRace().nextDouble(100.0)));
                                     walletRestController.create(user.getWallet(), user.getId());
-                                    Stake stake = new Stake(user, RandomUtil.getRandomHorseFromList(HORSES), ThreadLocalRandom.current().nextDouble(100.0), LocalDateTime.now(), false, 0.0d);
+                                    Stake stake = new Stake(user, RandomUtil.getRandomHorseFromList(HORSES), ThreadLocalRandom.currentRace().nextDouble(100.0), LocalDateTime.now(), false, 0.0d);
                                     stakeController.create(stake, user.getId());
                                     users.add(user);
                                 }

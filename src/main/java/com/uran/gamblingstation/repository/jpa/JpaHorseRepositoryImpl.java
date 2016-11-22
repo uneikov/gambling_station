@@ -9,8 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-import static com.uran.gamblingstation.model.BaseEntity.ADMIN_ID;
-
 @Repository
 @Transactional(readOnly = true)
 public class JpaHorseRepositoryImpl implements HorseRepository {
@@ -19,34 +17,25 @@ public class JpaHorseRepositoryImpl implements HorseRepository {
     private EntityManager em;
 
     @Override
-    public Horse get(int id, int userId) {
+    public Horse get(int id) {
         return em.find(Horse.class, id);
     }
 
     @Override
     @Transactional
-    public void delete(int id) {
-       /* em.createNamedQuery(Horse.DELETE).setParameter("id", id);*/
-        Horse horseRef = em.getReference(Horse.class, id);
-        em.remove(horseRef);
+    public boolean delete(int id) {
+        return em.createNamedQuery(Horse.DELETE).setParameter("id", id).executeUpdate() != 0;
+        /*Horse horseRef = em.getReference(Horse.class, id);
+        em.remove(horseRef);*/
     }
 
     @Override
     @Transactional
-    public Horse save(Horse horse, int userId) {
+    public Horse save(Horse horse) {
         if (horse.isNew()) {
-            if (userId == ADMIN_ID) {
-                em.persist(horse);
-            }else { // Unauthorized operation
-                return null;
-            }
+            em.persist(horse);
         } else {
-            if (userId == ADMIN_ID) {
-                return em.merge(horse);
-            }
-            else { // Unauthorized operation
-                return null;
-            }
+            return em.merge(horse);
         }
         return horse;
     }

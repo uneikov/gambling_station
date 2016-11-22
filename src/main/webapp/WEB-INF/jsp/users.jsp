@@ -3,9 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
+<head>
 <jsp:include page="fragments/headTag.jsp"/>
+<jsp:include page="fragments/i18nTag.jsp"/>
 <link rel="stylesheet" href="webjars/datatables/1.10.12/css/dataTables.bootstrap.min.css">
-
+</head>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
@@ -15,7 +17,8 @@
             <h3><fmt:message key="users.title"/></h3>
             <div class="view-box">
 
-                <a class="btn btn-sm btn-info" onclick="add()"><fmt:message key="users.add"/></a>
+                <a class="btn btn-sm btn-info" onclick="add()"><fmt:message key="users.add"/></a><hr>
+                <%--<a class="btn btn-sm btn-info" href="horses"><fmt:message key="horses.add"/></a>--%>
 
                 <table class="table table-striped display" id="userstable">
                     <thead>
@@ -42,10 +45,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title"><fmt:message key="users.edit"/></h2>
+                <h2 class="modal-title" id="modalTitle"></h2>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" method="post" id="detailsForm">
+                <form class="form-horizontal" method="post" id="detailsForm" title="user">
                     <input type="text" hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
@@ -74,6 +77,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
+                            <button class="btn btn-default" type="button" data-dismiss="modal"><fmt:message key="common.cancel"/></button>
                             <button class="btn btn-primary"  type="button" onclick="save()"><fmt:message key="common.save"/></button>
                         </div>
                     </div>
@@ -84,11 +88,8 @@
 </div>
 </body>
 <script type="text/javascript">
-    var i18n = [];
-    <c:forEach var='key' items='<%=new String[]{"common.update","common.delete","common.deleted","common.saved","common.enabled","common.disabled","common.failed"}%>'>
-    i18n['${key}'] = '<fmt:message key="${key}"/>';
-    </c:forEach>
-    var edit_title ='<fmt:message key="stake.edit"/>';
+    var edit_title ='<fmt:message key="users.edit"/>';
+    var add_title ='<fmt:message key="users.add"/>';
 </script>
 <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript" src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>

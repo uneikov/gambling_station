@@ -19,7 +19,13 @@ import java.time.LocalDateTime;
         @NamedQuery(name = Stake.ALL_SORTED, query =
                 "SELECT s FROM Stake s ORDER BY s.dateTime DESC "),
         @NamedQuery(name = Stake.ALL_WINNING, query =
-                "SELECT s FROM Stake s  WHERE s.wins=true ORDER BY s.dateTime ")
+                "SELECT s FROM Stake s  WHERE s.wins=true ORDER BY s.dateTime "),
+        @NamedQuery(name = Stake.WINNING_WITH_RACE_ID, query =
+                "SELECT s FROM Stake s  WHERE s.race.id=:raceId AND s.wins=true ORDER BY s.dateTime "),
+        @NamedQuery(name = Stake.ALL_WITH_RACE_ID, query =
+                "SELECT s FROM Stake s  WHERE s.race.id=:raceId ORDER BY s.dateTime DESC"),
+        @NamedQuery(name = Stake.SORTED_WITH_HORSE_ID_AND_RACE_ID, query =
+                "SELECT s FROM Stake s  WHERE s.horse.id=:horseId AND s.race.id=:raceId ORDER BY s.dateTime DESC")
 })
 @Entity
 @Table(name = "stakes", uniqueConstraints =
@@ -30,10 +36,13 @@ public class Stake extends BaseEntity {
     public static final String ALL_SORTED_WITH_USER = "Stake.getAllSortedWithUser";
     public static final String DELETE = "Stake.delete";
     public static final String ALL_WINNING = "Stake.getWinningStakes";
+    public static final String WINNING_WITH_RACE_ID = "Stake.getWinningWithRaceId";
     public static final String GET_BETWEEN = "Stake.getBetween";
     public static final String GET_BETWEEN_WITH_USER = "Stake.getBetweenWithUser";
     public static final String GET_BETWEEN_WITH_HORSE = "Stake.getBetweenWithHorse";
     public static final String GET_BETWEEN_WITH_USER_AND_HORSE = "Stake.getBetweenWithUserAndHorse";
+    public static final String ALL_WITH_RACE_ID = "Stake.getAllWithRaceId";
+    public static final String SORTED_WITH_HORSE_ID_AND_RACE_ID = "Stake.getAllWithHorseIdAndRaceId";
 
     @Column(name = "stake_value")
     private Double stakeValue;
@@ -48,6 +57,9 @@ public class Stake extends BaseEntity {
     @Column(name = "amount")
     private Double amount;
 
+    @Column(name = "editable", nullable = false)
+    private boolean editable;
+
     @OneToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "horse_id", referencedColumnName = "id", nullable = false)
     private Horse horse;
@@ -56,31 +68,26 @@ public class Stake extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "race_id", referencedColumnName = "id", nullable = false)
+    private Race race;
+
     public Stake(){
     }
 
-    public Stake(Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount) {
+    public Stake(Double stakeValue, boolean wins, Double amount) {
         this.stakeValue = stakeValue;
-        //this.dateTime = dateTime;
         this.wins = wins;
         this.amount = amount;
+        this.editable = true;
     }
 
-    public Stake(Integer id, Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount) {
+    public Stake(Integer id, Double stakeValue, boolean wins, Double amount) {
         super(id);
         this.stakeValue = stakeValue;
-        //this.dateTime = dateTime;
         this.wins = wins;
         this.amount = amount;
-    }
-
-    public Stake(User user, Horse horse, Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount) {
-        this.user = user;
-        this.horse = horse;
-        this.stakeValue = stakeValue;
-
-        this.wins = wins;
-        this.amount = amount;
+        this.editable = true;
     }
 
     public Stake(Integer id, User user, Horse horse, Double stakeValue, boolean wins, Double amount) {
@@ -90,7 +97,9 @@ public class Stake extends BaseEntity {
         this.stakeValue = stakeValue;
         this.wins = wins;
         this.amount = amount;
+        this.editable = true;
     }
+
     public Stake(Integer id, User user, Horse horse, Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount) {
         super(id);
         this.user = user;
@@ -99,7 +108,32 @@ public class Stake extends BaseEntity {
         this.dateTime = dateTime;
         this.wins = wins;
         this.amount = amount;
+        this.editable = true;
     }
+
+    public Stake(Integer id, User user, Horse horse, Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount, boolean editable) {
+        super(id);
+        this.user = user;
+        this.horse = horse;
+        this.stakeValue = stakeValue;
+        this.dateTime = dateTime;
+        this.wins = wins;
+        this.amount = amount;
+        this.editable = editable;
+    }
+
+    public Stake(Integer id, User user, Horse horse, Race race, Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount, boolean editable) {
+        super(id);
+        this.user = user;
+        this.horse = horse;
+        this.race = race;
+        this.stakeValue = stakeValue;
+        this.dateTime = dateTime;
+        this.wins = wins;
+        this.amount = amount;
+        this.editable = editable;
+    }
+
     public Double getStakeValue() {
         return stakeValue;
     }
@@ -116,10 +150,10 @@ public class Stake extends BaseEntity {
         this.dateTime = dateTime;
     }
 
-    public boolean getWins() {
+    /*public boolean getWins() {
         return wins;
     }
-
+*/
     public void setWins(boolean wins) {
         this.wins = wins;
     }
@@ -148,6 +182,26 @@ public class Stake extends BaseEntity {
         this.amount = amount;
     }
 
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
+    public boolean isWins() {
+        return wins;
+    }
+
+    public Race getRace() {
+        return race;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
+    }
+
     @Override
     public String toString() {
         return "Stake{" +
@@ -155,6 +209,7 @@ public class Stake extends BaseEntity {
                 ", dateTime=" + dateTime +
                 ", wins=" + wins +
                 ", amount=" + amount +
+                ", editable=" + editable +
                 ", horse=" + horse +
                 ", user=" + user +
                 '}';

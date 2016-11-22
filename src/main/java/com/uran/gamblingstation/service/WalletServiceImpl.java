@@ -1,6 +1,5 @@
 package com.uran.gamblingstation.service;
 
-import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.Wallet;
 import com.uran.gamblingstation.repository.WalletRepository;
 import com.uran.gamblingstation.util.exception.ExceptionUtil;
@@ -29,21 +28,21 @@ public class WalletServiceImpl implements WalletService{
     }
 
     @Override
-    public boolean delete(int id) {
-        int userId = AuthorizedUser.id();
+    public void delete(int id){
+       /* int userId = AuthorizedUser.id();
         if (userId != id) {
             throw new NotFoundException("Unauthorized operation");
-        }
+        }*/
         ExceptionUtil.checkNotFoundWithId(repository.delete(id), id);
-        return repository.delete(id);
+        //return repository.delete(id);
     }
 
     @Override
-    public Wallet get(int id) {
-        int userId = AuthorizedUser.id();
+    public Wallet get(int id) throws NotFoundException{
+       /* int userId = AuthorizedUser.id();
         if (userId != id) {
             throw new NotFoundException("Unauthorized operation");
-        }
+        }*/
         return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
     }
 

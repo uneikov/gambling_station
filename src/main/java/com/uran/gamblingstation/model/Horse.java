@@ -29,6 +29,9 @@ public class Horse extends NamedEntity {
     @Digits(fraction = 0, integer = 4)
     private int wins;
 
+    @Column(name = "ready", nullable = false)
+    private boolean ready;
+
     public Horse(){
     }
 
@@ -41,6 +44,15 @@ public class Horse extends NamedEntity {
         this.ruName = ruName;
         this.age = age;
         this.wins = wins;
+        this.ready = false;
+    }
+
+    public Horse(Integer id, String name, String ruName, int age, int wins, boolean ready) {
+        super(id, name);
+        this.ruName = ruName;
+        this.age = age;
+        this.wins = wins;
+        this.ready = ready;
     }
 
     public String getRuName() {
@@ -67,13 +79,26 @@ public class Horse extends NamedEntity {
         this.wins = wins;
     }
 
+    public Horse addWins() {
+        this.wins++;
+        return this;
+    }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
+    }
+
     @Override
     public String toString() {
         return "Horse{" +
                 "ruName='" + ruName + '\'' +
-                ", name='" + name + '\'' +
                 ", age=" + age +
                 ", wins=" + wins +
+                ", ready=" + ready +
                 '}';
     }
 }

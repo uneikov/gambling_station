@@ -4,7 +4,6 @@ import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.repository.StakeRepository;
-import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -14,26 +13,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.uran.gamblingstation.model.BaseEntity.ADMIN_ID;
-
 @Service
 public class StakeServiceImpl implements StakeService {
 
-    @Autowired
-    private StakeRepository repository;
+    @Autowired private StakeRepository repository;
 
     @Override
     public Stake get(int id) {
-        // проверка user ID
-        //int userId = AuthorizedUser.id();
         return repository.get(id);
     }
 
-    @Override // only admin can delete stakes!!!
-    public void delete(int id, int userId) {
-        if (userId != ADMIN_ID) throw new NotFoundException("Unauthorized operation!");
-        // проверка user ID
-        //ExceptionUtil.checkNotFoundWithId(repository.delete(id, userId), id);
+    @Override
+    public void delete(int id) {
         repository.delete(id);
     }
 
@@ -42,8 +33,25 @@ public class StakeServiceImpl implements StakeService {
         return repository.getAll();
     }
 
+    @Override
+    public Stake save(Stake stake) {
+        Assert.notNull(stake, "stake must not be null");
+        return repository.save(stake);
+    }
+
+    @Override
+    public void update(Stake stake) {
+        Assert.notNull(stake, "stake must not be null");
+        repository.update(stake);
+    }
+
     public List<Stake> getAllByUserId(int userId) {
         return repository.getAllByUserId(userId);
+    }
+
+    @Override
+    public List<Stake> getAllByRaceId(int raceId) {
+        return repository.getAllByRaceId(raceId);
     }
 
     @Override
@@ -52,38 +60,49 @@ public class StakeServiceImpl implements StakeService {
     }
 
     @Override
-    public Stake save(Stake stake, int userId) {
-        // проверка user ID
-        Assert.notNull(stake, "stake must not be null");
-        return repository.save(stake);
+    public Double getAllCash(int raceId) {
+        return repository.getAllCash(raceId);
     }
 
     @Override
-    public void update(Stake stake, int userId) {
-        // проверка user ID
-        Assert.notNull(stake, "stake must not be null");
-        repository.update(stake);
+    public void setNotEditable(LocalDateTime start, LocalDateTime finish) {
+        getBetween(start, finish).forEach(stake -> { stake.setEditable(false); repository.update(stake); });
+    }
+
+    @Override
+    public void setNotEditable(int raceId) {
+        repository.getAllByRaceId(raceId).forEach(stake -> { stake.setEditable(false); repository.update(stake); });
     }
 
     @Override
     public void setWinningStakes(int horseId, LocalDateTime startDate, LocalDateTime endDate) {
         repository.getBetweenWithHorse(horseId, startDate, endDate).stream()
-                //.filter(s -> s.getHorse().getId() == horseId)
                 .peek(s -> s.setWins(true))
                 .forEach(s -> repository.update(s));
     }
 
     @Override
+    public void setWinningStakes(int horseId, int raceId) {
+        repository.getAllByHorseIdAndRaceId(horseId, raceId)
+                .forEach(stake -> {stake.setWins(true); repository.update(stake);});
+    }
+
+    @Override
     public List<Stake> getWinningStakes(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.getBetween(startDate, endDate).stream()
-                .filter(Stake::getWins)
+                .filter(Stake::isWins)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Stake> getWinningStakes(int raceId) {
+        return repository.getWinningStakes(raceId);
     }
 
     @Override
     public List<Stake> getLoosingStakes(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.getBetween(startDate, endDate).stream()
-                .filter(s -> !s.getWins())
+                .filter(stake -> !stake.isWins())
                 .collect(Collectors.toList());
     }
 
@@ -96,10 +115,8 @@ public class StakeServiceImpl implements StakeService {
 
     @Override
     public List<User> getWinningUsers(int horseId, LocalDateTime startDate, LocalDateTime endDate){
-        // проверка user ID
         return repository.getBetweenWithHorse(horseId, startDate, endDate)
                 .stream()
-                //.filter(s -> s.getHorse().equals(horseId))
                 .map(Stake::getUser)
                 .collect(Collectors.toList());
     }
@@ -111,7 +128,6 @@ public class StakeServiceImpl implements StakeService {
 
     @Override
     public List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate) {
-        // проверка user ID
         return repository.getBetween(startDate, endDate);
     }
 
@@ -124,19 +140,16 @@ public class StakeServiceImpl implements StakeService {
 
     @Override
     public List<Stake> getBetween(User user, LocalDateTime startDate, LocalDateTime endDate) {
-        // проверка user ID
         return repository.getBetween(user, startDate, endDate);
     }
 
     @Override
     public List<Stake> getBetween(Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
-        // проверка user ID
         return repository.getBetweenWithHorse(horse.getId(), startDate, endDate);
     }
 
     @Override
     public List<Stake> getBetween(User user, Horse horse, LocalDateTime startDate, LocalDateTime endDate) {
-        // проверка user ID
         return repository.getBetween(user, horse, startDate, endDate);
     }
 

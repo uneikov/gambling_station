@@ -55,14 +55,33 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
+    public List<Stake> getAllByRaceId(int raceId) {
+        return em.createNamedQuery(Stake.ALL_WITH_RACE_ID, Stake.class)
+                .setParameter("raceId", raceId)
+                .getResultList();
+    }
+
+    @Override
+    public List<Stake> getAllByHorseIdAndRaceId(int horseId, int raceId) {
+        return em.createNamedQuery(Stake.SORTED_WITH_HORSE_ID_AND_RACE_ID, Stake.class)
+                .setParameter("horseId", horseId)
+                .setParameter("raceId", raceId)
+                .getResultList();
+    }
+
+    @Override
     public List<Stake> getAll() {
         return em.createNamedQuery(Stake.ALL_SORTED, Stake.class).getResultList();
     }
 
     @Override
     public Double getAllCash(LocalDateTime startDate, LocalDateTime endDate) {
-        List<Stake> between = getBetween(startDate, endDate);
         return getBetween(startDate, endDate).stream().mapToDouble(Stake::getStakeValue).sum();
+    }
+
+    @Override
+    public Double getAllCash(int raceId) {
+        return getAllByRaceId(raceId).stream().mapToDouble(Stake::getStakeValue).sum();
     }
 
     @Override
@@ -73,8 +92,15 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     @Override
     public List<Stake> getWinningStakes(LocalDateTime startDate, LocalDateTime endDate, int userId) {
         return getBetween(startDate, endDate, userId).stream()
-                .filter(Stake::getWins)
+                .filter(Stake::isWins)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Stake> getWinningStakes(int raceId) {
+        return em.createNamedQuery(Stake.WINNING_WITH_RACE_ID, Stake.class)
+                .setParameter("raceId", raceId)
+                .getResultList();
     }
 
     @Override

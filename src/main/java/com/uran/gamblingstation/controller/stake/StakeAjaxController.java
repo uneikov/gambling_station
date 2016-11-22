@@ -73,12 +73,12 @@ public class StakeAjaxController extends AbstractStakeController{
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/filter")
+    @PostMapping(value = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Stake> getBetween(
-            @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate startDate,
-            @RequestParam(value = "startTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)LocalTime startTime,
+            @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(value = "startTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime,
             @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @RequestParam(value = "endTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)LocalTime endTime,
+            @RequestParam(value = "endTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime endTime,
             @RequestParam(value = "option", required = false) String option )
     {
         return super.getBetween(startDate, startTime, endDate, endTime, option);

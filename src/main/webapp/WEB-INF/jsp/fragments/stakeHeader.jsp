@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse">
             <form class="navbar-form navbar-right">
                 <a class="btn btn-info" role="button" href="stakes"><fmt:message key="stakes.title"/></a>
-                <a class="btn btn-info" role="button" onclick=wallet()><fmt:message key="wallet.title"/></a>
+               <%-- <a class="btn btn-info" role="button" onclick=wallet()><fmt:message key="wallet.title"/></a>--%>
                <%-- <a class="btn btn-primary" role="button" href="stakes/create"><fmt:message key="stake.add"/></a>--%>
                 <%--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editRow"><fmt:message key="stake.add"/></button>--%>
                 <%--<button type="button" class="btn btn-primary" data-toggle="modal" onclick=getHorses()><fmt:message key="stake.add"/></button>--%>

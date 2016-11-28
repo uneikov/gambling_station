@@ -1,7 +1,8 @@
 var ajaxUrl = 'ajax/profile/stakes/';
 var ajaxHorsesUrl ='ajax/horses/names/';
 var ajaxWalletsUrl = 'ajax/profile/wallets/';
-var ajaxRacesUrl = 'ajax/admin/races/';
+//var ajaxRacesUrl = 'ajax/admin/races/';
+var ajaxRacesUrl = 'ajax/profile/races/';
 var datatableApi;
 
 function rowColor(row) {
@@ -60,7 +61,7 @@ function addModal(){
             '<div class="input-group">' +
             '<span class="input-group-addon"><i class="glyphicon glyphicon-menu-hamburger"></i></span>' +
             '<select class="form-control" id="horseName" name="horseName" >' +
-            '<option value="" disabled="disabled" selected="selected">Please select a horse</option>' +
+            '<option value="" selected="selected">Select a horse</option>' +
             '<option value="' + horses[0] + '">' + horses[0] + '</option>' +
             '<option value="' + horses[1] + '">' + horses[1] + '</option>' +
             '<option value="' + horses[2] + '">' + horses[2] + '</option>' +
@@ -83,11 +84,13 @@ function updateModal(id){
         var wallet = r3[0];
         var current = stake.stakeValue;
         var available = wallet.cash;
+        var updated = current + available;
         var select = stake.horse.name;
         debugger;
         //$('#modalTitle').html(edit_title);
         $('#value').html(
-            '<input class="form-control" id="stakeValue" name="stakeValue" type="number" step="0.01" min="1" max="' + available + '" value="' + current + '">'
+            '<input class="form-control" id="stakeValue" name="stakeValue" type="number" step="0.01" min="1" max="'
+            + updated + '" value="' + current + '">'
         );
         $('#horse').html(
             '<select class="form-control" id="horseName" name="horseName" >' +
@@ -146,6 +149,9 @@ $(function () {
         paging: true,
         info: false,
         width: true,
+        "language": {
+            "search": i18n["common.search"]
+        },
         columns: [
             {
                 data: "dateTime",
@@ -167,10 +173,12 @@ $(function () {
                 data: "horse.wins"
             },
             {
-                data: "amount"
+                data: "amount",
+                render: $.fn.dataTable.render.number( ' ', '.', 2)
             },
             {
                 data: "editable",
+                orderable: false,
                 defaultContent: "",
                 render: function (data, type, row) {
                     if (type == 'display'){
@@ -184,6 +192,7 @@ $(function () {
             },
             {
                 data: "editable",
+                orderable: false,
                 defaultContent: "",
                 render: function (data, type, row) {
                     if (type == 'display'){
@@ -204,5 +213,39 @@ $(function () {
             $(row).addClass(data.wins ? 'winned' : 'loosed');
         },
         initComplete: makeEditable
+    });
+
+    $.datetimepicker.setLocale(localeCode);
+
+    var startDate = $('#startDate');
+    var endDate = $('#endDate');
+    startDate.datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        formatDate: 'Y-m-d',
+        onShow: function (ct) {
+            this.setOptions({
+                maxDate: endDate.val() ? endDate.val() : false
+            })
+        }
+    });
+    endDate.datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        formatDate: 'Y-m-d',
+        onShow: function (ct) {
+            this.setOptions({
+                minDate: startDate.val() ? startDate.val() : false
+            })
+        }
+    });
+
+    $('#startTime, #endTime').datetimepicker({
+        datepicker: false,
+        format: 'H:i'
+    });
+
+    $('#dateTime').datetimepicker({
+        format: 'Y-m-d H:i'
     });
 });

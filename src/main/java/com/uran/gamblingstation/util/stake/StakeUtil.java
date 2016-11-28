@@ -2,12 +2,12 @@ package com.uran.gamblingstation.util.stake;
 
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.util.TimeUtil;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
-@Component
+
+//@Component
 public class StakeUtil {
 
     public static Double getValue(List<Stake> stakes){

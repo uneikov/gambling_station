@@ -5,15 +5,12 @@ import java.time.LocalDateTime;
 
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
-        @NamedQuery(name = Stake.DELETE, query = "DELETE FROM Stake s WHERE s.id=:id "),
+        @NamedQuery(name = Stake.DELETE, query =
+                "DELETE FROM Stake s WHERE s.id=:id "),
         @NamedQuery(name = Stake.GET_BETWEEN, query =
                 "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate ORDER BY s.dateTime DESC"),
         @NamedQuery(name = Stake.GET_BETWEEN_WITH_USER, query =
                 "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate AND s.user.id=:user_id ORDER BY s.dateTime DESC"),
-        @NamedQuery(name = Stake.GET_BETWEEN_WITH_USER_AND_HORSE, query =
-                "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate AND s.user.id=:user_id AND s.horse.id=:horse_id ORDER BY s.dateTime DESC"),
-        @NamedQuery(name = Stake.GET_BETWEEN_WITH_HORSE, query =
-                "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate AND s.horse.id=:horse_id ORDER BY s.dateTime DESC"),
         @NamedQuery(name = Stake.ALL_SORTED_WITH_USER, query =
                 "SELECT s FROM Stake s WHERE s.user.id=:userId ORDER BY s.dateTime DESC "),
         @NamedQuery(name = Stake.ALL_SORTED, query =
@@ -25,7 +22,9 @@ import java.time.LocalDateTime;
         @NamedQuery(name = Stake.ALL_WITH_RACE_ID, query =
                 "SELECT s FROM Stake s  WHERE s.race.id=:raceId ORDER BY s.dateTime DESC"),
         @NamedQuery(name = Stake.SORTED_WITH_HORSE_ID_AND_RACE_ID, query =
-                "SELECT s FROM Stake s  WHERE s.horse.id=:horseId AND s.race.id=:raceId ORDER BY s.dateTime DESC")
+                "SELECT s FROM Stake s  WHERE s.horse.id=:horseId AND s.race.id=:raceId ORDER BY s.dateTime DESC"),
+        @NamedQuery(name = Stake.WITH_USER, query =
+                "SELECT DISTINCT s FROM Stake s  JOIN FETCH s.user WHERE s.id=:id  ORDER BY s.dateTime DESC")
 })
 @Entity
 @Table(name = "stakes", uniqueConstraints =
@@ -39,10 +38,9 @@ public class Stake extends BaseEntity {
     public static final String WINNING_WITH_RACE_ID = "Stake.getWinningWithRaceId";
     public static final String GET_BETWEEN = "Stake.getBetween";
     public static final String GET_BETWEEN_WITH_USER = "Stake.getBetweenWithUser";
-    public static final String GET_BETWEEN_WITH_HORSE = "Stake.getBetweenWithHorse";
-    public static final String GET_BETWEEN_WITH_USER_AND_HORSE = "Stake.getBetweenWithUserAndHorse";
     public static final String ALL_WITH_RACE_ID = "Stake.getAllWithRaceId";
     public static final String SORTED_WITH_HORSE_ID_AND_RACE_ID = "Stake.getAllWithHorseIdAndRaceId";
+    public static final String WITH_USER = "Stake.getWithUser";
 
     @Column(name = "stake_value")
     private Double stakeValue;
@@ -64,7 +62,7 @@ public class Stake extends BaseEntity {
     @JoinColumn(name = "horse_id", referencedColumnName = "id", nullable = false)
     private Horse horse;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
@@ -150,10 +148,10 @@ public class Stake extends BaseEntity {
         this.dateTime = dateTime;
     }
 
-    /*public boolean getWins() {
+    public boolean isWins() {
         return wins;
     }
-*/
+
     public void setWins(boolean wins) {
         this.wins = wins;
     }
@@ -190,10 +188,6 @@ public class Stake extends BaseEntity {
         this.editable = editable;
     }
 
-    public boolean isWins() {
-        return wins;
-    }
-
     public Race getRace() {
         return race;
     }
@@ -211,7 +205,6 @@ public class Stake extends BaseEntity {
                 ", amount=" + amount +
                 ", editable=" + editable +
                 ", horse=" + horse +
-                ", user=" + user +
                 '}';
     }
 }

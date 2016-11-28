@@ -2,14 +2,11 @@ package com.uran.gamblingstation.service;
 
 
 import com.uran.gamblingstation.model.User;
+import com.uran.gamblingstation.to.UserTo;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 
 import java.util.List;
 
-/**
- * User: gkislin
- * Date: 22.08.2014
- */
 public interface UserService {
 
     User save(User user);
@@ -20,7 +17,13 @@ public interface UserService {
 
     User getByEmail(String email) throws NotFoundException;
 
+    void update(UserTo userTo);
+
     List<User> getAll();
 
     void update(User user);
+
+    void enable(int id, boolean enable);
+
+    // void evictCache();
 }

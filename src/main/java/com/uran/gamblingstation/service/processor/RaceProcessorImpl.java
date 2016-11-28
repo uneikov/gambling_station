@@ -1,10 +1,8 @@
 package com.uran.gamblingstation.service.processor;
 
-import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.service.HorseService;
 import com.uran.gamblingstation.service.StakeService;
-import com.uran.gamblingstation.service.WalletService;
 import com.uran.gamblingstation.service.account.AccountService;
 import com.uran.gamblingstation.util.stake.StakeUtil;
 import org.slf4j.Logger;
@@ -12,12 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static com.uran.gamblingstation.model.BaseEntity.WALLET_ID;
 
 @Component
 public class RaceProcessorImpl implements RaceProcessor{
@@ -25,9 +20,8 @@ public class RaceProcessorImpl implements RaceProcessor{
     @Autowired private StakeService stakeService;
     @Autowired private AccountService accountService;
     @Autowired private HorseService horseService;
-    @Autowired private WalletService walletService;
 
-    public void process(int winningHorseId, LocalDateTime start, LocalDateTime finish) {
+   /* public void process(int winningHorseId, LocalDateTime start, LocalDateTime finish) {
 
         // set editable to false for all stakes in the current race
         stakeService.setNotEditable(start, finish);
@@ -76,7 +70,7 @@ public class RaceProcessorImpl implements RaceProcessor{
             LOG.info("Winning map: {}", winningMap);
         }
 
-    }
+    }*/
 
     @Override
     public void process(int horseId, int raceId) {

@@ -2,12 +2,10 @@ package com.uran.gamblingstation.model;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @NamedQueries({
@@ -68,17 +66,8 @@ public class User extends NamedEntity {
         this.email = email;
         this.password = password;
         this.enabled = enabled;
-        this.roles = roles;
+        setRoles(roles);
     }
-
-   /* public User(Integer id, String name, String email, String password, boolean enabled, Set<Role> roles, Wallet wallet) {
-        super(id, name);
-        this.email = email;
-        this.password = password;
-        this.enabled = enabled;
-        this.roles = roles;
-        this.wallet = wallet;
-    }*/
 
     public String getEmail() {
         return email;
@@ -108,8 +97,8 @@ public class User extends NamedEntity {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
     public Wallet getWallet() {

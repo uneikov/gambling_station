@@ -33,6 +33,14 @@ public class ModelMatcher<T> {
         boolean compare(T expected, T actual);
     }
 
+    public static <T> ModelMatcher<T> of(Class<T> entityClass) {
+        return new ModelMatcher<>(entityClass);
+    }
+
+    public static <T> ModelMatcher<T> of(Class<T> entityClass, Comparator<T> comparator) {
+        return new ModelMatcher<>(entityClass, comparator);
+    }
+
     public ModelMatcher(Class<T> entityClass) {
         this(entityClass, (Comparator<T>) DEFAULT_COMPARATOR);
     }
@@ -63,9 +71,17 @@ public class ModelMatcher<T> {
         }
     }
 
-    /*public void assertDoubleEquals(Double expected, Double actual){
-        Assert.assertEquals(expected, actual);
-    }*/
+    private T fromJsonValue(String json) {
+        return JsonUtil.readValue(json, entityClass);
+    }
+
+    private Collection<T> fromJsonValues(String json) {
+        return JsonUtil.readValues(json, entityClass);
+    }
+
+    public T fromJsonAction(ResultActions action) throws UnsupportedEncodingException {
+        return fromJsonValue(TestUtil.getContent(action));
+    }
 
     public void assertEquals(T expected, T actual) {
         Assert.assertEquals(wrap(expected), wrap(actual));
@@ -81,16 +97,6 @@ public class ModelMatcher<T> {
 
     public List<Wrapper> wrap(Collection<T> collection) {
         return collection.stream().map(this::wrap).collect(Collectors.toList());
-    }
-    public T fromJsonAction(ResultActions action) throws UnsupportedEncodingException {
-        return fromJsonValue(TestUtil.getContent(action));
-    }
-    private T fromJsonValue(String json) {
-        return JsonUtil.readValue(json, entityClass);
-    }
-
-    private Collection<T> fromJsonValues(String json) {
-        return JsonUtil.readValues(json, entityClass);
     }
 
     public ResultMatcher contentMatcher(T expect) {
@@ -120,5 +126,4 @@ public class ModelMatcher<T> {
                     }
                 });
     }
-
 }

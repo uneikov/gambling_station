@@ -1,29 +1,32 @@
 package com.uran.gamblingstation.service;
 
+import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.repository.UserRepository;
+import com.uran.gamblingstation.to.UserTo;
 import com.uran.gamblingstation.util.exception.ExceptionUtil;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
 
-/**
- * GKislin
- * 06.03.2015.
- */
-@Service
-public class UserServiceImpl implements UserService {
+import static com.uran.gamblingstation.util.user.UserUtil.prepareToSave;
+import static com.uran.gamblingstation.util.user.UserUtil.updateFromTo;
 
-    @Autowired
-    private UserRepository repository;
+@Service("userService")
+public class UserServiceImpl implements UserService, UserDetailsService {
+
+    @Autowired private UserRepository repository;
 
     @Override
     public User save(User user) {
         Assert.notNull(user, "user must not be null");
-        return repository.save(user);
+        return repository.save(prepareToSave(user));
     }
 
     @Override
@@ -47,9 +50,34 @@ public class UserServiceImpl implements UserService {
         return repository.getAll();
     }
 
+
+    @Transactional
+    @Override
+    public void update(UserTo userTo) {
+        User user = updateFromTo(get(userTo.getId()), userTo);
+        repository.save(prepareToSave(user));
+    }
+
     @Override
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
+        repository.save(prepareToSave(user));
+    }
+
+    @Override
+    @Transactional
+    public void enable(int id, boolean enabled) {
+        User user = get(id);
+        user.setEnabled(enabled);
         repository.save(user);
+    }
+
+    @Override
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User u = repository.getByEmail(email.toLowerCase());
+        if (u == null) {
+            throw new UsernameNotFoundException("User " + email + " is not found");
+        }
+        return new AuthorizedUser(u);
     }
 }

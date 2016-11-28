@@ -104,8 +104,9 @@ public class RaceScheduler {
         RaceFactory
                 .close();
 
-        processor.process(winning.getId(), START, FINISH);
-        //processor.process(winning.getId(), currentRace.getId()); // race.id !!!
+        processor.process(winning.getId(), currentRace.getId());
+
+        //processor.process(winning.getId(), START, FINISH);
 
     }
 

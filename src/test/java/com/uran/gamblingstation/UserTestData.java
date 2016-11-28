@@ -3,12 +3,16 @@ package com.uran.gamblingstation;
 import com.uran.gamblingstation.matcher.ModelMatcher;
 import com.uran.gamblingstation.model.Role;
 import com.uran.gamblingstation.model.User;
+import com.uran.gamblingstation.util.PasswordUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
 import static com.uran.gamblingstation.model.BaseEntity.START_SEQ;
 
 public class UserTestData {
+    private static final Logger LOG = LoggerFactory.getLogger(UserTestData.class);
     public static final int USER_ID_1 = START_SEQ;
     public static final int USER_ID_2 = START_SEQ + 1;
     public static final int ADMIN_ID = START_SEQ + 2;
@@ -23,12 +27,22 @@ public class UserTestData {
 
     public static final ModelMatcher<User> USER_MATCHER = new ModelMatcher<>(User.class,
             (expected, actual) -> expected == actual ||
-                    (Objects.equals(expected.getId(), actual.getId())
+                    (comparePassword(expected.getPassword(), actual.getPassword())
+                            && Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getName(), actual.getName())
                             && Objects.equals(expected.getEmail(), actual.getEmail())
-                            && Objects.equals(expected.getPassword(), actual.getPassword())
-                           /* && Objects.equals(expected.getRegistered(), actual.getRegistered())*/
+                            && Objects.equals(expected.isEnabled(), actual.isEnabled())
                             && Objects.equals(expected.getRoles(), actual.getRoles())
                     )
     );
+
+    private static boolean comparePassword(String rawOrEncodedPassword, String password) {
+        if (PasswordUtil.isEncoded(rawOrEncodedPassword)) {
+            return rawOrEncodedPassword.equals(password);
+        } else if (!PasswordUtil.isMatch(rawOrEncodedPassword, password)) {
+            LOG.error("Password " + password + " doesn't match encoded " + password);
+            return false;
+        }
+        return true;
+    }
 }

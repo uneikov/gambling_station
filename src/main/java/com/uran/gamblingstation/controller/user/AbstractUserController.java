@@ -4,15 +4,14 @@ import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.model.Wallet;
 import com.uran.gamblingstation.service.UserService;
 import com.uran.gamblingstation.service.WalletService;
+import com.uran.gamblingstation.to.UserTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * User: gkislin
- */
 public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -29,6 +28,7 @@ public abstract class AbstractUserController {
         return userService.get(id);
     }
 
+    @Transactional
     public User create(User user) {
         user.setId(null);
         log.info("create " + user);
@@ -49,8 +49,18 @@ public abstract class AbstractUserController {
         userService.update(user);
     }
 
+    public void update(UserTo userTo) {
+        log.info("update " + userTo);
+        userService.update(userTo);
+    }
+
     public User getByMail(String email) {
         log.info("getByEmail " + email);
         return userService.getByEmail(email);
+    }
+
+    void enable(int id, boolean enabled) {
+        log.info((enabled ? "enable " : "disable ") + id);
+        userService.enable(id, enabled);
     }
 }

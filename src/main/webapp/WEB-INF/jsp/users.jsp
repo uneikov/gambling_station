@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
 <head>
 <jsp:include page="fragments/headTag.jsp"/>
-<jsp:include page="fragments/i18nTag.jsp"/>
+<%--<jsp:include page="fragments/i18nTag.jsp"/>--%>
 <link rel="stylesheet" href="webjars/datatables/1.10.12/css/dataTables.bootstrap.min.css">
 </head>
 <body>
@@ -14,20 +15,20 @@
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h3><fmt:message key="users.title"/></h3>
+            <h3><spring:message code="users.title"/></h3>
             <div class="view-box">
 
-                <a class="btn btn-sm btn-info" onclick="add()"><fmt:message key="users.add"/></a><hr>
+                <a class="btn btn-sm btn-info" onclick="add()"><spring:message code="users.add"/></a><hr>
                 <%--<a class="btn btn-sm btn-info" href="horses"><fmt:message key="horses.add"/></a>--%>
 
                 <table class="table table-striped display" id="userstable">
                     <thead>
                     <tr>
-                        <th><fmt:message key="users.name"/></th>
-                        <th><fmt:message key="users.email"/></th>
-                        <th><fmt:message key="users.roles"/></th>
-                        <th><fmt:message key="users.active"/></th>
-                        <th><fmt:message key="users.registered"/></th>
+                        <th><spring:message code="users.name"/></th>
+                        <th><spring:message code="users.email"/></th>
+                        <th><spring:message code="users.roles"/></th>
+                        <th><spring:message code="users.active"/></th>
+                        <th><spring:message code="users.registered"/></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -48,7 +49,7 @@
                 <h2 class="modal-title" id="modalTitle"></h2>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" method="post" id="detailsForm" title="user">
+                <form:form class="form-horizontal" method="post" id="detailsForm" title="user">
                     <input type="text" hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
@@ -77,22 +78,20 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
-                            <button class="btn btn-default" type="button" data-dismiss="modal"><fmt:message key="common.cancel"/></button>
-                            <button class="btn btn-primary"  type="button" onclick="save()"><fmt:message key="common.save"/></button>
+                            <button class="btn btn-default" type="button" data-dismiss="modal"><spring:message code="common.cancel"/></button>
+                            <button class="btn btn-primary"  type="button" onclick="save()"><spring:message code="common.save"/></button>
                         </div>
                     </div>
-                </form>
+                </form:form>
             </div>
         </div>
     </div>
 </div>
 </body>
 <script type="text/javascript">
-    var edit_title ='<fmt:message key="users.edit"/>';
-    var add_title ='<fmt:message key="users.add"/>';
+    var edit_title ='<spring:message code="users.edit"/>';
+    var add_title ='<spring:message code="users.add"/>';
 </script>
-<script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
-<script type="text/javascript" src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>

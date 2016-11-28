@@ -2,8 +2,15 @@ var form;
 
 function makeEditable() {
     form = $('#detailsForm');
+
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         failNoty(event, jqXHR, options, jsExc);
+    });
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
     });
 }
 
@@ -32,7 +39,7 @@ function wallet() {
 
 */
 
-// Не работает для horses
+// Не работает для horses ?
 function updateRow(id) {
     debugger;
     var form_title= this.form[0].title;
@@ -51,23 +58,6 @@ function updateRow(id) {
         $('#editRow').modal();
     }
 }
-/*
-function updateUserRow(id) {
-    $('#modalTitle').html(edit_title);
-    $.get(ajaxUrl + id, function (data) {
-        $.each(data, function (key, value) {
-            console.log(key, value);
-            form.find("input[name='" + key + "']").val(value);
-        });
-        updateModal(id);
-    });
-}*/
-
-/*
-$("#editRow").on('show.bs.modal', function () {
-    alert('The modal is about to be shown.');
-});
-*/
 
 function deleteRow(id) {
     $.ajax({
@@ -85,7 +75,7 @@ function enable(chkbox, id) {
     debugger;
     $.ajax({
         url: ajaxUrl + id,
-        type: 'PUT',
+        type: 'POST',
         data: 'enabled=' + enabled,
         success: function () {
             chkbox.closest('tr').fadeTo(300, enabled ? 1 : 0.3);

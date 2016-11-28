@@ -42,7 +42,7 @@ public class JspStakeController extends AbstractStakeController{
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(Model model) {
         model.addAttribute("stake",
-                new Stake(null, userService.get(AuthorizedUser.id), null, 0.0d , false, 0.0d) );
+                new Stake(null, userService.get(AuthorizedUser.id()), null, 0.0d , false, 0.0d) );
         model.addAttribute("horses", horseService.getAll().stream().map(Horse::getName).collect(Collectors.toList()));
         return "stake";
     }

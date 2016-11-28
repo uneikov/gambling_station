@@ -5,26 +5,16 @@ import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.model.Wallet;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static com.uran.gamblingstation.UserTestData.*;
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-database.xml"
-})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:database/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class UserServiceTest {
+
+public class UserServiceTest extends AbstractServiceTest{
     @Autowired
     private UserService userService;
     @Autowired

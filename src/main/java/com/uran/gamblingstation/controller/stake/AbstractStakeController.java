@@ -41,10 +41,6 @@ public class AbstractStakeController {
         return stakeService.getAllByUserId(userId);
     }
 
-    Horse getHorse(String name){
-        return horseService.getByName(name);
-    }
-
     public Stake get(int id) {
         int userId = AuthorizedUser.id();
         LOG.info("get stake {} for User {}", id, userId);
@@ -53,10 +49,12 @@ public class AbstractStakeController {
 
     // only admin can delete stakes !!!
     // chained transactional operations !!!
+    @Transactional
     public void delete(int id) {
         int userId = AuthorizedUser.id();
         LOG.info("delete stake {} for User {}", id, userId);
         //update wallet!!
+        // move to service?
         final Double deleted = stakeService.get(id).getStakeValue();
         stakeService.delete(id);                // transaction #2
         accountService.transferToUser(userId, deleted); // transaction #1
@@ -108,17 +106,21 @@ public class AbstractStakeController {
         final User user = userService.get(AuthorizedUser.id());
         final Horse horse = horseService.getByName(stakeTo.getHorseName());
         //final Race race = RaceScheduler.getCurrentRace();
+        //Double newStakeValue = stakeTo.getStakeValue() +
         final Race race = stakeService.get(stakeTo.getId()).getRace();
         Stake stake = new Stake(id, user, horse, race,  stakeTo.getStakeValue(), LocalDateTime.now(), false, 0.0d, true);
         LOG.info("update {} for User {}", stake, user);
+        updateUserAndStationWallets(stakeService.get(id).getStakeValue() - stakeTo.getStakeValue());
         stakeService.update(stake);
+
 
         /*final List<Stake> stakes = raceService.get(race.getId()).getStakes();
         stakes.set(id, stake);
         race.setStakes(stakes);
         raceService.update(race);*/
 
-        updateUserAndStationWallets(stakeService.get(id).getStakeValue() - stakeTo.getStakeValue());
+        //update wallet
+
     }
 
     @Transactional

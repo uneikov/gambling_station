@@ -1,9 +1,7 @@
 package com.uran.gamblingstation.controller.stake;
 
 import com.uran.gamblingstation.model.Stake;
-import com.uran.gamblingstation.service.UserService;
 import com.uran.gamblingstation.to.StakeTo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,8 +20,8 @@ import static com.uran.gamblingstation.AuthorizedUser.id;
 @RequestMapping("/ajax/profile/stakes")
 public class StakeAjaxController extends AbstractStakeController{
 
-    @Autowired
-    UserService userService;
+    /*@Autowired
+    UserService userService;*/
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

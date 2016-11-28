@@ -14,6 +14,7 @@ public class RaceTestData {
     private static final String HORSES_LIST_2 ="Predator:Хищник,Gulfstream:Гольфстрим,Rabindranate:Рабиндранат,Ruby Rose:Рубироуз,White Ghost:Белый призрак,Angelfire:Энджелфае";
 
     public static final int RACE_1_ID = 100014;
+    public static final int RACE_4_ID = 100017;
     public static final Race RACE_1 = new Race(100014, of(2016, Month.MAY, 30, 10, 0), of(2016, Month.MAY, 30, 10, 45), HORSES_LIST_1, "Ghost:Черный призрак");
     public static final Race RACE_2 = new Race(100015, of(2016, Month.JUNE, 12, 13, 0), of(2016, Month.JUNE, 12, 13, 45), HORSES_LIST_1, "Thunderbird:Гром");
     public static final Race RACE_3 = new Race(100016, of(2016, Month.JUNE, 13, 19, 0), of(2016, Month.JUNE, 13, 19, 45), HORSES_LIST_2, "Predator:Хищник");

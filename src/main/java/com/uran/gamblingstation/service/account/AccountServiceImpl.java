@@ -3,21 +3,17 @@ package com.uran.gamblingstation.service.account;
 import com.uran.gamblingstation.model.Role;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.model.Wallet;
-import com.uran.gamblingstation.service.StakeService;
 import com.uran.gamblingstation.service.UserService;
 import com.uran.gamblingstation.service.WalletService;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
 @Service
 public class AccountServiceImpl implements AccountService{
 
     @Autowired private WalletService walletService;
     @Autowired private UserService userService;
-    @Autowired private StakeService stakeService;
 
     @Override
     public void transferToStation(int userId, Double value) {
@@ -58,11 +54,11 @@ public class AccountServiceImpl implements AccountService{
         walletService.update(userWallet);
     }
 
-    public void debitAccounts(LocalDateTime startDate, LocalDateTime endDate){
+    /* public void debitAccounts(LocalDateTime startDate, LocalDateTime endDate){
         stakeService.getBetween(startDate, endDate)
                 .forEach(stake -> debitAccount(stake.getUser().getId(), stake.getStakeValue()));
     }
-
+    */
     private Wallet getStationWallet(){
         Wallet walletStation;
 

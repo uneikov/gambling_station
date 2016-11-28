@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
@@ -10,7 +11,7 @@
 <div class="jumbotron">
     <div class="container">
         <p></p>
-        <form method="post" action="users">
+        <form:form method="post" action="users">
             <label for="login"><fmt:message key="app.login"/>:</label>
             <select id="login" name="userId">
             <option value="100000" selected>User1</option>
@@ -19,7 +20,7 @@
             <option value="100003">Station</option>
         </select>
             <button type="submit"><fmt:message key="common.select"/></button>
-        </form>
+        </form:form>
         <ul>
             <li><a href="users"><fmt:message key="users.title"/></a></li>
          <%--   <li><a href="wallet"><fmt:message key="users.title"/></a></li>--%>

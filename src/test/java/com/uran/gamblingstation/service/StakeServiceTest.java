@@ -1,36 +1,23 @@
 package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Stake;
-import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.util.TimeUtil;
+import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-import static com.uran.gamblingstation.HorseTestData.HORSE_6;
 import static com.uran.gamblingstation.HorseTestData.WINNING_HORSE;
+import static com.uran.gamblingstation.RaceTestData.RACE_1_ID;
+import static com.uran.gamblingstation.RaceTestData.RACE_4_ID;
 import static com.uran.gamblingstation.StakeTestData.*;
 import static com.uran.gamblingstation.UserTestData.*;
-import static com.uran.gamblingstation.util.TimeUtil.VALID_END_DATETIME;
-import static com.uran.gamblingstation.util.TimeUtil.VALID_START_DATETIME;
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-database.xml"
-})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:database/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class StakeServiceTest {
+public class StakeServiceTest extends AbstractServiceTest{
 
     @Autowired
     private StakeService service;
@@ -42,9 +29,9 @@ public class StakeServiceTest {
     }
 
     @Test
-    public void testGetAllCash() throws Exception {
-        Double cash = service.getAllCash(TimeUtil.MIN_DATE_TIME, TimeUtil.MAX_DATE_TIME);
-        Assert.assertEquals(cash, 501.25, 0.0001);
+    public void testGetByRace(){
+        List<Stake> allStakes = service.getAllByRaceId(RACE_1_ID);
+        STAKE_MATCHER.assertCollectionEquals(allStakes, Collections.singletonList(STAKE_1));
     }
 
     @Test
@@ -52,7 +39,7 @@ public class StakeServiceTest {
         List<Stake> allStakes = service.getAllWinningStakes();
         STAKE_MATCHER.assertCollectionEquals(allStakes, Collections.singletonList(STAKE_1));
     }
-//foreign key no parent
+
     @Test
     public void testSave() throws Exception {
         Stake created = getCreated();
@@ -68,10 +55,16 @@ public class StakeServiceTest {
         STAKE_MATCHER.assertEquals(updated, service.get(STAKE_1_ID));
     }
 
-    @Test // only admin can delete stakes!!!
+    @Test
     public void testDelete() throws Exception {
         service.delete(STAKE_2_ID);
         STAKE_MATCHER.assertCollectionEquals(service.getAllByUserId(USER_ID_2), Collections.singletonList(STAKE_4));
+    }
+
+    @Test
+    public void testDeleteNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
+        service.delete(1);
     }
 
     @Test
@@ -96,49 +89,39 @@ public class StakeServiceTest {
 
     @Test
     public void testArchived() throws Exception {
-        Stake stake =getEditable();
-        service.setNotEditable(VALID_START_DATETIME, VALID_END_DATETIME);
+        service.setNotEditable(RACE_4_ID);
         Assert.assertFalse(service.get(STAKE_3_ID).isEditable());
     }
 
     @Test
     public void testSetWinningStakes() {
-        service.setWinningStakes(WINNING_HORSE.getId(), VALID_START_DATETIME, VALID_END_DATETIME);
-        List<Stake> list = service.getWinningStakes(VALID_START_DATETIME, VALID_END_DATETIME);
-        STAKE_5_WIN.setAmount(0.0d);
-        STAKE_4_WIN.setAmount(0.0d);
-        STAKE_MATCHER.assertCollectionEquals(list, Arrays.asList(STAKE_5_WIN, STAKE_4_WIN));
+        service.setWinningStakes(WINNING_HORSE.getId(), RACE_4_ID);
+        List<Stake> list = service.getWinningStakes(RACE_4_ID);
+        STAKE_MATCHER.assertCollectionEquals(list, Arrays.asList(STAKE_4_WIN, STAKE_5_WIN));
     }
 
     @Test
     public void testWinningAmounts() {
         Map<Integer, Double> winningMap = new HashMap<>();
-        service.setWinningStakes(WINNING_HORSE.getId(), VALID_START_DATETIME, VALID_END_DATETIME);
-        List<Stake> beforeList = service.getWinningStakes(VALID_START_DATETIME, VALID_END_DATETIME);
+        service.setWinningStakes(WINNING_HORSE.getId(), RACE_4_ID);
+        List<Stake> beforeList = service.getWinningStakes(RACE_4_ID);
         beforeList.forEach(stake -> winningMap.put(stake.getUser().getId(), 100.0));
         service.processWinningStakes(beforeList, winningMap);
-        List<Stake> afterList = service.getWinningStakes(VALID_START_DATETIME, VALID_END_DATETIME);
+        List<Stake> afterList = service.getWinningStakes(RACE_4_ID);
         double sum = afterList.stream().mapToDouble(Stake::getAmount).sum();
         Assert.assertEquals(sum, 200.0, 0.0001);
     }
 
     @Test
     public void testRaceResult() {
-        /*Horse winningHorse = HORSES.get(RandomUtil.getWinningHorse());*/
-        service.setWinningStakes(WINNING_HORSE.getId(), VALID_START_DATETIME, VALID_END_DATETIME);
-        List<User> winningUsers = service.getWinningUsers(WINNING_HORSE.getId(), VALID_START_DATETIME, VALID_END_DATETIME);
-        USER_MATCHER.assertCollectionEquals(winningUsers, Arrays.asList(USER_1, USER_2));
-    }
-
-    @Test
-    public void testGetBetweenWithUserAndHorse(){
-        List<Stake> stake = service.getBetween(
-                USER_1,
-                HORSE_6,
-                LocalDateTime.of(2016, Month.JUNE, 1, 0, 0).truncatedTo(ChronoUnit.SECONDS),
-                LocalDateTime.of(2016, Month.JUNE, 30, 23, 49).truncatedTo(ChronoUnit.SECONDS)
+        service.setWinningStakes(WINNING_HORSE.getId(), RACE_4_ID);
+        List<Stake> winning = service.getWinningStakes(RACE_4_ID);
+        Stake winning1 = service.getWithUser(winning.get(0).getId());
+        Stake winning2 = service.getWithUser(winning.get(1).getId());
+        STAKE_MATCHER.assertCollectionEquals(
+                Arrays.asList(winning1, winning2),
+                Arrays.asList(STAKE_4_WIN, STAKE_5_WIN)
         );
-        STAKE_MATCHER.assertCollectionEquals(stake, Collections.singletonList(STAKE_3));
     }
 
     @Test
@@ -152,7 +135,7 @@ public class StakeServiceTest {
 
     @Test
     public void testGetUser(){
-        Stake stake = service.get(STAKE_2_ID);
+        Stake stake = service.getWithUser(STAKE_2_ID);
         USER_MATCHER.assertEquals(USER_2, stake.getUser());
     }
 }

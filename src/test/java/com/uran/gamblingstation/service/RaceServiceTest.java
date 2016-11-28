@@ -3,12 +3,7 @@ package com.uran.gamblingstation.service;
 import com.uran.gamblingstation.model.Race;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.Month;
 import java.util.Arrays;
@@ -16,13 +11,8 @@ import java.util.Arrays;
 import static com.uran.gamblingstation.RaceTestData.*;
 import static java.time.LocalDateTime.of;
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-database.xml"
-})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:database/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class RaceServiceTest {
+
+public class RaceServiceTest extends AbstractServiceTest{
 
     @Autowired RaceService raceService;
 

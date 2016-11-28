@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 @RequestMapping(StakeRestController.REST_URL)
 public class StakeRestController extends AbstractStakeController{
 
-    public static final String REST_URL = "/rest/stakes";
+    static final String REST_URL = "/rest/stakes";
     private static final String contentType = MediaType.APPLICATION_JSON_VALUE;
 
     @GetMapping(produces = contentType)
@@ -44,7 +45,7 @@ public class StakeRestController extends AbstractStakeController{
     }
 
     @PostMapping(consumes = contentType, produces = contentType)
-    public ResponseEntity<Stake> createWithLocation(@RequestBody Stake stake) {
+    public ResponseEntity<Stake> createWithLocation(@Valid @RequestBody Stake stake) {
         Stake created = super.create(stake);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()

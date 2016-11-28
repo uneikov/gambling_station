@@ -1,24 +1,16 @@
 package com.uran.gamblingstation.service.account;
 
+import com.uran.gamblingstation.service.AbstractServiceTest;
 import com.uran.gamblingstation.service.WalletService;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static com.uran.gamblingstation.UserTestData.*;
+import static com.uran.gamblingstation.UserTestData.USER_ID_1;
+import static com.uran.gamblingstation.UserTestData.USER_ID_2;
 import static com.uran.gamblingstation.model.BaseEntity.WALLET_ID;
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-database.xml"
-})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:database/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class AccountServiceTest {
+
+public class AccountServiceTest extends AbstractServiceTest {
 
     @Autowired private AccountService accountService;
     @Autowired private WalletService walletService;

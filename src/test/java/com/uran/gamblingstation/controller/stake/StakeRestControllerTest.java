@@ -34,7 +34,6 @@ public class StakeRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        final ResultActions perform = mockMvc.perform(get(STAKE_REST_URL + STAKE_1_ID));
         mockMvc.perform(get(STAKE_REST_URL + STAKE_1_ID)
                 .with(userHttpBasic(USER_1)))
                 .andExpect(status().isOk())

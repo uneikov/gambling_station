@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
@@ -41,6 +42,11 @@ public class JpaRaceRepositoryImpl implements RaceRepository{
     }
 
     @Override
+    public List<Race> getAllWithStakes() {
+        return em.createNamedQuery(Race.ALL_SORTED_WITH_STAKES, Race.class).getResultList();
+    }
+
+    @Override
     public Race getByDateTime(LocalDateTime start, LocalDateTime finish) {
         Collection<Race> races = em.createNamedQuery(Race.BY_DATE_TIME, Race.class)
                 .setParameter(1, start)
@@ -50,7 +56,7 @@ public class JpaRaceRepositoryImpl implements RaceRepository{
     }
 
     @Override
-    public Collection<Race> getAll() {
+    public List<Race> getAll() {
         return em.createNamedQuery(Race.ALL_SORTED, Race.class).getResultList();
     }
 

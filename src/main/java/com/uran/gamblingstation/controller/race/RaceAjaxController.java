@@ -9,19 +9,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
+import java.util.List;
 
 import static com.uran.gamblingstation.model.BaseEntity.USERS_CAN_MAKE_STAKES;
 
 @RestController
 @RequestMapping("/ajax/admin/races")
-public class RaceAjaxController {
+public class RaceAjaxController extends AbstractRaceController{
 
     @Autowired RaceService raceService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<Race> getAll() {
+    public List<Race> getAll() {
         return raceService.getAll();
+    }
+
+    @GetMapping(value = "/with", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Race> getWithStakes() {
+        return super.getAllWithStakes();
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

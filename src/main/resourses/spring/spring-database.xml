@@ -27,17 +27,17 @@
 
     <tx:annotation-driven/>
 
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+  <!--  <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
           p:packagesToScan="com.uran.**.model">
-        <!--p:persistenceUnitName="persistenceUnit">-->
+        &lt;!&ndash;p:persistenceUnitName="persistenceUnit">&ndash;&gt;
 
         <property name="jpaPropertyMap">
             <map>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>
-                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).DIALECT}" value="org.hibernate.dialect.HSQLDialect"/>-->
-                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="${hibernate.hbm2ddl.auto}"/>-->
+                &lt;!&ndash;<entry key="#{T(org.hibernate.cfg.AvailableSettings).DIALECT}" value="org.hibernate.dialect.HSQLDialect"/>&ndash;&gt;
+                &lt;!&ndash;<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="${hibernate.hbm2ddl.auto}"/>&ndash;&gt;
             </map>
         </property>
 
@@ -49,7 +49,7 @@
     </bean>
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
           p:entityManagerFactory-ref="entityManagerFactory"/>
-
+-->
     <!-- Choose profile from (hsqldb, postgres) and (jdbc,datajpa,jpa) -->
     <beans profile="hsqldb">
         <context:property-placeholder location="classpath:database/hsqldb.properties" system-properties-mode="OVERRIDE"/>
@@ -72,6 +72,35 @@
               p:username="${database.username}"
               p:password="${database.password}"/>
     </beans>
+
+    <beans profile="tomcat">
+        <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/topjava"/>
+        <context:property-placeholder location="classpath:db/tomcat.properties" system-properties-mode="OVERRIDE"/>
+    </beans>
+
+    <beans profile="heroku">
+        <context:property-placeholder location="classpath:database/heroku.properties" system-properties-mode="OVERRIDE"/>
+
+        <bean class="java.net.URI" id="dbUrl">
+            <constructor-arg value="${DATABASE_URL}"/>
+        </bean>
+        <bean id="dataSource"
+              class="org.apache.tomcat.jdbc.pool.DataSource"
+              p:url="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + @dbUrl.getPath() }"
+              p:username="#{ @dbUrl.getUserInfo().split(':')[0] }"
+              p:password="#{ @dbUrl.getUserInfo().split(':')[1] }"
+              p:driverClassName="org.postgresql.Driver"
+              p:validationQuery="SELECT 1 FROM users"
+              p:maxActive="10"
+              p:minIdle="2"
+              p:maxWait="20000"
+              p:initialSize="2"
+              p:maxIdle="5"
+              p:testOnBorrow="true"
+              p:removeAbandoned="true"
+              p:testOnConnect="true"
+              p:testWhileIdle="true"/>
+    </beans>
     <!--no pooling-->
   <!--  <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -82,17 +111,16 @@
     </bean>-->
 
 
-   <!-- <beans profile="jpa">
+    <beans profile="jpa">
         <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
               p:dataSource-ref="dataSource"
               p:packagesToScan="com.uran.**.model">
-            &lt;!&ndash;p:persistenceUnitName="persistenceUnit">&ndash;&gt;
 
             <property name="jpaPropertyMap">
                 <map>
                     <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>
                     <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>
-                    &lt;!&ndash;<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="${hibernate.hbm2ddl.auto}"/>&ndash;&gt;
+                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="${hibernate.hbm2ddl.auto}"/>-->
                 </map>
             </property>
 
@@ -102,16 +130,13 @@
                 </bean>
             </property>
         </bean>
-        <tx:annotation-driven/>
 
-        &lt;!&ndash; Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) &ndash;&gt;
+        <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
         <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
               p:entityManagerFactory-ref="entityManagerFactory"/>
     </beans>
+
     <beans profile="jpa">
         <context:component-scan base-package="com.uran.**.repository.jpa"/>
-    </beans>-->
-    <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
-
-
+    </beans>
 </beans>

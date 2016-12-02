@@ -97,4 +97,9 @@
 <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/userDatatables.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#addButton').hide();
+    });
+</script>
 </html>

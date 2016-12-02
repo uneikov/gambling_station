@@ -11,13 +11,13 @@ INSERT INTO users (name, email, password, registered)
 VALUES
   ('User1', 'user1@yandex.ru', '$2a$10$Gk4kXU24ryWq66oKA0f8AeaguhyMNx7.pR2x/euooqK0NG.IyK1jC', '2016-10-1 10:00:00'),
   ('User2', 'user2@yandex.ru', '$2a$10$3Om1jqFdbcLtir5XsQbS2uiBG/7kv2twth/3BGg1jPTjbqgaqplw.', '2016-10-1 10:00:00');
--- password1 password2
+-- pass::password1 password2
 INSERT INTO users (name, email, password, registered)
 VALUES ('Admin', 'admin@gmail.com', '$2a$10$WejOLxVuXRpOgr4IlzQJ.eT4UcukNqHlAiOVZj1P/nmc8WbpMkiju', '2016-10-1 10:00:00');
-
+-- pass:admin
 INSERT INTO users (name, email, password, registered)
 VALUES ('Station', 'station@gamblingstation.com', '$2a$10$4BB/oW0v.c54SFiRB47gue22MjbPnG88iSRSo//uESs1T1NMrnpUK', '2016-10-1 10:00:00');
--- stationpass
+-- pass:stationpass
 INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 100000),
   ('ROLE_USER', 100001),

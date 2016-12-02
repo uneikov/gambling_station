@@ -13,7 +13,6 @@
 <html>
 <head>
     <jsp:include page="fragments/headTag.jsp"/>
-    <%--<jsp:include page="fragments/i18nTag.jsp"/>--%>
     <link rel="stylesheet" href="webjars/datatables/1.10.12/css/dataTables.bootstrap.min.css">
 </head>
 <body>
@@ -105,4 +104,9 @@
 <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/horseDatatables.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#addButton').hide();
+    });
+</script>
 </html>

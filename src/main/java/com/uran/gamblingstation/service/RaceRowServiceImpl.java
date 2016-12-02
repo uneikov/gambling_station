@@ -20,6 +20,7 @@ public class RaceRowServiceImpl implements RaceRowService{
     public List<RaceRow> getRows() { // date & time filter needed ?
         return raceService.getAll().stream().map(race -> {
             final List<Stake> allByRaceId = stakeService.getAllByRaceId(race.getId());
+            //final List<Stake> allByRaceId = race.getStakes();
             return new RaceRow(
                     race.getStart(),
                     race.getFinish(),

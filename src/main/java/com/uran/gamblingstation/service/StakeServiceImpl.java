@@ -44,7 +44,7 @@ public class StakeServiceImpl implements StakeService {
         repository.update(stake);
     }
 
-
+    // а оно надо ???
     @Override
     public Stake getWithUser(int id) {
         return repository.getWithUser(id);

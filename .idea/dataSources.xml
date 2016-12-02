@@ -13,5 +13,15 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/gamblingstation</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="heroku" uuid="7583c2fb-8167-4217-8907-6f4296a4f10f">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-54-75-228-77.eu-west-1.compute.amazonaws.com:5432/dddvehoe0b89o</jdbc-url>
+      <driver-properties>
+        <property name="ssl" value="true" />
+        <property name="sslfactory" value="org.postgresql.ssl.NonValidatingFactory" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>

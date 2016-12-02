@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.List;
 
 @Service
 public class RaceServiceImpl implements RaceService {
@@ -32,6 +32,12 @@ public class RaceServiceImpl implements RaceService {
         return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
     }
 
+
+    @Override
+    public List<Race> getAllWithStakes() {
+        return repository.getAllWithStakes();
+    }
+
     /*@Override
     public Race getByDateTyme(LocalDateTime dateTime) throws NotFoundException {
         Assert.notNull(dateTime, "dateTime must not be null");
@@ -46,7 +52,7 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
-    public Collection<Race> getAll() {
+    public List<Race> getAll() {
         return repository.getAll();
     }
 

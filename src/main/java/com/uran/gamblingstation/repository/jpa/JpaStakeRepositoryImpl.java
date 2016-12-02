@@ -46,7 +46,7 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
 
     @Override
     public Stake getWithUser(int id) {
-        return (Stake)em.createNamedQuery(Stake.WITH_USER)
+        return em.createNamedQuery(Stake.WITH_USER, Stake.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }

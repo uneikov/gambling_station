@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.concurrent.TimeUnit;
 
 import static com.uran.gamblingstation.Profiles.DB_ACTIVE;
+import static com.uran.gamblingstation.Profiles.DB_IMPLEMENTATION;
 
 /**
  * User: gkislin
@@ -26,7 +27,7 @@ import static com.uran.gamblingstation.Profiles.DB_ACTIVE;
         "classpath:spring/spring-database.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles(DB_ACTIVE)
+@ActiveProfiles({DB_ACTIVE, DB_IMPLEMENTATION})
 @Sql(scripts = "classpath:database/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 abstract public class AbstractServiceTest {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceTest.class);

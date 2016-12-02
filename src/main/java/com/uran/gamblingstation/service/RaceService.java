@@ -4,7 +4,7 @@ import com.uran.gamblingstation.model.Race;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.List;
 
 public interface RaceService {
     Race save(Race race);
@@ -13,11 +13,13 @@ public interface RaceService {
 
     Race get(int id) throws NotFoundException;
 
+    List<Race> getAllWithStakes();
+
     //Race getByDateTyme(LocalDateTime dateTime) throws NotFoundException;
 
     Race getByDateTime(LocalDateTime start, LocalDateTime finish) throws NotFoundException;
 
-    Collection<Race> getAll();
+    List<Race> getAll();
 
     void update(Race race);
 }

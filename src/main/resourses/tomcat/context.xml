@@ -33,7 +33,7 @@
     <!--
     <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
     -->
-    <Resource name="jdbc/topjava"
+    <Resource name="jdbc/gamblingstation"
               auth="Container"
               type="javax.sql.DataSource"
               maxActive="5" minIdle="1" maxWait="100000"
@@ -44,7 +44,7 @@
               driverClassName="org.postgresql.Driver"
               username="user"
               password="password"
-              url="jdbc:postgresql://localhost:5432/topjava"/>
+              url="jdbc:postgresql://localhost:5432/gamblingstation"/>
     <!--
         username="wegxlfzjjgxaxy"
         password="SSQyKKE_e93kiUCR-ehzMcKCxZ"

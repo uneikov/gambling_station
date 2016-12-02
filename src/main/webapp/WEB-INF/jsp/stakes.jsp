@@ -4,6 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fun" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<jsp:include page="fragments/info.jsp"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -98,6 +99,12 @@
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
+
+<div class="navbar navbar-inverse navbar-fixed-bottom" role="banner" data-spy="affix">
+    <div class="scroll">
+        <h3>Horses, races, stakes and more... Start gambling now with us!  Are you ready to win? Yes you will!</h3>
+    </div>
+</div>
 <!---------------------------------------- Modal window -------------------------------------------->
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
@@ -116,7 +123,6 @@
                             <div id="value">
                                 <%-- <input class="form-control" id="stakeValue" name="stakeValue" type="number"
                                         step="0.01" min="0" max="${availableValue}" value="${availableValue}">--%>
-
                             </div>
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
@@ -163,36 +169,6 @@
         </div>
     </div>
 </div>
-<<%--div class="modal fade" id="wallet">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title" id="walletTitle"></h2>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" method="post" id="walletForm" title="stake">
-                    &lt;%&ndash;<input type="text" hidden="hidden" id="id" name="id" value="">&ndash;%&gt;
-                    <!-- Select value of money for new stake -->
-                    <div class="form-group has-feedback">
-                        <label for="value" class="control-label col-xs-3"><fmt:message key="wallet.balance"/>:</label>
-                        <div class="col-xs-9">
-                            <div id="cash">
-
-                            </div>
-                            <span class="glyphicon form-control-feedback"></span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal"><fmt:message key="common.cancel"/></button>
-                &lt;%&ndash;<button class="btn btn-primary" type="button" onclick="save()"><fmt:message key="common.save"/></button>&ndash;%&gt;
-                <button id="save" class="btn btn-primary" type="button" onclick="checkForm()"><fmt:message key="common.save"/></button>
-            </div>
-        </div>
-    </div>
-</div>--%>
 </body>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
@@ -212,6 +188,7 @@
     function ajaxCallStation() {
         $.get(ajaxWalletsUrl + 'station', function (data) {
             $("#station").html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сумма ставок: ' + data.toFixed(2));
+            //$(".scroll").html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сумма ставок: ' + data.toFixed(2));
         });
     }
 </script>

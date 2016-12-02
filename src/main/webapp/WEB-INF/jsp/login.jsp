@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<jsp:include page="fragments/info.jsp"/>
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
@@ -99,5 +99,10 @@
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
+<div class="navbar navbar-inverse navbar-fixed-bottom" role="banner" data-spy="affix">
+    <div class="scroll">
+        <h3>Horses, races, stakes and more...&nbsp;&nbsp;&nbsp;Start gambling now with us!&nbsp;&nbsp;&nbsp;Are you ready to win?&nbsp;&nbsp;&nbsp;Yes you will!</h3>
+    </div>
+</div>
 </body>
 </html>

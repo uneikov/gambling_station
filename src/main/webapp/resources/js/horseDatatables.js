@@ -1,5 +1,4 @@
 var ajaxUrl = 'ajax/horses/';
-//var ajaxWalletsUrl = 'ajax/profile/wallets/';
 
 var datatableApi;
 

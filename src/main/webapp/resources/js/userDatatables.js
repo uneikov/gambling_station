@@ -1,5 +1,4 @@
 var ajaxUrl = 'ajax/admin/users/';
-//var ajaxWalletsUrl = 'ajax/profile/wallets/';
 
 var datatableApi;
 

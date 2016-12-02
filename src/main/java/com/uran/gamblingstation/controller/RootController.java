@@ -72,7 +72,7 @@ public class RootController extends AbstractUserController{
 
     @GetMapping("/races")
     public String races(Model model) {
-        model.addAttribute("raceRows", raceRowService.getRows());
+        //model.addAttribute("raceRows", raceRowService.getRows());
         return "races";
     }
 

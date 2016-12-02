@@ -16,7 +16,7 @@
         <csrf disabled="true"/>
     </http>
 
-    <http use-expressions="true">
+    <http>
         <intercept-url pattern="/login" access="permitAll"/>
         <intercept-url pattern="/register" access="permitAll"/>
 

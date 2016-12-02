@@ -155,12 +155,11 @@ $(function () {
         columns: [
             {
                 data: "dateTime",
-                render: function (data, type, row) {
+                render: function (date, type, row) {
                     if (type == 'display') {
-                        return '<span class="' + rowColor(row) +
-                            '">'+data.substring(0,10)+ "  " + data.substring(11,16)+'</span>';
+                        return date.replace('T', ' ').substr(0, 16);
                     }
-                    return data;
+                    return date;
                 }
             },
             {

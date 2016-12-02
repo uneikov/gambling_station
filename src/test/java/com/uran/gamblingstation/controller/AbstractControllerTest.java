@@ -15,6 +15,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import javax.annotation.PostConstruct;
 
 import static com.uran.gamblingstation.Profiles.DB_ACTIVE;
+import static com.uran.gamblingstation.Profiles.DB_IMPLEMENTATION;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @ContextConfiguration({
@@ -25,7 +26,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-@ActiveProfiles({DB_ACTIVE})
+@ActiveProfiles({DB_ACTIVE, DB_IMPLEMENTATION})
 abstract public class AbstractControllerTest {
 
    private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();

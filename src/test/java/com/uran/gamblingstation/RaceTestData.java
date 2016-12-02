@@ -26,6 +26,7 @@ public class RaceTestData {
                             && Objects.equals(expected.getFinish(), actual.getFinish())
                             && Objects.equals(expected.getHorses(), actual.getHorses())
                             && Objects.equals(expected.getWinning(), actual.getWinning())
+                            //&& Objects.equals(expected.getStakes(), actual.getStakes())
                     )
     );
 

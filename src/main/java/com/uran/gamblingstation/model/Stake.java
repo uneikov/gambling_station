@@ -1,5 +1,7 @@
 package com.uran.gamblingstation.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -68,6 +70,7 @@ public class Stake extends BaseEntity {
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "race_id", referencedColumnName = "id", nullable = false)
+    @JsonBackReference
     private Race race;
 
     public Stake(){

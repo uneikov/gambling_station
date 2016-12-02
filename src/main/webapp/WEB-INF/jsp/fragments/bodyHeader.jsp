@@ -20,7 +20,8 @@
                             </sec:authorize>
                             <a class="btn btn-info" role="button" href="stakes"><spring:message code="stakes.title"/></a>
                             <button type="button" id="addButton" class="btn btn-primary" data-toggle="modal" onclick=checkAddStatus()><spring:message code="stake.add"/></button>
-                            <a class="btn btn-info" role="button" href="profile">${userTo.name} <spring:message code="app.profile"/></a>
+                            <%--<a class="btn btn-info" role="button" href="profile">${userTo.name} <spring:message code="app.profile"/></a>--%>
+                            <a class="btn btn-info" role="button" href="profile"><spring:message code="app.profile"/></a>
                             <input type="submit" class="btn btn-primary" value="<spring:message code="app.logout"/>">
                         </sec:authorize>
                     </form:form>

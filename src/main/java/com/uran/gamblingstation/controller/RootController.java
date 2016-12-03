@@ -25,13 +25,6 @@ public class RootController extends AbstractUserController{
     @GetMapping(value = "/")
     public String root() {
         return "redirect:/stakes";
-        //return "index";
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/users")
-    public String users() {
-        return "users";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -41,6 +34,12 @@ public class RootController extends AbstractUserController{
         model.put("error", error);
         model.put("message", message);
         return "login";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/users")
+    public String users() {
+        return "users";
     }
 
     @GetMapping("/stakes")

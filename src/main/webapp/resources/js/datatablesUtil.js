@@ -1,4 +1,5 @@
 var form;
+var ajaxRacesUrl = 'ajax/profile/races/';
 
 function makeEditable() {
     form = $('#detailsForm');
@@ -19,7 +20,6 @@ function add() {
     var form_title= this.form[0].title;
     $('#modalTitle').html(add_title);
     form.find(":input").val("");
-    //$("#id").val("");
     if (form_title=='stake'){
         debugger;
         addModal();
@@ -29,19 +29,7 @@ function add() {
     }
 }
 
-/*
-function wallet() {
-    debugger;
-    $('#walletTitle').html("Wallet");
-    form.find(":input").val("");
-    $('#walletForm').modal();
-}
-
-*/
-
-// Не работает для horses ?
 function updateRow(id) {
-    debugger;
     var form_title= this.form[0].title;
     $('#modalTitle').html(edit_title);
     $.get(ajaxUrl + id, function (data) {
@@ -51,11 +39,34 @@ function updateRow(id) {
         });
     });
     if (form_title=='stake'){
-        debugger;
         updateModal(id);
-    }else {
-        debugger;
+    }
+    if (form_title=='horse'){
+        $.get(ajaxRacesUrl + 'can', function (editable) {
+            if (editable=='editable') {
+                $('#editRow').modal();
+            }else {
+                notEditableNoty('common.not_editable');
+                updateTable();
+            }
+        });
+    }
+    if (form_title=='user'){
         $('#editRow').modal();
+    }
+}
+
+function checkDelete(id) {
+    var form_title= this.form[0].title;
+    if (form_title=='horse'){
+        $.get(ajaxRacesUrl + 'can', function (editable) {
+            if (editable=='editable') {
+                deleteRow(id);
+            }else {
+                notEditableNoty('common.not_editable');
+                updateTable();
+            }
+        });
     }
 }
 
@@ -85,7 +96,6 @@ function enable(chkbox, id) {
 }
 
 function updateTableByData(data) {
-    debugger;
     datatableApi.clear().rows.add(data).draw();
 }
 
@@ -124,10 +134,21 @@ function successNoty(key) {
 
 function failNoty(event, jqXHR, options, jsExc) {
     closeNoty();
+    var errorInfo = $.parseJSON(jqXHR.responseText);
     failedNote = noty({
-        text: i18n['common.failed'] + ': ' + jqXHR.statusText + "<br>" + jqXHR.responseJSON,
+        text: i18n['common.failed'] + ': ' + jqXHR.statusText + "<br>"+ errorInfo.cause + "<br>" + errorInfo.details.join("<br>"),
         type: 'error',
         layout: 'bottomRight'
+    });
+}
+
+function notEditableNoty(key) {
+    closeNoty();
+    failedNote = noty({
+        text: i18n[key],
+        type: 'error',
+        layout: 'bottomRight',
+        timeout: true
     });
 }
 
@@ -139,7 +160,7 @@ function renderEditBtn(data, type, row) {
 
 function renderDeleteBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-xs btn-danger" onclick="deleteRow(' + row.id + ');">'+i18n['common.delete']+'</a>';
+        return '<a class="btn btn-xs btn-danger" onclick="checkDelete(' + row.id + ');">'+i18n['common.delete']+'</a>';
     }
 }
 

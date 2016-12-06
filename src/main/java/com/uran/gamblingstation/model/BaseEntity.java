@@ -9,7 +9,6 @@ public class BaseEntity implements Persistable<Integer>{
 
     public static final int START_SEQ = 100000;
     public static final int WALLET_ID = START_SEQ + 3;
-    public static final int ADMIN_ID = START_SEQ + 2;
     public static final int USER_1_ID = START_SEQ;
 
     public static boolean RACE_IS_RUNNING = true;

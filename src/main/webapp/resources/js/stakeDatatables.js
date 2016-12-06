@@ -1,13 +1,12 @@
 var ajaxUrl = 'ajax/profile/stakes/';
 var ajaxHorsesUrl ='ajax/horses/names/';
 var ajaxWalletsUrl = 'ajax/profile/wallets/';
-//var ajaxRacesUrl = 'ajax/admin/races/';
-var ajaxRacesUrl = 'ajax/profile/races/';
+
 var datatableApi;
 
-function rowColor(row) {
+/*function rowColor(row) {
     return row.wins ? 'winned' : 'loosed';
-}
+}*/
 
 function checkStatus() {
      $.get(ajaxRacesUrl + 'run', function (status) {
@@ -17,18 +16,18 @@ function checkStatus() {
 
 function checkAddStatus() {
     $.when($.ajax(ajaxWalletsUrl + 'cash'), $.ajax(ajaxRacesUrl + 'run')).done(function (w, s) {
+        debugger;
         var cash=w[0];
         var status= s[0];
         if (cash<1) {
             $('#walletInfo').modal({backdrop: true});
-            //document.getElementById("addButton").disabled = status=='disabled';
         }
         if (status=='disabled') {
             alert('You can`t make stakes now. Race is running.');
             //document.getElementById("addButton").disabled = status=='disabled';
         }
         $('#addButton')[0].disabled = status=='disabled';
-        if ( cash>1 && status=='enabled') add();
+        if ( cash>=1 && status=='enabled') add();
     });
 }
 
@@ -37,18 +36,16 @@ function fillWallet() {
         url: ajaxWalletsUrl + 'add',
         type: 'PUT',
         success: function () {
-            successNoty('wallet.full');
+            successNoty('common.success');
             $('#walletInfo').modal('hide');
         }
     });
 }
 
 function addModal(){
-    $.when( $.ajax(ajaxHorsesUrl), $.ajax(ajaxWalletsUrl) ).done(function( r1, r2 ) {
+    $.when( $.ajax(ajaxHorsesUrl), $.ajax(ajaxWalletsUrl + 'cash') ).done(function( r1, r2 ) {
         var horses = r1[0];
-        var wallet = r2[0];
-        var available = wallet.cash;
-        debugger;
+        var available = r2[0];
         $('#value').html(
             '<div class="input-group">' +
             '<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>' +
@@ -77,17 +74,13 @@ function addModal(){
 }
 function updateModal(id){
     debugger;
-    $.when( $.ajax(ajaxHorsesUrl), $.ajax(ajaxUrl + id), $.ajax(ajaxWalletsUrl) ).done(function( r1, r2, r3 ) {
-        var horse;
+    $.when( $.ajax(ajaxHorsesUrl), $.ajax(ajaxUrl + id), $.ajax(ajaxWalletsUrl + 'cash') ).done(function( r1, r2, r3 ) {
         var horses = r1[0];
         var stake = r2[0];
-        var wallet = r3[0];
+        var available = r3[0];
         var current = stake.stakeValue;
-        var available = wallet.cash;
         var updated = current + available;
         var select = stake.horse.name;
-        debugger;
-        //$('#modalTitle').html(edit_title);
         $('#value').html(
             '<input class="form-control" id="stakeValue" name="stakeValue" type="number" step="0.01" min="1" max="'
             + updated + '" value="' + current + '">'
@@ -205,7 +198,7 @@ $(function () {
             }
         ],
         order: [[0, 'desc']],
-        createdRow: function (row, data, dataIndex) {
+        createdRow: function (row, data) {
             if (!data.editable) {
                 $(row).css("opacity", 0.5);
             }

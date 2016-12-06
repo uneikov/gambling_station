@@ -1,7 +1,7 @@
 package com.uran.gamblingstation.controller.stake;
 
-import com.uran.gamblingstation.controller.AbstractControllerTest;
 import com.uran.gamblingstation.TestUtil;
+import com.uran.gamblingstation.controller.AbstractControllerTest;
 import com.uran.gamblingstation.controller.json.JsonUtil;
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.service.StakeService;
@@ -15,8 +15,7 @@ import java.util.Collections;
 
 import static com.uran.gamblingstation.StakeTestData.*;
 import static com.uran.gamblingstation.TestUtil.userHttpBasic;
-import static com.uran.gamblingstation.UserTestData.ADMIN;
-import static com.uran.gamblingstation.UserTestData.USER_1;
+import static com.uran.gamblingstation.UserTestData.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -72,7 +71,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(updated))
                 .with(userHttpBasic(USER_1)))
                 .andExpect(status().isOk()));
-        STAKE_MATCHER.assertEquals(updated, stakeService.get(STAKE_1_ID));
+        STAKE_MATCHER.assertEquals(updated, stakeService.get(STAKE_1_ID, USER_ID_1));
     }
 
     @Test
@@ -87,10 +86,6 @@ public class StakeRestControllerTest extends AbstractControllerTest {
         Stake returned = STAKE_MATCHER.fromJsonAction(action);
         expected.setId(returned.getId());
         STAKE_MATCHER.assertEquals(expected, returned);
-        /*STAKE_MATCHER.assertCollectionEquals(
-                Arrays.asList(expected, STAKE_5, STAKE_4, STAKE_3, STAKE_2, STAKE_1),
-                stakeService.getAll()
-        );*/
     }
 
     @Test

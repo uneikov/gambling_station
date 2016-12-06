@@ -16,7 +16,7 @@ public class StakeTo implements Serializable{
     @DecimalMin("1")
     private Double stakeValue;
 
-    @Size(min = 2, max = 40)
+    @Size(min = 2, max = 25)
     @NotEmpty(message = "  is required")
     private String horseName;
 

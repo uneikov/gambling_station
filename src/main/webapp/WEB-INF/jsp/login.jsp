@@ -57,47 +57,18 @@
             </div>
         </c:if>
         <p>
-
-        <p>User1 login: <b>user1@yandex.ru / password</b></p>
-        <p>User2 login: <b>user2@yandex.ru / password</b></p>
-        <p>Admin login: <b>admin@gmail.com / admin</b></p>
+        <p><h5><b>Test credentials:</b></h5></p>
+        <p><h5>User1 login: <b>user1@yandex.ru / password1</b></h5></p>
+        <p><h5>User2 login: <b>user2@yandex.ru / password2</b></h5></p>
+        <p><h5>Admin login: <b>admin@gmail.com / admin</b></h5></p>
+        <br>
 
         <p><a class="btn btn-primary btn-lg" role="button" href="register"><spring:message code="app.register"/> &raquo;</a></p>
+        <p><a class="btn btn-info btn-lg" role="button" href="about"><spring:message code="app.about"/></a></p>
 
-        <p>Стек технологий: <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
-            <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
-            <a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,
-            <a href="http://spring.io/blog/2014/05/07/preview-spring-security-test-method-security">Spring Security
-                Test</a>,
-            <a href="http://hibernate.org/orm/">Hibernate ORM</a>,
-            <a href="http://hibernate.org/validator/">Hibernate Validator</a>,
-            <a href="http://www.slf4j.org/">SLF4J</a>,
-            <a href="https://github.com/FasterXML/jackson">Json Jackson</a>,
-            <a href="http://ru.wikipedia.org/wiki/JSP">JSP</a>,
-            <a href="http://en.wikipedia.org/wiki/JavaServer_Pages_Standard_Tag_Library">JSTL</a>,
-            <a href="http://tomcat.apache.org/">Apache Tomcat</a>,
-            <a href="http://www.webjars.org/">WebJars</a>,
-            <a href="http://datatables.net/">DataTables plugin</a>,
-            <a href="http://ehcache.org">Ehcache</a>,
-            <a href="http://www.postgresql.org/">PostgreSQL</a>,
-            <a href="http://junit.org/">JUnit</a>,
-            <a href="http://hamcrest.org/JavaHamcrest/">Hamcrest</a>,
-            <a href="http://jquery.com/">jQuery</a>,
-            <a href="http://ned.im/noty/">jQuery notification</a>,
-            <a href="http://getbootstrap.com/">Bootstrap</a>.</p>
     </div>
 </div>
-<div class="container">
-    <div class="lead">
-        <a href="https://github.com/uneikov/gambling_station">Java Enterprise проект</a> - виртуальный
-        ипподром с регистрацией/авторизацией и интерфейсом на основе ролей (USER, ADMIN, STATION).
-        Администратор может создавать/редактировать/удалять/пользователей, а пользователь - управлять своим
-        профилем и ставками (дата/время, лошадь, ставка) через UI (по AJAX) и по REST интерфейсу с базовой авторизацией.
-        Возможна фильтрация данных по датам и времени, при этом цвет записи таблицы ставок зависит от того, была
-        ли ставка выигрышной или проигрышной.
-        Весь REST интерфейс покрывается JUnit тестами, используя Spring MVC Test и Spring Security Test.
-    </div>
-</div>
+
 <jsp:include page="fragments/footer.jsp"/>
 <div class="navbar navbar-inverse navbar-fixed-bottom" role="banner" data-spy="affix">
     <div class="scroll">

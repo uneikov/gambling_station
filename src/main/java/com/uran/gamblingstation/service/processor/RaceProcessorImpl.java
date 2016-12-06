@@ -21,57 +21,6 @@ public class RaceProcessorImpl implements RaceProcessor{
     @Autowired private AccountService accountService;
     @Autowired private HorseService horseService;
 
-   /* public void process(int winningHorseId, LocalDateTime start, LocalDateTime finish) {
-
-        // set editable to false for all stakes in the current race
-        stakeService.setNotEditable(start, finish);
-        // -------------------- для выигравшей лошади увеличить кол-во выигрышных забегов -------------------
-        // ОБЪЕДИНИТЬ В ОДНУ ФУНКЦИЮ ???
-        Horse horse = horseService.get(winningHorseId);
-        LOG.info("Winning horse: {}", horse.getName());
-        horse.setWins(horse.getWins() + 1);
-        horseService.update(horse);
-        // -------------------- установить признак "wins" у выигравших ставок (по horse.id)-------------------
-        stakeService.setWinningStakes(winningHorseId, start, finish);
-        // -------------------= получить сумму средств всех сделанных ставок, участвующих в розыгрыше=--------
-        Double allCash = stakeService.getAllCash(start, finish);
-        LOG.info("Overall stakes sum for current race is {}", allCash);
-        // -------------------= получить список выигравших ставок (по wins) =---------------------------------
-        List<Stake> winningStakes = stakeService.getWinningStakes(start, finish);
-        // ---------------------------= обработка результатов =-----------------------------------------------
-        LOG.info("Winning stakes count: {}, all cash from race stakes: {}", winningStakes.size(), allCash);
-        LOG.info("Station cash: {}", walletService.get(WALLET_ID).getCash());
-        LOG.info("Mast be the same??? {} = {}", allCash, walletService.get(WALLET_ID).getCash());
-
-        if (winningStakes.isEmpty()) {
-            // -----------------------= если нет выигравших, все средства идут организатору =------------------
-            //accountService.addToStationAccount(allCash); //еще раз?
-            //accountService.debitAccounts(startRace, endRace); // add RACE table -> debitAccounts(currentRace)
-            LOG.info("Nobody wins, station revenue: {}", allCash);
-        } else {
-            // -----------------------= получить сумму выигравших ставок =-------------------------------------
-            Double winCash = StakeUtil.getValue(winningStakes);
-            // -----------------------= получить коэффициент для начисления выигрышей =------------------------
-            // -------------------------= разыгрываются только средства проигравших =--------------------------
-            //Double winRatio = (allCash - winningCash) / winningCash;
-            Double winRatio = allCash / winCash;
-            // -----------------------= получить матрицу выигрышей =-------------------------------------------
-            Map<Integer, Double> winningMap = winningStakes.stream()
-                    .collect(Collectors.toMap(s -> s.getUser().getId(), s -> s.getStakeValue() * winRatio));
-            // -----------------------= установка поля amount у выигравших ставок =----------------------------
-            stakeService.processWinningStakes(winningStakes, winningMap);
-            // -----------------------= пополнение кошельков выигравших пользователей =-------------------------
-            stakeService.getWinningStakes(start, finish)
-                    .forEach(stake -> accountService.transferToUser(stake.getUser().getId(), stake.getAmount()));
-            // -----------------------= списание средств с кошельков проигравших пользователей =----------------
-            //stakeService.getLoosingStakes(startRace, endRace).forEach(stake -> accountService.debitAccount(stake.getUser().getId(), stake.getAmount()));
-            // -------------------------------------= the end =-------------------------------------------------
-            // а что с кошельком station???
-            LOG.info("Winning map: {}", winningMap);
-        }
-
-    }*/
-
     @Override
     public void process(int horseId, int raceId) {
         stakeService.setNotEditable(raceId);

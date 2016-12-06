@@ -54,11 +54,6 @@ public class AccountServiceImpl implements AccountService{
         walletService.update(userWallet);
     }
 
-    /* public void debitAccounts(LocalDateTime startDate, LocalDateTime endDate){
-        stakeService.getBetween(startDate, endDate)
-                .forEach(stake -> debitAccount(stake.getUser().getId(), stake.getStakeValue()));
-    }
-    */
     private Wallet getStationWallet(){
         Wallet walletStation;
 

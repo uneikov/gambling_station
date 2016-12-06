@@ -2,8 +2,11 @@ package com.uran.gamblingstation.controller.user;
 
 import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.User;
+import com.uran.gamblingstation.to.UserTo;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 /**
@@ -24,10 +27,16 @@ public class ProfileRestController extends AbstractUserController {
     public void delete() {
         super.delete(AuthorizedUser.id());
     }
-
+/*
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@RequestBody User user) {
         super.update(user, AuthorizedUser.id());
+    }*/
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@Valid @RequestBody UserTo userTo) {
+        userTo.setId(AuthorizedUser.id());
+        super.update(userTo);
     }
 
     @GetMapping(value = "/text")

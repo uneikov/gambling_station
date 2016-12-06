@@ -20,11 +20,14 @@ import javax.validation.Valid;
 public class RootController extends AbstractUserController{
     private static final Logger LOG = LoggerFactory.getLogger(RootController.class);
 
-   //@Autowired private RaceRowService raceRowService;
-
     @GetMapping(value = "/")
     public String root() {
         return "redirect:/stakes";
+    }
+
+    @GetMapping("/about")
+    public String about() {
+        return "about";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

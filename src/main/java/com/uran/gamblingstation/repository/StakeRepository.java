@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface StakeRepository {
 
-    Stake save(Stake stake);
+    Stake save(Stake stake, int userId);
 
     void update(Stake stake);
 
     // false if not found
-    boolean delete(int id);
+    boolean delete(int id, int userId);
 
     // null if not found
-    Stake get(int id);
+    Stake get(int id, int userId);
 
     // null if not found
     Stake getWithUser(int id);

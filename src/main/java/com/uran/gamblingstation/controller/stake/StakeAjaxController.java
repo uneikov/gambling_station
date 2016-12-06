@@ -1,12 +1,13 @@
 package com.uran.gamblingstation.controller.stake;
 
+import com.uran.gamblingstation.AuthorizedUser;
+import com.uran.gamblingstation.model.Race;
 import com.uran.gamblingstation.model.Stake;
+import com.uran.gamblingstation.service.scheduler.RaceScheduler;
 import com.uran.gamblingstation.to.StakeTo;
+import com.uran.gamblingstation.util.stake.StakeUtil;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,20 +15,21 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import static com.uran.gamblingstation.AuthorizedUser.id;
-
 @RestController
 @RequestMapping("/ajax/profile/stakes")
 public class StakeAjaxController extends AbstractStakeController{
 
-    /*@Autowired
-    UserService userService;*/
-
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Stake> getAll() {
-        int userId = id();
+        int userId = AuthorizedUser.id();
         return super.getAllByUserId(userId);
+    }
+
+    @GetMapping(value = "/cash",produces = MediaType.APPLICATION_JSON_VALUE)
+    public Double getAllCash() {
+        Race current = RaceScheduler.getCurrentRace();
+        return current == null ? 0.0 : StakeUtil.getValue(super.getAllByRaceId(current.getId()));
     }
 
     @Override
@@ -42,21 +44,17 @@ public class StakeAjaxController extends AbstractStakeController{
         super.delete(id);
     }
 
-   /* @PostMapping
-    public void createOrUpdate(@RequestParam("id") Integer id,
-                               @RequestParam("stakeValue") Double stakeValue,
-                               @RequestParam("horseName") String horseName) {
-
-        Horse horse = super.getHorse(horseName);
-        Stake stake = new Stake(id, null, horse, stakeValue, false, 0.0);
-        if (stake.isNew()) {
-            super.create(stake);
-        } else {
-            super.update(stake, id);
-        }
-    }*/
-
     @PostMapping
+    public void createOrUpdate(@Valid StakeTo stakeTo) {
+        if (stakeTo.isNew()) {
+            super.create(stakeTo);
+        } else {
+            super.update(stakeTo);
+        }
+
+    }
+
+   /* @PostMapping
     public ResponseEntity<String> createOrUpdate(@Valid StakeTo stakeTo, BindingResult result) {
         if (result.hasErrors()) {
             StringBuilder sb = new StringBuilder();
@@ -69,7 +67,7 @@ public class StakeAjaxController extends AbstractStakeController{
             super.update(stakeTo);
         }
         return new ResponseEntity<>(HttpStatus.OK);
-    }
+    }*/
 
     @PostMapping(value = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Stake> getBetween(

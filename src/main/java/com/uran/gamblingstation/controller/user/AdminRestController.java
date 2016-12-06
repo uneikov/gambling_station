@@ -19,9 +19,6 @@ import java.util.List;
 public class AdminRestController extends AbstractUserController {
     static final String REST_URL = "/rest/admin/users";
 
-    /*@Autowired
-    private UserService userService;*/
-
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll() {

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ajax/profile/users") // id???
+@RequestMapping("/ajax/profile/users")
 public class ProfileAjaxController extends AbstractUserController{
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

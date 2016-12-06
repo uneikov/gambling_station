@@ -3,8 +3,18 @@ var ajaxUrl = 'ajax/horses/';
 var datatableApi;
 
 function updateTable() {
-    debugger;
     $.get(ajaxUrl, updateTableByData);
+}
+
+function checkEditable(checkbox, id) {
+    $.get(ajaxRacesUrl + 'can', function (editable) {
+        if (editable=='editable') {
+            enable(checkbox, id);
+        }else {
+            notEditableNoty('common.not_editable');
+            updateTable();
+        }
+    });
 }
 
 $(function () {
@@ -35,8 +45,9 @@ $(function () {
             {
                 data: "ready",
                 render: function (data, type, row) {
-                    if (type == 'display') {
-                        return '<input type="checkbox" ' + (data ? 'checked' : '') + ' onclick="enable($(this),' + row.id + ');"/>';
+                    if (type === 'display') {
+                        return '<input type="checkbox" ' + (data ? 'checked' : '') +
+                            ' onclick="checkEditable($(this),' + row.id + ');"/>';
                     }
                     return data;
                 }

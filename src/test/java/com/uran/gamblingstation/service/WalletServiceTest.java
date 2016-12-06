@@ -17,25 +17,19 @@ import static com.uran.gamblingstation.WalletTestData.*;
 
 public class WalletServiceTest extends AbstractServiceTest{
 
-    @Autowired
-    private WalletService walletService;
+    @Autowired private WalletService walletService;
 
-    @Autowired
-    private UserService userService;
+    @Autowired private UserService userService;
 
     @Test
     public void testSave() throws Exception {
         User newUser = userService.save(
                 new User(null, "agent007", "agent007@mi6.com", "stationpass", true, Collections.singleton(Role.ROLE_USER))
         );
-        Wallet newWallet = new Wallet(newUser.getId(), 0.0d);
-        walletService.save(newWallet);
-        newUser.setWallet(newWallet);
-        userService.update(newUser);
-        newWallet = newUser.getWallet();
+        Wallet newWallet = walletService.get(newUser.getId());
         WALLET_MATCHER.assertCollectionEquals(
                 walletService.getAll(),
-                Arrays.asList(WALLET_2, WALLET_1, WALLET_ADMIN, WALLET_STATION, newWallet)
+                Arrays.asList(WALLET_STATION, WALLET_2, WALLET_1, WALLET_ADMIN, newWallet)
         );
     }
 
@@ -43,14 +37,14 @@ public class WalletServiceTest extends AbstractServiceTest{
     public void testUpdate() throws Exception {
         walletService.update(new Wallet(USER_ID_1, 200.44d));
         List<Wallet> wallets = walletService.getAll();
-        WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_1_UP, WALLET_2, WALLET_ADMIN, WALLET_STATION));
+        WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_STATION, WALLET_1_UP, WALLET_2, WALLET_ADMIN));
     }
 
     @Test
     public void testDelete() throws Exception {
         walletService.delete(USER_ID_1);
         List<Wallet> wallets = walletService.getAll();
-        WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_2, WALLET_ADMIN, WALLET_STATION));
+        WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_STATION, WALLET_2, WALLET_ADMIN));
     }
 
     @Test
@@ -62,7 +56,7 @@ public class WalletServiceTest extends AbstractServiceTest{
     @Test
     public void testGetAll() throws Exception {
         List<Wallet> wallets = walletService.getAll();
-        WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_2, WALLET_1, WALLET_ADMIN, WALLET_STATION));
+        WALLET_MATCHER.assertCollectionEquals(wallets, Arrays.asList(WALLET_STATION, WALLET_2, WALLET_1, WALLET_ADMIN));
     }
 
     @Test

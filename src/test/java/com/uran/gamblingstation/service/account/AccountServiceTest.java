@@ -19,7 +19,7 @@ public class AccountServiceTest extends AbstractServiceTest {
     public void addToStationAccount() throws Exception {
         accountService.addToStationAccount(100.00d);
         Double stationCash = walletService.get(WALLET_ID).getCash();
-        Assert.assertEquals(100.0d, stationCash, 0.0001d);
+        Assert.assertEquals(300.5d, stationCash, 0.0001d);
     }
 
     @Test
@@ -27,7 +27,7 @@ public class AccountServiceTest extends AbstractServiceTest {
         accountService.transferToStation(USER_ID_2, 5.00d);
         Double stationCash = walletService.get(WALLET_ID).getCash();
         Double userCash = walletService.get(USER_ID_2).getCash();
-        Assert.assertEquals(5.0d, stationCash, 0.0001d);
+        Assert.assertEquals(205.5d, stationCash, 0.0001d);
         Assert.assertEquals(10.0d, userCash, 0.0001d);
     }
 

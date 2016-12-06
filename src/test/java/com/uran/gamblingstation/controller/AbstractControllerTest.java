@@ -38,10 +38,6 @@ abstract public class AbstractControllerTest {
 
     protected MockMvc mockMvc;
 
-    //@Autowired protected StakeService stakeService;
-
-    //@Autowired protected UserService userService;
-
     @Autowired
     private WebApplicationContext webApplicationContext;
 

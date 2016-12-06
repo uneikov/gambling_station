@@ -8,8 +8,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "wallets", uniqueConstraints =
         {@UniqueConstraint(columnNames = "user_id", name = "wallets_unique_user_id_idx")})
-/*@Table(name = "wallets", uniqueConstraints =
-        {@UniqueConstraint(columnNames = "id", name = "wallets_unique_user_id_idx")})*/
 public class Wallet {
 
     public static final String DELETE = "Wallet.delete";

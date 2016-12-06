@@ -1,15 +1,18 @@
 package com.uran.gamblingstation.controller.horse;
 
 import com.uran.gamblingstation.model.Horse;
+import com.uran.gamblingstation.to.HorseTo;
+import com.uran.gamblingstation.util.horse.HorseUtil;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/ajax/horses")
-public class HorseAjaxController extends AbstarctHorseController {
+public class HorseAjaxController extends AbstractHorseController {
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -24,7 +27,7 @@ public class HorseAjaxController extends AbstarctHorseController {
     }
 
     @GetMapping(value = "/names", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<String> getAllReadyForRaceNamesList() {
+    public List<String> getAllReadyForRaceHorsesNamesAsList() {
         return getAll().stream().filter(Horse::isReady).map(Horse::getName).collect(Collectors.toList());
     }
 
@@ -33,7 +36,7 @@ public class HorseAjaxController extends AbstarctHorseController {
         super.delete(id);
     }
 
-    @PostMapping
+   /* @PostMapping
     public void createOrUpdate(@RequestParam("id") Integer id,
                                @RequestParam("name") String name,
                                @RequestParam("ruName") String ru_name,
@@ -54,9 +57,19 @@ public class HorseAjaxController extends AbstarctHorseController {
         } else {
             super.update(horse, id);
         }
+    }*/
+
+    @PostMapping
+    public void createOrUpdate(@Valid HorseTo horseTo)
+    {
+        if (horseTo.isNew()) {
+            super.create(HorseUtil.createNewFromTo(horseTo));
+        } else {
+            super.update(horseTo);
+        }
     }
 
-    @PutMapping(value = "/{id}")
+    @PostMapping(value = "/{id}")
     public void update(@PathVariable("id") int id) {
         Horse horse = super.get(id);
         horse.setReady(!horse.isReady());

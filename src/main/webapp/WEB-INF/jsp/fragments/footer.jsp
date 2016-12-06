@@ -10,8 +10,18 @@
 </div>
 <script type="text/javascript">
     var i18n = [];
-    <c:forEach var='key' items='<%=new String[]{"common.update","common.delete","common.deleted","common.saved","common.enabled","common.disabled","common.failed","common.search"}%>'>
-    i18n['${key}'] = '<spring:message code="${key}"/>';
+    <c:forEach var='key' items='<%=new String[]
+    {
+        "common.update",
+        "common.delete",
+        "common.deleted",
+        "common.saved",
+        "common.enabled",
+        "common.disabled",
+        "common.failed",
+        "common.search",
+        "common.not_editable",
+        "common.success"}%>'>i18n['${key}'] = '<spring:message code="${key}"/>';
     </c:forEach>
 </script>
 <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>

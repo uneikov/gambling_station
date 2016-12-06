@@ -5,7 +5,6 @@ import org.springframework.util.StringUtils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -14,10 +13,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class TimeUtil {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-    public static final LocalDateTime VALID_START_DATETIME = LocalDateTime.of(2016, Month.AUGUST, 5, 10, 0);
-    public static final LocalDateTime VALID_END_DATETIME =   LocalDateTime.of(2016, Month.AUGUST, 5, 11, 0);
-    public static final LocalDateTime STAKE_DATETIME =       LocalDateTime.of(2016, Month.JUNE, 13, 14, 50);
 
     public static final LocalDate MIN_DATE = LocalDate.of(1, 1, 1);
     public static final LocalDateTime MIN_DATE_TIME = LocalDateTime.of(1, 1, 1, 0, 0);

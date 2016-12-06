@@ -38,4 +38,6 @@ public class RaceAjaxController extends AbstractRaceController{
     public String get() {
         return USERS_CAN_MAKE_STAKES ? "enabled" : "disabled";
     }
+
+
 }

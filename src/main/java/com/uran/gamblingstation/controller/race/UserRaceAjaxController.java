@@ -1,6 +1,5 @@
 package com.uran.gamblingstation.controller.race;
 
-import com.uran.gamblingstation.model.Race;
 import com.uran.gamblingstation.service.RaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -8,8 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
+import static com.uran.gamblingstation.model.BaseEntity.RACE_IS_RUNNING;
 import static com.uran.gamblingstation.model.BaseEntity.USERS_CAN_MAKE_STAKES;
 
 @RestController
@@ -23,8 +21,8 @@ public class UserRaceAjaxController extends AbstractRaceController{
         return USERS_CAN_MAKE_STAKES ? "enabled" : "disabled";
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Race> getWithStakes() {
-        return raceService.getAllWithStakes();
+    @GetMapping(value = "/can", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getIsEditable() {
+        return !USERS_CAN_MAKE_STAKES && !RACE_IS_RUNNING ? "editable" : "not_editable";
     }
 }

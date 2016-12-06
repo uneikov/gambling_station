@@ -15,8 +15,6 @@ public interface RaceService {
 
     List<Race> getAllWithStakes();
 
-    //Race getByDateTyme(LocalDateTime dateTime) throws NotFoundException;
-
     Race getByDateTime(LocalDateTime start, LocalDateTime finish) throws NotFoundException;
 
     List<Race> getAll();

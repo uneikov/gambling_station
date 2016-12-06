@@ -2,14 +2,18 @@ package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.repository.HorseRepository;
+import com.uran.gamblingstation.to.HorseTo;
 import com.uran.gamblingstation.util.exception.ExceptionUtil;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.uran.gamblingstation.util.horse.HorseUtil.updateFromTo;
 
 @Service
 public class HorseServiceImpl implements HorseService {
@@ -40,6 +44,13 @@ public class HorseServiceImpl implements HorseService {
     @Override
     public void update(Horse horse) throws NotFoundException {
         Assert.notNull(horse, "horse must not be null");
+        repository.save(horse);
+    }
+
+    @Override
+    @Transactional
+    public void update(HorseTo horseTo) {
+        Horse horse = updateFromTo(get(horseTo.getId()), horseTo);
         repository.save(horse);
     }
 

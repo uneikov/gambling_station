@@ -32,17 +32,10 @@ public class RaceServiceImpl implements RaceService {
         return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
     }
 
-
     @Override
     public List<Race> getAllWithStakes() {
         return repository.getAllWithStakes();
     }
-
-    /*@Override
-    public Race getByDateTyme(LocalDateTime dateTime) throws NotFoundException {
-        Assert.notNull(dateTime, "dateTime must not be null");
-        return null;
-    }*/
 
     @Override
     public Race getByDateTime(LocalDateTime start, LocalDateTime finish) throws NotFoundException {

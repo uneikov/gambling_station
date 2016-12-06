@@ -2,7 +2,6 @@ package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Role;
 import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.model.Wallet;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +16,11 @@ import static com.uran.gamblingstation.UserTestData.*;
 public class UserServiceTest extends AbstractServiceTest{
     @Autowired
     private UserService userService;
-    @Autowired
-    private WalletService walletService;
 
     @Test
     public void testSave() throws Exception {
         User newUser = new User(null, "New", "new@gmail.com", "newPass", true, Collections.singleton(Role.ROLE_USER));
         userService.save(newUser);
-        int userId = newUser.getId();
-        newUser.setWallet(new Wallet(userId, 0.0d));
-        walletService.save(newUser.getWallet());
         USER_MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, newUser, STATION, USER_1, USER_2), userService.getAll());
     }
 

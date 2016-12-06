@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
         @NamedQuery(name = Stake.DELETE, query =
-                "DELETE FROM Stake s WHERE s.id=:id "),
+                "DELETE FROM Stake s WHERE s.id=:id AND s.user.id=:userId"),
         @NamedQuery(name = Stake.GET_BETWEEN, query =
                 "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate ORDER BY s.dateTime DESC"),
         @NamedQuery(name = Stake.GET_BETWEEN_WITH_USER, query =
@@ -68,7 +68,7 @@ public class Stake extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "race_id", referencedColumnName = "id", nullable = false)
     @JsonBackReference
     private Race race;
@@ -207,7 +207,6 @@ public class Stake extends BaseEntity {
                 ", wins=" + wins +
                 ", amount=" + amount +
                 ", editable=" + editable +
-                ", horse=" + horse +
                 '}';
     }
 }

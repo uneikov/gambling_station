@@ -1,8 +1,8 @@
 package com.uran.gamblingstation.controller.horse;
 
-import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.service.HorseService;
+import com.uran.gamblingstation.to.HorseTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,40 +11,41 @@ import org.springframework.stereotype.Controller;
 import java.util.List;
 
 @Controller
-public class AbstarctHorseController {
-    private static final Logger LOG = LoggerFactory.getLogger(AbstarctHorseController.class);
+public class AbstractHorseController {
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractHorseController.class);
 
     @Autowired
     private HorseService service;
 
     public Horse get(int id) {
-        int userId = AuthorizedUser.id();
-        LOG.info("get horse {} for User {}", id, userId);
+        LOG.info("get horse {}", id);
         return service.get(id);
     }
 
     public void delete(int id) {
-        int userId = AuthorizedUser.id();
-        LOG.info("delete horse {} for User {}", id, userId);
+        LOG.info("delete horse {}", id);
         service.delete(id);
     }
 
     public List<Horse> getAll() {
-        int userId = AuthorizedUser.id();
-        LOG.info("getAll horses for User {}", userId);
+        LOG.info("getAll horses");
         return service.getAll();
     }
 
     public void update(Horse horse, int id) {
         horse.setId(id);
-        int userId = AuthorizedUser.id();
-        LOG.info("update {} for User {}", horse, userId);
+        LOG.info("update horse {}", horse);
         service.update(horse);
     }
+
+    public void update(HorseTo horseTo) {
+        LOG.info("update horse from horseTo {}", horseTo);
+        service.update(horseTo);
+    }
+
     public Horse create(Horse horse) {
         horse.setId(null);
-        int userId = AuthorizedUser.id();
-        LOG.info("create {} for User {}", horse, userId);
+        LOG.info("create horse {}", horse);
         return service.save(horse);
     }
 }

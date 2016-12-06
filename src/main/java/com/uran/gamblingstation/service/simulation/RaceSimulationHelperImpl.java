@@ -4,8 +4,10 @@ import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.model.Wallet;
-import com.uran.gamblingstation.service.*;
-import com.uran.gamblingstation.service.account.AccountService;
+import com.uran.gamblingstation.service.HorseService;
+import com.uran.gamblingstation.service.StakeService;
+import com.uran.gamblingstation.service.UserService;
+import com.uran.gamblingstation.service.WalletService;
 import com.uran.gamblingstation.service.scheduler.RaceScheduler;
 import com.uran.gamblingstation.util.RandomUtil;
 import org.slf4j.Logger;
@@ -30,8 +32,6 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     @Autowired private UserService userService;
     @Autowired private WalletService walletService;
     @Autowired private HorseService horseService;
-    @Autowired private AccountService accountService;
-    @Autowired private RaceService raceService;
 
     private List<User> bots = new ArrayList<>();
     private List<Horse> selectedHorses = new ArrayList<>();
@@ -45,7 +45,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
         selectedHorses =  RandomUtil.getHorsesForRace(all).stream()
                 .peek(horse -> horse.setReady(true))
                 .peek(horse -> horseService.save(horse))
-                .collect(Collectors.toList()); //????
+                .collect(Collectors.toList());
     }
 
     public List<Horse> getHorsesForRace(){
@@ -101,8 +101,10 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
         Double stakeValue = 10 + ThreadLocalRandom.current().nextDouble(90.0);
         stakeValue = stakeValue > botUser.getWallet().getCash() ? botUser.getWallet().getCash() : stakeValue;
         Horse stakeHorse = RandomUtil.getRandomHorseFromList(selectedHorses);
-        stakeService.save(new Stake(null, botUser, stakeHorse, RaceScheduler.getCurrentRace(), stakeValue, LocalDateTime.now(), false, 0.0d, false));
-        accountService.transferToStation(botUser.getId(), stakeValue);
+        stakeService.save(
+                new Stake(null, botUser, stakeHorse, RaceScheduler.getCurrentRace(), stakeValue, LocalDateTime.now(), false, 0.0d, false),
+                botUser.getId()
+        );
         LOG.info("Bot {} make stake as big as {} at {} minute", botUser.getName(), stakeValue, LocalDateTime.now().getMinute());
     }
 }

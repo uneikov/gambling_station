@@ -27,16 +27,16 @@ public class RaceProcessorTest extends AbstractServiceTest {
 
     @Test
     public void testWinningStakes(){
-        stakeService.save(STAKE_6);
+        stakeService.save(STAKE_6, USER_ID_1);
         raceProcessor.process(HorseTestData.HORSE_4.getId(), RACE_4_ID);
         //-----------------------= wins =----------------------------
         int wins = horseService.get(HorseTestData.HORSE_4.getId()).getWins();
         Assert.assertEquals(1, wins);
         //-----------------------= wallets =-------------------------
-        final Double cash1 = walletService.get(USER_ID_1).getCash();
-        final Double cash2 = walletService.get(USER_ID_2).getCash();
-        Assert.assertEquals(cash1, 160.375d, 0.001d);
-        Assert.assertEquals(cash2, 165.375d, 0.001d);
+        Double cash1 = walletService.get(USER_ID_1).getCash();
+        Double cash2 = walletService.get(USER_ID_2).getCash();
+        Assert.assertEquals(cash1, 105.25d, 0.001d);
+        Assert.assertEquals(cash2, 120.25d, 0.001d);
         //------------------------= stakes =-------------------------
         List<Stake> winningStakes = stakeService.getWinningStakes(RACE_4_ID);
         STAKE_MATCHER.assertCollectionEquals(

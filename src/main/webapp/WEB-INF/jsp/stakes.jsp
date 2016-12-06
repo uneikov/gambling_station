@@ -170,26 +170,29 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    var edit_title = '<spring:message code="stake.edit"/>';
+    var add_title = '<spring:message code="stake.add"/>';
+</script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="webjars/datetimepicker/2.4.7/build/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/stakeDatatables.js"></script>
-<script type="text/javascript">
-    var edit_title = '<spring:message code="stake.edit"/>';
-    var add_title = '<spring:message code="stake.add"/>';
+<script>
+    $(document).ready(function(){
 
-    window.setInterval(function () {
-        ajaxCallStation();  //calling every 5 seconds
-        checkStatus();
-    }, 5000);
+        window.setInterval(function () {
+            ajaxCallStation();  //calling every 5 seconds
+            checkStatus();
+        }, 1000);
 
-    function ajaxCallStation() {
-        $.get(ajaxWalletsUrl + 'station', function (data) {
-            $("#station").html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сумма ставок: ' + data.toFixed(2));
-            //$(".scroll").html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сумма ставок: ' + data.toFixed(2));
-        });
-    }
+        function ajaxCallStation() {
+            $.get(ajaxUrl + 'cash', function (data) {
+                $("#station").html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сумма ставок: ' + data.toFixed(2));
+            });
+        }
+    });
 </script>
 </html>

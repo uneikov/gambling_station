@@ -1,7 +1,13 @@
 package com.uran.gamblingstation.service;
 
+import com.uran.gamblingstation.model.Horse;
+import com.uran.gamblingstation.model.Race;
 import com.uran.gamblingstation.model.Stake;
+import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.repository.StakeRepository;
+import com.uran.gamblingstation.service.account.AccountService;
+import com.uran.gamblingstation.service.scheduler.RaceScheduler;
+import com.uran.gamblingstation.to.StakeTo;
 import com.uran.gamblingstation.util.exception.ExceptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,19 +18,27 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import static com.uran.gamblingstation.util.exception.ExceptionUtil.checkNotFoundWithId;
+
 @Service
 public class StakeServiceImpl implements StakeService {
 
     @Autowired private StakeRepository repository;
+    @Autowired private UserService userService;
+    @Autowired private HorseService horseService;
+    @Autowired private AccountService accountService;
 
     @Override
-    public Stake get(int id) {
-        return repository.get(id);
+    public Stake get(int id, int userId) {
+        return checkNotFoundWithId(repository.get(id, userId), id);
     }
 
+    @Transactional
     @Override
-    public void delete(int id) {
-        ExceptionUtil.checkNotFoundWithId(repository.delete(id), id);
+    public void delete(int id, int userId) {
+        Double deleted = get(id, userId).getStakeValue();
+        checkNotFoundWithId(repository.delete(id, userId), id);
+        accountService.transferToUser(userId, deleted);
     }
 
     @Override
@@ -32,16 +46,54 @@ public class StakeServiceImpl implements StakeService {
         return repository.getAll();
     }
 
+    @Transactional
     @Override
-    public Stake save(Stake stake) {
+    public Stake save(Stake stake, int userId) {
         Assert.notNull(stake, "stake must not be null");
-        return repository.save(stake);
+        stake.setUser(userService.get(userId));
+        Stake created = repository.save(stake, userId);
+        accountService.transferToStation(userId, stake.getStakeValue());
+        return created;
     }
 
+    @Transactional
     @Override
-    public void update(Stake stake) {
+    public Stake save(StakeTo stakeTo, int userId) {
+        final User user = userService.get(userId);
+        final Horse horse = horseService.getByName(stakeTo.getHorseName());
+        final Race race = RaceScheduler.getCurrentRace();
+        Stake stake = repository.save(
+                new Stake(null, user, horse, race, stakeTo.getStakeValue(), LocalDateTime.now(), false, 0.0d, true),
+                userId
+        );
+        accountService.transferToStation(userId, stake.getStakeValue());
+        return stake;
+    }
+
+    @Transactional
+    @Override
+    public Stake update(Stake stake, int userId) {
         Assert.notNull(stake, "stake must not be null");
-        repository.update(stake);
+        final Double oldStakeValue = repository.get(stake.getId(), userId).getStakeValue();
+        Stake updated = ExceptionUtil.checkNotFoundWithId(repository.save(stake, userId), stake.getId());
+        updateUserAndStationWallets(oldStakeValue - updated.getStakeValue(), userId);
+        return updated;
+    }
+
+    @Transactional
+    @Override
+    public Stake update(StakeTo stakeTo, int userId) {
+        int id = stakeTo.getId();
+        final Double oldStakeValue = repository.get(id, userId).getStakeValue();
+        final User user = userService.get(userId);
+        final Horse horse = horseService.getByName(stakeTo.getHorseName());
+        final Race race = RaceScheduler.getCurrentRace();
+        Stake updated = repository.save(
+                new Stake(id, user, horse, race,  stakeTo.getStakeValue(), LocalDateTime.now(), false, 0.0d, true),
+                userId
+        );
+        updateUserAndStationWallets(oldStakeValue - updated.getStakeValue(), userId);
+        return updated;
     }
 
     // а оно надо ???
@@ -105,26 +157,12 @@ public class StakeServiceImpl implements StakeService {
         Assert.notNull(endDateTime, "endDateTime  must not be null");
         return repository.getBetween(startDateTime, endDateTime, userId);
     }
-    /* @Override
-    public List<Stake> getWinningStakes(LocalDateTime startDate, LocalDateTime endDate) {
-        return repository.getBetween(startDate, endDate).stream()
-                .filter(Stake::isWins)
-                .collect(Collectors.toList());
-    }*/
-    /* @Override
-    public void setWinningStakes(int horseId, LocalDateTime startDate, LocalDateTime endDate) {
-        repository.getBetweenWithHorse(horseId, startDate, endDate).stream()
-                .peek(s -> s.setWins(true))
-                .forEach(s -> repository.update(s));
-    }*/
-    /*
-    @Override
-    public void setNotEditable(LocalDateTime start, LocalDateTime finish) {
-        getBetween(start, finish).forEach(stake -> { stake.setEditable(false); repository.update(stake); });
-    }*/
-    /*
-    @Override
-    public Double getAllCash(LocalDateTime startDate, LocalDateTime endDate) {
-        return repository.getAllCash(startDate, endDate);
-    }*/
+
+    private void updateUserAndStationWallets(Double difValue, int userId){
+        if (difValue < 0) {
+            accountService.transferToStation(userId, Math.abs(difValue));
+        }else {
+            accountService.transferToUser(userId, difValue);
+        }
+    }
 }

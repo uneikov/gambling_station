@@ -3,9 +3,7 @@ package com.uran.gamblingstation.controller.user;
 import com.uran.gamblingstation.Profiles;
 import com.uran.gamblingstation.model.BaseEntity;
 import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.model.Wallet;
 import com.uran.gamblingstation.service.UserService;
-import com.uran.gamblingstation.service.WalletService;
 import com.uran.gamblingstation.to.UserTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +19,7 @@ public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired private UserService userService;
-    @Autowired private WalletService walletService;
+    //@Autowired private WalletService walletService;
 
     private boolean systemUserForbiddenModification;
 
@@ -49,10 +47,11 @@ public abstract class AbstractUserController {
     public User create(User user) {
         user.setId(null);
         log.info("create " + user);
+        return userService.save(user);
         //даем ему кошелек!!!
-        User created = userService.save(user);
-        walletService.save(new Wallet(created.getId(), 0.0d));
-        return created;
+        //User created = userService.save(user);
+        //walletService.save(new Wallet(created.getId(), 0.0d));
+        //return created;
     }
 
     public void delete(int id) {

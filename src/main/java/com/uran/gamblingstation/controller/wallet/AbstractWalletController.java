@@ -40,7 +40,6 @@ public abstract class AbstractWalletController {
     }
     public Wallet create(Wallet wallet, int userId) {
         wallet.setId(userId);
-        /*int userId = AuthorizedUser.id();*/
         LOG.info("create {} for User {}", wallet, userId);
         return service.save(wallet);
     }

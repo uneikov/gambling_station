@@ -18,31 +18,24 @@ public class WalletServiceImpl implements WalletService{
     @Override
     public Wallet save(Wallet wallet) {
         Assert.notNull(wallet, "wallet must not be null");
+        ExceptionUtil.checkPositive(wallet.getCash());
         return repository.save(wallet);
     }
 
     @Override
     public void update(Wallet wallet) {
         Assert.notNull(wallet, "wallet must not be null");
+        ExceptionUtil.checkPositive(wallet.getCash());
         repository.update(wallet);
     }
 
     @Override
     public void delete(int id){
-       /* int userId = AuthorizedUser.id();
-        if (userId != id) {
-            throw new NotFoundException("Unauthorized operation");
-        }*/
         ExceptionUtil.checkNotFoundWithId(repository.delete(id), id);
-        //return repository.delete(id);
     }
 
     @Override
     public Wallet get(int id) throws NotFoundException{
-       /* int userId = AuthorizedUser.id();
-        if (userId != id) {
-            throw new NotFoundException("Unauthorized operation");
-        }*/
         return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
     }
 

@@ -24,14 +24,14 @@ $(function () {
             {
                 data: "start",
                 render: function (date, type, row) {
-                    return type == "display" ? date.replace('T', ' ').substr(0, 16) : date;
+                    return type === 'display' ? date.replace('T', ' ').substr(0, 16) : date;
                 }
             },
             {
                 data: "finish",
                 defaultContent: "",
                 render: function (date, type, row) {
-                    return type == 'display' && date != undefined ? date.replace('T', ' ').substr(0, 16) : date;
+                    return type === 'display' && date != undefined ? date.replace('T', ' ').substr(0, 16) : date;
                 }
             },
             {
@@ -46,7 +46,7 @@ $(function () {
                     var view = horses.reduce(function (prev, curr) {
                         return prev + '<option value="' + curr + '">' + curr + '</option>'
                     }, '<option value="" selected="selected">---</horses></option>');
-                    return type == 'display' ? '<div><select>' + view + '</select></div>' : data;
+                    return type === 'display' ? '<div><select>' + view + '</select></div>' : data;
                 }
             },
             {
@@ -54,13 +54,13 @@ $(function () {
                 render: function ( data, type, row ) {
                     var split = data.split(':');
                     var horse = locale=='en' ? split[0] : split[1];
-                    return type == "display" ? horse : data;
+                    return type == 'display' ? horse : data;
                 }
             },
             {
                 data: "stakes",
                 render: function ( data, type, row ) {
-                    return type == "display" ? data.length : data;
+                    return type === 'display' ? data.length : data;
                 }
             },
             {
@@ -69,7 +69,7 @@ $(function () {
                     var totalStakesValue = data.reduce(function(prev, curr) {
                         return prev + curr.stakeValue;
                     },0.0);
-                    return type == "display" ? totalStakesValue.toFixed(2) : data;
+                    return type === 'display' ? totalStakesValue.toFixed(2) : data;
                 }
             },
             {
@@ -78,7 +78,7 @@ $(function () {
                     var totalWins = data.reduce(function(prev, curr) {
                         return prev + curr.wins;
                     },0);
-                    return type == "display" ? totalWins : data;
+                    return type === 'display' ? totalWins : data;
                 }
             },
             {
@@ -87,7 +87,7 @@ $(function () {
                     var totalAmount = data.reduce(function(prev, curr) {
                         return prev + curr.amount;
                     },0.0);
-                    return type == "display" ? totalAmount.toFixed(2) : data;
+                    return type === 'display' ? totalAmount.toFixed(2) : data;
                 }
             }
         ],

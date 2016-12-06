@@ -42,7 +42,7 @@ INSERT INTO wallets (user_id, cash_value) VALUES
   (100000, 10.0),
   (100001, 15.0),
   (100002, 0.0),
-  (100003, 0.0);
+  (100003, 200.5);
 
 INSERT INTO races (start, finish, horses, winning) VALUES
   (

@@ -19,9 +19,16 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
 
     @Override
     @Transactional
-    public Stake save(Stake stake) {
-        em.persist(stake);
-        return stake;
+    public Stake save(Stake stake, int userId) {
+        if (!stake.isNew() && get(stake.getId(), userId) == null) {
+            return null;
+        }
+        if (stake.isNew()) {
+            em.persist(stake);
+            return stake;
+        } else {
+            return em.merge(stake);
+        }
     }
 
     @Override
@@ -32,16 +39,17 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
 
     @Override
     @Transactional
-    public boolean delete(int id) {
-      /*  em.remove(em.find(Stake.class, id));*/
+    public boolean delete(int id, int userId) {
         return em.createNamedQuery(Stake.DELETE)
                  .setParameter("id", id)
+                 .setParameter("userId", userId)
                  .executeUpdate() != 0;
     }
 
     @Override
-    public Stake get(int id) {
-        return em.find(Stake.class, id);
+    public Stake get(int id, int userId) {
+        Stake stake = em.find(Stake.class, id);
+        return stake != null && stake.getUser().getId() == userId ? stake : null;
     }
 
     @Override

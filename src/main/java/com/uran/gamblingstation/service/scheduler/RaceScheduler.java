@@ -30,8 +30,8 @@ public class RaceScheduler {
     private static LocalDateTime START = null;
     private static LocalDateTime FINISH = null;
 
-    private static List<Horse> horsesForRace;
-    private static Race currentRace;
+    private static List<Horse> horsesForRace = null;
+    private static Race currentRace = null;
     private static boolean FIRST = true;
 
     @Autowired private RaceSimulationHelper helper;
@@ -47,7 +47,7 @@ public class RaceScheduler {
         RACE_IS_RUNNING = false;
         USERS_CAN_MAKE_STAKES = true;
 
-        helper.selectHorsesForRace();// random SELECT horses for race
+        helper.selectHorsesForRace();
 
         horsesForRace = helper.getHorsesForRace();
 
@@ -59,11 +59,11 @@ public class RaceScheduler {
                 .addWinning("not yet:еще нет");
         currentRace = raceService.save(currentRace);
 
-        //helper.killBots();
         if (FIRST) {
             helper.createBots();
             FIRST = false;
         }
+
         helper.fillWallets();
         helper.startGamble();
     }
@@ -83,8 +83,8 @@ public class RaceScheduler {
         // TODO race simulation realisation & visualisation
     }
 
-    //Fire every new hour (10:59:30, 11:59:30, ... etc) every day
-    @Scheduled(cron = "0 59 * * * ?")
+    //Fire every new hour (10:55, 11:55, ... etc) every day
+    @Scheduled(cron = "0 55 * * * ?")
     public void processRaceResult() {
 
         if (FINISH == null) return;
@@ -105,9 +105,6 @@ public class RaceScheduler {
                 .close();
 
         processor.process(winning.getId(), currentRace.getId());
-
-        //processor.process(winning.getId(), START, FINISH);
-
     }
 
     public static Race getCurrentRace(){

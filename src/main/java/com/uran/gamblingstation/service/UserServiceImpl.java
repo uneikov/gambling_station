@@ -2,6 +2,7 @@ package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.User;
+import com.uran.gamblingstation.model.Wallet;
 import com.uran.gamblingstation.repository.UserRepository;
 import com.uran.gamblingstation.to.UserTo;
 import com.uran.gamblingstation.util.exception.ExceptionUtil;
@@ -22,11 +23,16 @@ import static com.uran.gamblingstation.util.user.UserUtil.updateFromTo;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired private UserRepository repository;
+    @Autowired private WalletService walletService;
 
     @Override
+    @Transactional
     public User save(User user) {
         Assert.notNull(user, "user must not be null");
-        return repository.save(prepareToSave(user));
+        User saved = repository.save(prepareToSave(user));
+        walletService.save(new Wallet(saved.getId(), 0.0d));
+        return saved;
+        /*return repository.save(prepareToSave(user));*/
     }
 
     @Override
@@ -50,9 +56,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return repository.getAll();
     }
 
-
-    @Transactional
     @Override
+    @Transactional
     public void update(UserTo userTo) {
         User user = updateFromTo(get(userTo.getId()), userTo);
         repository.save(prepareToSave(user));

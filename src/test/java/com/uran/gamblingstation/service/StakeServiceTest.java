@@ -42,8 +42,7 @@ public class StakeServiceTest extends AbstractServiceTest{
 
     @Test
     public void testSave() throws Exception {
-        Stake created = getCreated();
-        service.save(created); //
+        Stake created = service.save(getCreated(), USER_ID_1);
         STAKE_MATCHER.assertCollectionEquals(service.getAllByUserId(USER_ID_1),
                 Arrays.asList(created, STAKE_5, STAKE_3, STAKE_1));
     }
@@ -51,46 +50,46 @@ public class StakeServiceTest extends AbstractServiceTest{
     @Test
     public void testUpdate() throws Exception {
         Stake updated = getUpdated();
-        service.update(updated);
-        STAKE_MATCHER.assertEquals(updated, service.get(STAKE_1_ID));
+        service.update(updated, USER_ID_1);
+        STAKE_MATCHER.assertEquals(updated, service.get(STAKE_1_ID, USER_ID_1));
     }
 
     @Test
     public void testDelete() throws Exception {
-        service.delete(STAKE_2_ID);
+        service.delete(STAKE_2_ID, USER_ID_2);
         STAKE_MATCHER.assertCollectionEquals(service.getAllByUserId(USER_ID_2), Collections.singletonList(STAKE_4));
     }
 
     @Test
     public void testDeleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.delete(1);
+        service.delete(1, USER_ID_1);
     }
 
     @Test
     public void testGet() throws Exception {
-        Stake stake_3 = service.get(STAKE_3_ID);
+        Stake stake_3 = service.get(STAKE_3_ID, USER_ID_1);
         STAKE_MATCHER.assertEquals(stake_3, STAKE_3);
     }
 
     @Test
     public void testIsEditable() throws Exception {
-        Stake stake_3 = service.get(STAKE_3_ID);
+        Stake stake_3 = service.get(STAKE_3_ID, USER_ID_1);
         Assert.assertFalse(stake_3.isEditable());
     }
 
     @Test
     public void testSetEditable() throws Exception {
-        Stake stake_3 = service.get(STAKE_3_ID);
+        Stake stake_3 = service.get(STAKE_3_ID, USER_ID_1);
         stake_3.setEditable(true);
-        service.update(stake_3);
-        Assert.assertTrue(service.get(STAKE_3_ID).isEditable());
+        service.update(stake_3, USER_ID_1);
+        Assert.assertTrue(service.get(STAKE_3_ID, USER_ID_1).isEditable());
     }
 
     @Test
     public void testArchived() throws Exception {
         service.setNotEditable(RACE_4_ID);
-        Assert.assertFalse(service.get(STAKE_3_ID).isEditable());
+        Assert.assertFalse(service.get(STAKE_3_ID, USER_ID_1).isEditable());
     }
 
     @Test

@@ -37,7 +37,6 @@ public class Race extends BaseEntity {
     private String winning;
     
     @OneToMany(mappedBy = "race", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //@JsonIgnore
     @JsonManagedReference
     private List<Stake> stakes;
 

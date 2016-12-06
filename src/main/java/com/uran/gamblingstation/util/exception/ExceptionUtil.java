@@ -27,4 +27,8 @@ public class ExceptionUtil {
             throw new NotFoundException("Not found entity with " + msg);
         }
     }
+
+    public static void checkPositive(Double value){
+        if (value < 0) throw new NegativeValueException("Negative double value for wallet balance" + value);
+    }
 }

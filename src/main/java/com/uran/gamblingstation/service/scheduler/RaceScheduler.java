@@ -60,6 +60,7 @@ public class RaceScheduler {
         currentRace = raceService.save(currentRace);
 
         if (FIRST) {
+            helper.killBots();
             helper.createBots();
             FIRST = false;
         }

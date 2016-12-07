@@ -35,6 +35,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
 
     private List<User> bots = new ArrayList<>();
     private List<Horse> selectedHorses = new ArrayList<>();
+    private static int botsNumber = 0;
     private static int count = 0;
 
     public void selectHorsesForRace(){
@@ -53,7 +54,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     }
 
     public void createBots(){
-        int botsNumber = ThreadLocalRandom.current().nextInt(30, 51);
+        botsNumber = ThreadLocalRandom.current().nextInt(30, 51);
         BotFactory botFactory = new BotFactory();
         bots = botFactory.getBots(botsNumber);
         bots.forEach(user -> userService.save(user));
@@ -81,7 +82,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     }
 
     public void startGamble(){
-        final List<Integer> randomTimePoints = RandomUtil.getRandomTimePoints(0, 45, 50);
+        final List<Integer> randomTimePoints = RandomUtil.getRandomTimePoints(0, 45, botsNumber);
         LOG.info("Make random time points, race is running? - {}", RACE_IS_RUNNING);
         randomTimePoints.forEach(tick -> {
             while (USERS_CAN_MAKE_STAKES){

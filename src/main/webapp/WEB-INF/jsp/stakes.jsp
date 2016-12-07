@@ -186,7 +186,7 @@
         window.setInterval(function () {
             ajaxCallStation();  //calling every 5 seconds
             checkStatus();
-        }, 5000);
+        }, 1000);
 
         function ajaxCallStation() {
             $.get(ajaxUrl + 'cash', function (data) {

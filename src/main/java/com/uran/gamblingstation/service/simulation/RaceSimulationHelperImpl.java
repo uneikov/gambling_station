@@ -53,23 +53,21 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     }
 
     public void createBots(){
+        int botsNumber = ThreadLocalRandom.current().nextInt(30, 51);
         BotFactory botFactory = new BotFactory();
-        bots = botFactory.getBots(50);
+        bots = botFactory.getBots(botsNumber);
+        bots.forEach(user -> userService.save(user));
+    }
+
+    public void fillWallets(){
         bots.forEach(user -> {
-            userService.save(user);
-            user.setWallet(new Wallet(user.getId(), 0.0d));
-            walletService.save(user.getWallet());
+            Wallet botWallet = walletService.get(user.getId());
+            botWallet.setCash(botWallet.getCash() + 10 + ThreadLocalRandom.current().nextDouble(90.0));
+            walletService.update(botWallet);
         });
     }
 
-    public void fillWallets(){ // заполнить кошельки
-        bots.forEach(user -> {
-            user.getWallet().setCash(user.getWallet().getCash() + 10 + ThreadLocalRandom.current().nextDouble(90.0));
-            walletService.update(user.getWallet());
-        });
-    }
-
-    public void clearWallets(){ // очистить кошельки
+    public void clearWallets(){
         bots.forEach(user -> {
             user.getWallet().setCash(0.0d);
             walletService.update(user.getWallet());
@@ -98,8 +96,9 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
 
     private void makeStake() {
         User botUser = bots.get(count++);
+        Double botCash = walletService.get(botUser.getId()).getCash();
         Double stakeValue = 10 + ThreadLocalRandom.current().nextDouble(90.0);
-        stakeValue = stakeValue > botUser.getWallet().getCash() ? botUser.getWallet().getCash() : stakeValue;
+        stakeValue = stakeValue > botCash ? botCash : stakeValue;
         Horse stakeHorse = RandomUtil.getRandomHorseFromList(selectedHorses);
         stakeService.save(
                 new Stake(null, botUser, stakeHorse, RaceScheduler.getCurrentRace(), stakeValue, LocalDateTime.now(), false, 0.0d, false),

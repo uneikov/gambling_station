@@ -16,15 +16,12 @@ function makeEditable() {
 }
 
 function add() {
-    debugger;
     var form_title= this.form[0].title;
     $('#modalTitle').html(add_title);
     form.find(":input").val("");
     if (form_title=='stake'){
-        debugger;
         addModal();
     }else {
-        debugger;
         $('#editRow').modal();
     }
 }
@@ -68,6 +65,9 @@ function checkDelete(id) {
             }
         });
     }
+    if (form_title=='user'){
+        deleteRow(id);
+    }
 }
 
 function deleteRow(id) {
@@ -83,7 +83,6 @@ function deleteRow(id) {
 
 function enable(chkbox, id) {
     var enabled = chkbox.is(":checked");
-    debugger;
     $.ajax({
         url: ajaxUrl + id,
         type: 'POST',
@@ -100,7 +99,6 @@ function updateTableByData(data) {
 }
 
 function save() {
-    debugger;
     $.ajax({
         type: "POST",
         url: ajaxUrl,

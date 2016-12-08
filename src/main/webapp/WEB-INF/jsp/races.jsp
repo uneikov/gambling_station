@@ -9,11 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <jsp:include page="fragments/headTag.jsp"/>
+    <jsp:include page="fragments/bodyHeader.jsp"/>
     <link rel="stylesheet" href="webjars/datatables/1.10.12/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="webjars/datetimepicker/2.4.7/jquery.datetimepicker.css">
 </head>
 <body>
-<jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">

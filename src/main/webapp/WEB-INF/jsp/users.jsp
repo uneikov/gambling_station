@@ -5,13 +5,14 @@
 
 <html>
 <head>
-<jsp:include page="fragments/headTag.jsp"/>
-<%--<jsp:include page="fragments/i18nTag.jsp"/>--%>
-<link rel="stylesheet" href="webjars/datatables/1.10.12/css/dataTables.bootstrap.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <jsp:include page="fragments/headTag.jsp"/>
+    <jsp:include page="fragments/bodyHeader.jsp"/>
+    <link rel="stylesheet" href="webjars/datatables/1.10.12/css/dataTables.bootstrap.min.css">
 </head>
 <body>
-<jsp:include page="fragments/bodyHeader.jsp"/>
-
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">

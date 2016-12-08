@@ -9,11 +9,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
 
         <a href="stakes" class="navbar-brand"><fmt:message key="app.title"/></a>
-        <a class="navbar-brand" id="station" style="color: white"></a>
+        <h5 class="logo" id="station" style="color: white">LALALALA</h5>
         <div class="collapse navbar-collapse">
             <form class="navbar-form navbar-right">
                 <a class="btn btn-info" role="button" href="stakes"><fmt:message key="stakes.title"/></a>

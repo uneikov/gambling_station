@@ -1,6 +1,5 @@
 package com.uran.gamblingstation.service.simulation;
 
-import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.model.Wallet;
 import com.uran.gamblingstation.service.AbstractServiceTest;
 import com.uran.gamblingstation.service.UserService;
@@ -36,8 +35,6 @@ public class RaceSimulationHelperlTest extends AbstractServiceTest{
     @Test
     public void fillWallets() throws Exception {
         helper.createBots();
-        final User user = userService.getByEmail("testuser33@test.com");
-        user.getWallet();
         helper.fillWallets();
         final List<Wallet> all = walletService.getAll();
         Assert.assertTrue(all.get(29).getCash() >= 10);

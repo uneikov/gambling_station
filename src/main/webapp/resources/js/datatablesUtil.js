@@ -31,14 +31,13 @@ function updateRow(id) {
     $('#modalTitle').html(edit_title);
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
-            console.log(key, value);
             form.find("input[name='" + key + "']").val(value);
         });
     });
     if (form_title=='stake'){
         updateModal(id);
     }
-    if (form_title=='horse'){
+    if (form_title=='horse' || form_title=='user'){
         $.get(ajaxRacesUrl + 'can', function (editable) {
             if (editable=='editable') {
                 $('#editRow').modal();
@@ -48,14 +47,11 @@ function updateRow(id) {
             }
         });
     }
-    if (form_title=='user'){
-        $('#editRow').modal();
-    }
 }
 
 function checkDelete(id) {
     var form_title= this.form[0].title;
-    if (form_title=='horse'){
+    if (form_title=='horse' || form_title=='user'){
         $.get(ajaxRacesUrl + 'can', function (editable) {
             if (editable=='editable') {
                 deleteRow(id);
@@ -65,7 +61,7 @@ function checkDelete(id) {
             }
         });
     }
-    if (form_title=='user'){
+    if (form_title=='stake'){
         deleteRow(id);
     }
 }

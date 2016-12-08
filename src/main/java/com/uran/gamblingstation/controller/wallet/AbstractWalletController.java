@@ -38,6 +38,7 @@ public abstract class AbstractWalletController {
         LOG.info("update {} for User {}", wallet, userId);
         service.update(wallet);
     }
+
     public Wallet create(Wallet wallet, int userId) {
         wallet.setId(userId);
         LOG.info("create {} for User {}", wallet, userId);

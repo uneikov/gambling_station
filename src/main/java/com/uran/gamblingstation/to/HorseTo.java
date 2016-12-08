@@ -20,7 +20,7 @@ public class HorseTo implements Serializable{
     @NotEmpty(message = "  is required")
     private String ruName;
 
-    @NotNull(message = "  must not be empty, minimum value - 1.0")
+    @NotNull(message = "  must not be empty, minimum value - 1")
     @DecimalMin("1")
     private Integer age;
 

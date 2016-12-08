@@ -1,4 +1,17 @@
-
+.navbar-brand {
+    padding: 0;
+}
+.navbar-brand>img {
+    height: 100%;
+    padding: 7px 15px;
+    width: auto;
+    display: inline-block;
+}
+.logo {
+    margin:0;
+    display: inline-block;
+    color: black;
+}
 .loosed {
     color: red;
 }

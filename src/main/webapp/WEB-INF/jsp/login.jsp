@@ -5,42 +5,42 @@
 <jsp:include page="fragments/info.jsp"/>
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <body>
-<%--<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header navbar-brand"><spring:message code="app.title"/></div>
-        <div class="navbar-collapse collapse">
-            <form:form class="navbar-form navbar-right" role="form" action="spring_security_check" method="post">
-                <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control" name='username'>
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control" name='password'>
-                </div>
-                &lt;%&ndash;<button type="submit" class="btn btn-success"><spring:message code="app.login"/></button>&ndash;%&gt;
-            </form:form>
-        </div>
-    </div>
-</div>--%>
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header navbar-brand"><spring:message code="app.title"/></div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <form:form class="navbar-form" role="form" action="spring_security_check"
-                               method="post">
-                        <div class="form-group">
-                            <input type="text" placeholder="Email" class="form-control" name='username'>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" placeholder="Password" class="form-control" name='password'>
-                        </div>
-                        <button type="submit" class="btn btn-success"><spring:message code="app.login"/></button>
-                    </form:form>
-                </li>
-                <jsp:include page="fragments/lang.jsp"/>
-            </ul>
+<div class="container">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar_login">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="stakes" class="navbar-brand"><img src="resources/images/icon-hr.png"><h5 class="logo">
+                    <spring:message code="app.title"/></h5></a>
+            </div>
+            <div id="navbar_login" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form:form class="navbar-form" role="form" action="spring_security_check"
+                                   method="post">
+                            <div class="form-group">
+                                <input type="text" placeholder="Email" class="form-control" name='username'>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Password" class="form-control" name='password'>
+                            </div>
+                            <button type="submit" class="btn btn-success"><spring:message code="app.login"/></button>
+                        </form:form>
+                    </li>
+                    <jsp:include page="fragments/lang.jsp"/>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -56,7 +56,7 @@
                 <spring:message code="${message}"/>
             </div>
         </c:if>
-        <p>
+        <hr>
         <p><h5><b>Test credentials:</b></h5></p>
         <p><h5>User1 login: <b>user1@yandex.ru / password1</b></h5></p>
         <p><h5>User2 login: <b>user2@yandex.ru / password2</b></h5></p>

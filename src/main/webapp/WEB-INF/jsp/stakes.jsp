@@ -190,7 +190,8 @@
 
         function ajaxCallStation() {
             $.get(ajaxUrl + 'cash', function (data) {
-                $("#station").html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сумма ставок: ' + data.toFixed(2));
+                //$("#station").html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сумма ставок: ' + data.toFixed(2));
+                $(".logo").html('&nbsp;&nbsp;&nbsp; Сумма ставок: ' + data.toFixed(2));
             });
         }
     });

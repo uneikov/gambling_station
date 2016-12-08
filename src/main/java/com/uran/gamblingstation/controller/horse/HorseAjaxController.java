@@ -36,29 +36,6 @@ public class HorseAjaxController extends AbstractHorseController {
         super.delete(id);
     }
 
-   /* @PostMapping
-    public void createOrUpdate(@RequestParam("id") Integer id,
-                               @RequestParam("name") String name,
-                               @RequestParam("ruName") String ru_name,
-                               @RequestParam("age") Integer age,
-                               @RequestParam("wins") Integer wins,
-                               @RequestParam("ready") Boolean ready)
-    {
-        Horse horse = new Horse(
-                id,
-                name,
-                ru_name.isEmpty() ? "Отсутствует" : ru_name,
-                age,
-                wins == null ? 0 : wins,
-                ready != null
-        );
-        if (horse.isNew()) {
-            super.create(horse);
-        } else {
-            super.update(horse, id);
-        }
-    }*/
-
     @PostMapping
     public void createOrUpdate(@Valid HorseTo horseTo)
     {

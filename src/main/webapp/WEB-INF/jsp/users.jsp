@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -19,8 +18,8 @@
             <h3><spring:message code="users.title"/></h3>
             <div class="view-box">
 
-                <a class="btn btn-sm btn-info" onclick="add()"><spring:message code="users.add"/></a><hr>
-                <%--<a class="btn btn-sm btn-info" href="horses"><fmt:message key="horses.add"/></a>--%>
+                <a class="btn btn-sm btn-info" onclick="add()"><spring:message code="users.add"/></a>
+                <hr>
 
                 <table class="table table-striped display" id="userstable">
                     <thead>
@@ -39,9 +38,7 @@
         </div>
     </div>
 </div>
-
 <jsp:include page="fragments/footer.jsp"/>
-<%--    <h2><a href="${pageContext.request.contextPath}/"><fmt:message key="app.home"/></a></h2>--%>
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -1,17 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: URAN
-  Date: 11.11.2016
-  Time: 13:06
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <jsp:include page="fragments/headTag.jsp"/>
     <jsp:include page="fragments/bodyHeader.jsp"/>
     <link rel="stylesheet" href="webjars/datatables/1.10.12/css/dataTables.bootstrap.min.css">
@@ -22,9 +17,8 @@
         <div class="shadow">
             <h3><fmt:message key="horses.title"/></h3>
             <div class="view-box">
-
-                <a class="btn btn-sm btn-info" onclick="add()"><fmt:message key="horses.add"/></a><hr>
-
+                <a class="btn btn-sm btn-info" onclick="add()"><fmt:message key="horses.add"/></a>
+                <hr>
                 <table class="table table-striped display" id="horsestable">
                     <thead>
                     <tr>
@@ -42,9 +36,7 @@
         </div>
     </div>
 </div>
-
 <jsp:include page="fragments/footer.jsp"/>
-
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">

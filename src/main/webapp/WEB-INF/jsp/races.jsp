@@ -20,7 +20,6 @@
             <h3><spring:message code="races.title"/></h3>
             <input hidden="hidden" id="locale" value="${pageContext.response.locale}">
             <div class="view-box">
-
                 <table class="table table-striped display" id="racestable">
                     <thead>
                     <tr>

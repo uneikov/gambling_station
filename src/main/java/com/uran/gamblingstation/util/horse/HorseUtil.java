@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class HorseUtil {
+
     public static Horse createNewFromTo(HorseTo newHorse) {
         return new Horse(null, newHorse.getName(), newHorse.getRuName(), newHorse.getAge(), 0, false);
     }

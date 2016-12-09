@@ -48,10 +48,6 @@ public abstract class AbstractUserController {
         user.setId(null);
         log.info("create " + user);
         return userService.save(user);
-        //даем ему кошелек!!!
-        //User created = userService.save(user);
-        //walletService.save(new Wallet(created.getId(), 0.0d));
-        //return created;
     }
 
     public void delete(int id) {

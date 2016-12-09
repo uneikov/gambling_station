@@ -1,6 +1,5 @@
 package com.uran.gamblingstation.service.scheduler;
 
-
 import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.model.Race;
 import com.uran.gamblingstation.service.RaceService;
@@ -9,7 +8,7 @@ import com.uran.gamblingstation.service.simulation.RaceSimulationHelper;
 import com.uran.gamblingstation.util.RandomUtil;
 import com.uran.gamblingstation.util.TimeUtil;
 import com.uran.gamblingstation.util.horse.HorseUtil;
-import com.uran.gamblingstation.util.race.RaceFactory;
+import com.uran.gamblingstation.service.simulation.RaceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +60,10 @@ public class RaceScheduler {
 
         if (FIRST) {
             helper.killBots();
-            helper.createBots();
+            helper.createBots(50);
             FIRST = false;
+        }else {
+            helper.initBots(30, 50);
         }
 
         helper.fillWallets();

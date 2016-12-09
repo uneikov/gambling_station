@@ -5,7 +5,8 @@ import com.uran.gamblingstation.model.Horse;
 import java.util.List;
 
 public interface RaceSimulationHelper {
-    void createBots();
+    void createBots(int max);
+    void initBots(int min, int max);
     void fillWallets();
     void killBots();
     void startGamble();

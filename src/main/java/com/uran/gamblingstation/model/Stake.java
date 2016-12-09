@@ -48,7 +48,6 @@ public class Stake extends BaseEntity {
     private Double stakeValue;
 
     @Column(name = "date_time", columnDefinition = "timestamp default now()")
-    //private Date dateTime = new Date();
     private LocalDateTime dateTime = LocalDateTime.now();
 
     @Column(name = "wins")

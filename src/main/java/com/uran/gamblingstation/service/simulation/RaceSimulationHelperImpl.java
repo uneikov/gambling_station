@@ -53,11 +53,15 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
         return selectedHorses;
     }
 
-    public void createBots(){
-        botsNumber = ThreadLocalRandom.current().nextInt(30, 51);
+    public void createBots(int max){
+        botsNumber = max;
         BotFactory botFactory = new BotFactory();
         bots = botFactory.getBots(botsNumber);
         bots.forEach(user -> userService.save(user));
+    }
+
+    public void initBots(int min, int max){
+        botsNumber = ThreadLocalRandom.current().nextInt(min, max);
     }
 
     public void fillWallets(){

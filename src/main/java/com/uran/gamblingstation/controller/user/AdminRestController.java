@@ -42,19 +42,6 @@ public class AdminRestController extends AbstractUserController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    /*@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<?> add(@RequestBody User user) {
-        //this.validateUser(userId);
-        List<User> users0 = userService.getAll();
-        User created = super.create(user);
-        List<User> users = userService.getAll();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setLocation(ServletUriComponentsBuilder
-                .fromCurrentRequest().path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri());
-        return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
-    }*/
-
     @Override
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {

@@ -184,7 +184,7 @@
     $(document).ready(function(){
 
         window.setInterval(function () {
-            ajaxCallStation();  //calling every 5 seconds
+            ajaxCallStation();  //calling every 1 seconds
             checkStatus();
         }, 1000);
 

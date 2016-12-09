@@ -54,21 +54,6 @@ public class StakeAjaxController extends AbstractStakeController{
 
     }
 
-   /* @PostMapping
-    public ResponseEntity<String> createOrUpdate(@Valid StakeTo stakeTo, BindingResult result) {
-        if (result.hasErrors()) {
-            StringBuilder sb = new StringBuilder();
-            result.getFieldErrors().forEach(fe -> sb.append(fe.getField()).append(" ").append(fe.getDefaultMessage()).append("<br>"));
-            return new ResponseEntity<>(sb.toString(), HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-        if (stakeTo.isNew()) {
-            super.create(stakeTo);
-        } else {
-            super.update(stakeTo);
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
-    }*/
-
     @PostMapping(value = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Stake> getBetween(
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,

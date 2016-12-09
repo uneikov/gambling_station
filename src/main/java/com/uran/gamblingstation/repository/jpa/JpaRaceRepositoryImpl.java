@@ -26,7 +26,7 @@ public class JpaRaceRepositoryImpl implements RaceRepository{
             em.persist(race);
             return race;
         } else {
-            return em.merge(race); //?????????????
+            return em.merge(race);
         }
     }
 

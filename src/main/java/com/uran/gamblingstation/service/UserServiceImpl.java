@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User saved = repository.save(prepareToSave(user));
         walletService.save(new Wallet(saved.getId(), 0.0d));
         return saved;
-        /*return repository.save(prepareToSave(user));*/
     }
 
     @Override

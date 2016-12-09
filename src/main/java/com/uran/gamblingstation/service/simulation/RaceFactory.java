@@ -1,4 +1,4 @@
-package com.uran.gamblingstation.util.race;
+package com.uran.gamblingstation.service.simulation;
 
 import com.uran.gamblingstation.model.Race;
 

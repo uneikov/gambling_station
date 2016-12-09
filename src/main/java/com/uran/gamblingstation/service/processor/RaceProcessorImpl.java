@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Component
 public class RaceProcessorImpl implements RaceProcessor{
     private static final Logger LOG = LoggerFactory.getLogger(RaceProcessor.class);
+
     @Autowired private StakeService stakeService;
     @Autowired private AccountService accountService;
     @Autowired private HorseService horseService;

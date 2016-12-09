@@ -28,13 +28,13 @@ public class RaceSimulationHelperlTest extends AbstractServiceTest{
 
     @Test
     public void createBots() throws Exception {
-        helper.createBots();
+        helper.createBots(50);
         Assert.assertTrue(userService.getAll().size() >= 30);
     }
 
     @Test
     public void fillWallets() throws Exception {
-        helper.createBots();
+        helper.createBots(50);
         helper.fillWallets();
         final List<Wallet> all = walletService.getAll();
         Assert.assertTrue(all.get(29).getCash() >= 10);
@@ -47,7 +47,7 @@ public class RaceSimulationHelperlTest extends AbstractServiceTest{
 
     @Test
     public void killBots() throws Exception {
-        helper.createBots();
+        helper.createBots(50);
         helper.killBots();
         Assert.assertEquals(4, userService.getAll().size());
     }

@@ -45,29 +45,3 @@ public abstract class AbstractWalletController {
         return service.save(wallet);
     }
 }
-/*
- public Double getBalance(int id){
-        return service.get(id).getCash();
-    }
-
-    public void deposit(int id, Double amount){
-        if (amount > 0.0d) {
-            Wallet wallet = service.get(id);
-            wallet.setCash(wallet.getCash() + amount);
-            service.save(wallet, id);
-        }
-    }
-
-    public boolean withdrawal(int id, Double amount){
-        if (amount > 0.0d) {
-            Wallet wallet = service.get(id);
-            if (wallet.getCash() < amount) {
-               return false;
-            }
-            wallet.setCash(wallet.getCash() - amount);
-            service.save(wallet, id);
-            return true;
-        }else return false;
-
-    }
-*/

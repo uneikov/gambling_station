@@ -16,7 +16,6 @@ function checkStatus() {
 
 function checkAddStatus() {
     $.when($.ajax(ajaxWalletsUrl + 'cash'), $.ajax(ajaxRacesUrl + 'run')).done(function (w, s) {
-        debugger;
         var cash=w[0];
         var status= s[0];
         if (cash<1) {

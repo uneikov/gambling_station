@@ -105,10 +105,10 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
         Double stakeValue = 10 + ThreadLocalRandom.current().nextDouble(90.0);
         stakeValue = stakeValue > botCash ? botCash : stakeValue;
         Horse stakeHorse = RandomUtil.getRandomHorseFromList(selectedHorses);
-        stakeService.save(
+        final Stake stake = stakeService.save(
                 new Stake(null, botUser, stakeHorse, RaceScheduler.getCurrentRace(), stakeValue, LocalDateTime.now(), false, 0.0d, false),
                 botUser.getId()
         );
-        LOG.info("Bot {} make stake as big as {} at {} minute", botUser.getName(), stakeValue, LocalDateTime.now().getMinute());
+        LOG.info("Bot {} make stake as big as {} at {} minute", botUser.getName(), stakeValue, stake.getDateTime().getMinute());
     }
 }

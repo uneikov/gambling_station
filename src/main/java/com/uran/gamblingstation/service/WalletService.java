@@ -9,6 +9,7 @@ public interface WalletService {
     Wallet save(Wallet wallet);
 
     void update(Wallet wallet);
+
     // false if not found
     void delete(int id);
 

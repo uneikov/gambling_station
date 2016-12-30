@@ -23,7 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class StakeRestControllerTest extends AbstractControllerTest {
     private static final String CONTENT_TYPE = MediaType.APPLICATION_JSON_VALUE;
-    private static final String STAKE_REST_URL = StakeRestController.REST_URL + '/';
+    private static final String STAKE_REST_URL = UserStakeRestController.REST_URL + '/';
+    private static final String ADMIN_STAKE_REST_URL = StakeRestController.REST_URL + '/';
 
     private static final String START = "2016-06-13T16:00";
     private static final String END = "2016-06-13T20:00";
@@ -44,7 +45,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetAll() throws Exception {
-        mockMvc.perform(get(STAKE_REST_URL)
+        mockMvc.perform(get(ADMIN_STAKE_REST_URL)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(CONTENT_TYPE))

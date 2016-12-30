@@ -12,7 +12,6 @@ import com.uran.gamblingstation.service.scheduler.RaceScheduler;
 import com.uran.gamblingstation.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -28,10 +27,20 @@ import static com.uran.gamblingstation.model.BaseEntity.USERS_CAN_MAKE_STAKES;
 public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     private static final Logger LOG = LoggerFactory.getLogger(RaceSimulationHelperImpl.class);
 
-    @Autowired private StakeService stakeService;
-    @Autowired private UserService userService;
-    @Autowired private WalletService walletService;
-    @Autowired private HorseService horseService;
+    private final StakeService stakeService;
+    private final UserService userService;
+    private final WalletService walletService;
+    private final HorseService horseService;
+
+    public RaceSimulationHelperImpl(StakeService stakeService,
+                                    UserService userService,
+                                    WalletService walletService,
+                                    HorseService horseService) {
+        this.stakeService = stakeService;
+        this.userService = userService;
+        this.walletService = walletService;
+        this.horseService = horseService;
+    }
 
     private List<User> bots = new ArrayList<>();
     private List<Horse> selectedHorses = new ArrayList<>();
@@ -41,11 +50,11 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     public void selectHorsesForRace(){
         final List<Horse> all = horseService.getAll();
         // set ready to false for all horses
-        all.stream().peek(horse -> horse.setReady(false)).forEach(horse -> horseService.save(horse));
+        all.stream().peek(horse -> horse.setReady(false)).forEach(horseService::save);
         // set ready to true for random selected horses and return as List
         selectedHorses =  RandomUtil.getHorsesForRace(all).stream()
                 .peek(horse -> horse.setReady(true))
-                .peek(horse -> horseService.save(horse))
+                .peek(horseService::save)
                 .collect(Collectors.toList());
     }
 
@@ -57,7 +66,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
         botsNumber = max;
         BotFactory botFactory = new BotFactory();
         bots = botFactory.getBots(botsNumber);
-        bots.forEach(user -> userService.save(user));
+        bots.forEach(userService::save);
     }
 
     public void initBots(int min, int max){

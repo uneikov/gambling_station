@@ -19,7 +19,6 @@ public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired private UserService userService;
-    //@Autowired private WalletService walletService;
 
     private boolean systemUserForbiddenModification;
 

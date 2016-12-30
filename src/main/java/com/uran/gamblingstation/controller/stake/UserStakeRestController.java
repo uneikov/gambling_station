@@ -13,16 +13,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping(StakeRestController.REST_URL)
-public class StakeRestController extends AbstractStakeController{
-
-    static final String REST_URL = "/rest/admin/stakes";
+@RequestMapping(UserStakeRestController.REST_URL)
+public class UserStakeRestController extends AbstractStakeController {
+    static final String REST_URL = "/rest/profile/stakes";
     private static final String contentType = MediaType.APPLICATION_JSON_VALUE;
-
-    @GetMapping(produces = contentType)
-    public List<Stake> getAll() {
-        return super.getAll();
-    }
 
     @GetMapping(value = "/by/{id}", produces = contentType)
     public List<Stake> getAllByUserId(@PathVariable("id") int userId) {
@@ -57,9 +51,9 @@ public class StakeRestController extends AbstractStakeController{
 
     @GetMapping(value = "/between", produces = contentType)
     public List<Stake> getBetween(
-           @RequestParam("startDateTime")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
-           @RequestParam("endDateTime")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end,
-           @RequestParam("option") String option) {
+            @RequestParam("startDateTime")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+            @RequestParam("endDateTime")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end,
+            @RequestParam("option") String option) {
         return super.getBetween(start.toLocalDate(), start.toLocalTime(), end.toLocalDate(), end.toLocalTime(), option);
     }
 }

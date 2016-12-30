@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/ajax/horses")
+@RequestMapping("/ajax/admin/horses")
 public class HorseAjaxController extends AbstractHorseController {
 
     @Override
@@ -24,11 +23,6 @@ public class HorseAjaxController extends AbstractHorseController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Horse get(@PathVariable("id") int id) {
         return super.get(id);
-    }
-
-    @GetMapping(value = "/names", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<String> getAllReadyForRaceHorsesNamesAsList() {
-        return getAll().stream().filter(Horse::isReady).map(Horse::getName).collect(Collectors.toList());
     }
 
     @DeleteMapping("/{id}")

@@ -9,7 +9,6 @@ import com.uran.gamblingstation.service.account.AccountService;
 import com.uran.gamblingstation.service.scheduler.RaceScheduler;
 import com.uran.gamblingstation.to.StakeTo;
 import com.uran.gamblingstation.util.exception.ExceptionUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -23,10 +22,20 @@ import static com.uran.gamblingstation.util.exception.ExceptionUtil.checkNotFoun
 @Service
 public class StakeServiceImpl implements StakeService {
 
-    @Autowired private StakeRepository repository;
-    @Autowired private UserService userService;
-    @Autowired private HorseService horseService;
-    @Autowired private AccountService accountService;
+    private final StakeRepository repository;
+    private final UserService userService;
+    private final HorseService horseService;
+    private final AccountService accountService;
+
+    public StakeServiceImpl(StakeRepository repository,
+                            UserService userService,
+                            HorseService horseService,
+                            AccountService accountService) {
+        this.repository = repository;
+        this.userService = userService;
+        this.horseService = horseService;
+        this.accountService = accountService;
+    }
 
     @Override
     public Stake get(int id, int userId) {
@@ -139,7 +148,7 @@ public class StakeServiceImpl implements StakeService {
     public void processWinningStakes(List<Stake> winningStakes, Map<Integer, Double> winningMap) {
         winningStakes.stream()
                 .peek(stake -> stake.setAmount(winningMap.get(stake.getUser().getId())))
-                .forEach(stake -> repository.update(stake));
+                .forEach(repository::update);
     }
 
     @Override

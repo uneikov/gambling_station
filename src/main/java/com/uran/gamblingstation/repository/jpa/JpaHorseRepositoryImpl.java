@@ -25,8 +25,6 @@ public class JpaHorseRepositoryImpl implements HorseRepository {
     @Transactional
     public boolean delete(int id) {
         return em.createNamedQuery(Horse.DELETE).setParameter("id", id).executeUpdate() != 0;
-        /*Horse horseRef = em.getReference(Horse.class, id);
-        em.remove(horseRef);*/
     }
 
     @Override

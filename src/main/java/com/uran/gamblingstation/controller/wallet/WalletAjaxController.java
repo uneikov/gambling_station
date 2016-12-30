@@ -17,7 +17,7 @@ public class WalletAjaxController extends AbstractWalletController{
     }
 
     @GetMapping(value = "/cash", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Double getCash(){
+    public Double getUserCash(){
         return super.get(id()).getCash();
     }
 

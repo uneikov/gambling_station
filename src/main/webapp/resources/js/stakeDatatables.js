@@ -1,5 +1,5 @@
 var ajaxUrl = 'ajax/profile/stakes/';
-var ajaxHorsesUrl ='ajax/horses/names/';
+var ajaxHorsesUrl ='ajax/profile/horses/names/';
 var ajaxWalletsUrl = 'ajax/profile/wallets/';
 
 var datatableApi;
@@ -106,7 +106,6 @@ function checkForm() {
     var valid = [valid_stake_value, valid_horse_name];
     var formGroup = $('.form-group.has-feedback');
     var glyphicon = formGroup.find('.form-control-feedback');
-    debugger;
 
     var formValid = true;
     for (i =0; i < valid.length; i++){

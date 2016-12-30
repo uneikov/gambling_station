@@ -1,10 +1,5 @@
 package com.uran.gamblingstation.util.exception;
 
-
-/**
- * User: gkislin
- * Date: 14.05.2014
- */
 public class ExceptionUtil {
     private ExceptionUtil() {
     }
@@ -22,7 +17,7 @@ public class ExceptionUtil {
         return object;
     }
 
-    public static void checkNotFound(boolean found, String msg) {
+    private static void checkNotFound(boolean found, String msg) {
         if (!found) {
             throw new NotFoundException("Not found entity with " + msg);
         }

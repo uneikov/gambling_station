@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.uran.gamblingstation.UserTestData.USER_ID_1;
 import static com.uran.gamblingstation.UserTestData.USER_ID_2;
-import static com.uran.gamblingstation.model.BaseEntity.WALLET_ID;
+import static com.uran.gamblingstation.WalletTestData.WALLET_ID;
 
 public class AccountServiceTest extends AbstractServiceTest {
 

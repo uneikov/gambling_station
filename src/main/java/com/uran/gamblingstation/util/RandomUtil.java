@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-import static com.uran.gamblingstation.model.BaseEntity.NUMBER_OF_HORSES_FOR_RACE;
+import static com.uran.gamblingstation.service.scheduler.RaceScheduler.NUMBER_OF_HORSES_FOR_RACE;
 
 public class RandomUtil {
 

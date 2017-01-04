@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.uran.gamblingstation.model.BaseEntity.RACE_IS_RUNNING;
-import static com.uran.gamblingstation.model.BaseEntity.USERS_CAN_MAKE_STAKES;
+import static com.uran.gamblingstation.service.scheduler.RaceScheduler.RACE_IS_RUNNING;
+import static com.uran.gamblingstation.service.scheduler.RaceScheduler.USERS_CAN_MAKE_STAKES;
 
 @RestController
 @RequestMapping("/ajax/profile/races")

@@ -1,7 +1,7 @@
 package com.uran.gamblingstation.controller.user;
 
-import com.uran.gamblingstation.controller.AbstractControllerTest;
 import com.uran.gamblingstation.TestUtil;
+import com.uran.gamblingstation.controller.AbstractControllerTest;
 import com.uran.gamblingstation.controller.json.JsonUtil;
 import com.uran.gamblingstation.model.Role;
 import com.uran.gamblingstation.model.User;
@@ -16,7 +16,6 @@ import java.util.Collections;
 
 import static com.uran.gamblingstation.TestUtil.userHttpBasic;
 import static com.uran.gamblingstation.UserTestData.*;
-import static com.uran.gamblingstation.model.BaseEntity.USER_1_ID;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -51,7 +50,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + USER_1_ID)
+        mockMvc.perform(delete(REST_URL + USER_ID_1)
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -72,13 +71,13 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         updated.setName("updatedName");
         updated.setEmail("user@gamblingstation.com");
         updated.setRoles(Collections.singleton(Role.ROLE_ADMIN));
-        mockMvc.perform(put(REST_URL + USER_1_ID)
+        mockMvc.perform(put(REST_URL + USER_ID_1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
         //final User user = userService.get(USER_ID_1);
-        USER_MATCHER.assertEquals(updated, userService.get(USER_1_ID));
+        USER_MATCHER.assertEquals(updated, userService.get(USER_ID_1));
     }
 
     @Test

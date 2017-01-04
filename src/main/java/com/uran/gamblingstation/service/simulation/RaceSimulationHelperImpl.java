@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-import static com.uran.gamblingstation.model.BaseEntity.RACE_IS_RUNNING;
-import static com.uran.gamblingstation.model.BaseEntity.USERS_CAN_MAKE_STAKES;
+import static com.uran.gamblingstation.service.scheduler.RaceScheduler.RACE_IS_RUNNING;
+import static com.uran.gamblingstation.service.scheduler.RaceScheduler.USERS_CAN_MAKE_STAKES;
 
 @Component
 public class RaceSimulationHelperImpl implements RaceSimulationHelper{

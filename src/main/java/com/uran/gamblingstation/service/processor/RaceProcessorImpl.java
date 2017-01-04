@@ -7,7 +7,6 @@ import com.uran.gamblingstation.service.account.AccountService;
 import com.uran.gamblingstation.util.stake.StakeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,9 +17,17 @@ import java.util.stream.Collectors;
 public class RaceProcessorImpl implements RaceProcessor{
     private static final Logger LOG = LoggerFactory.getLogger(RaceProcessor.class);
 
-    @Autowired private StakeService stakeService;
-    @Autowired private AccountService accountService;
-    @Autowired private HorseService horseService;
+    private final StakeService stakeService;
+    private final AccountService accountService;
+    private final HorseService horseService;
+
+    public RaceProcessorImpl(StakeService stakeService,
+                             AccountService accountService,
+                             HorseService horseService) {
+        this.stakeService = stakeService;
+        this.accountService = accountService;
+        this.horseService = horseService;
+    }
 
     @Override
     public void process(int horseId, int raceId) {

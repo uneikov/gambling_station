@@ -6,28 +6,36 @@ import com.uran.gamblingstation.model.Wallet;
 import com.uran.gamblingstation.service.UserService;
 import com.uran.gamblingstation.service.WalletService;
 import com.uran.gamblingstation.util.exception.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountServiceImpl implements AccountService{
 
-    @Autowired private WalletService walletService;
-    @Autowired private UserService userService;
+    private final WalletService walletService;
+    private final UserService userService;
+
+    public AccountServiceImpl(WalletService walletService, UserService userService) {
+        this.walletService = walletService;
+        this.userService = userService;
+    }
 
     @Override
+    @Transactional
     public void transferToStation(int userId, Double value) {
         debitAccount(userId, value);
         addToStationAccount(value);
     }
 
     @Override
+    @Transactional
     public void transferToUser(int userId, Double value) {
         debitStationAccount(value);
         addToAccount(userId, value);
     }
 
     @Override
+    @Transactional
     public void addToStationAccount(Double value) {
         Wallet stationWallet = getStationWallet();
         stationWallet.setCash(stationWallet.getCash() + value);
@@ -35,6 +43,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
+    @Transactional
     public void debitStationAccount(Double value) {
         Wallet stationWallet = getStationWallet();
         stationWallet.setCash(stationWallet.getCash() - value);
@@ -42,6 +51,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
+    @Transactional
     public void addToAccount(int userId, Double value) {
         Wallet userWallet = walletService.get(userId);
         userWallet.setCash(userWallet.getCash() + value);
@@ -49,13 +59,15 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
+    @Transactional
     public void debitAccount(int userId, Double value){
         Wallet userWallet = walletService.get(userId);
         userWallet.setCash(userWallet.getCash() - value);
         walletService.update(userWallet);
     }
 
-    private Wallet getStationWallet(){
+    @Override
+    public Wallet getStationWallet(){
         Wallet walletStation;
 
         User userStation = userService.getAll().stream()

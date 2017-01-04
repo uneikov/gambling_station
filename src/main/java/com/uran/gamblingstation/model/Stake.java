@@ -100,17 +100,6 @@ public class Stake extends BaseEntity {
         this.editable = true;
     }
 
-    public Stake(Integer id, User user, Horse horse, Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount) {
-        super(id);
-        this.user = user;
-        this.horse = horse;
-        this.stakeValue = stakeValue;
-        this.dateTime = dateTime;
-        this.wins = wins;
-        this.amount = amount;
-        this.editable = true;
-    }
-
     public Stake(Integer id, User user, Horse horse, Double stakeValue, LocalDateTime dateTime, boolean wins, Double amount, boolean editable) {
         super(id);
         this.user = user;

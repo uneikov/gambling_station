@@ -53,7 +53,7 @@ public class ExceptionInfoHandler {
         return logAndGetValidationErrorInfo(req, e.getBindingResult());
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // 500
     @ExceptionHandler(Exception.class)
     @ResponseBody
     @Order(Ordered.LOWEST_PRECEDENCE)

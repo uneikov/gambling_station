@@ -4,11 +4,11 @@ import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.model.Race;
 import com.uran.gamblingstation.service.RaceService;
 import com.uran.gamblingstation.service.processor.RaceProcessor;
+import com.uran.gamblingstation.service.simulation.RaceFactory;
 import com.uran.gamblingstation.service.simulation.RaceSimulationHelper;
 import com.uran.gamblingstation.util.RandomUtil;
 import com.uran.gamblingstation.util.TimeUtil;
 import com.uran.gamblingstation.util.horse.HorseUtil;
-import com.uran.gamblingstation.service.simulation.RaceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,14 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
-import static com.uran.gamblingstation.model.BaseEntity.RACE_IS_RUNNING;
-import static com.uran.gamblingstation.model.BaseEntity.USERS_CAN_MAKE_STAKES;
-
 @Component
 public class RaceScheduler {
     private static final Logger LOG = LoggerFactory.getLogger(RaceScheduler.class);
+
+    public static boolean RACE_IS_RUNNING;
+    public static boolean USERS_CAN_MAKE_STAKES;
+
+    public static int NUMBER_OF_HORSES_FOR_RACE = 6;
 
     private static LocalDateTime START = null;
     private static LocalDateTime FINISH = null;

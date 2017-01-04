@@ -42,8 +42,8 @@ public class StakeServiceImpl implements StakeService {
         return checkNotFoundWithId(repository.get(id, userId), id);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void delete(int id, int userId) {
         Double deleted = get(id, userId).getStakeValue();
         checkNotFoundWithId(repository.delete(id, userId), id);
@@ -55,8 +55,8 @@ public class StakeServiceImpl implements StakeService {
         return repository.getAll();
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Stake save(Stake stake, int userId) {
         Assert.notNull(stake, "stake must not be null");
         stake.setUser(userService.get(userId));
@@ -65,8 +65,8 @@ public class StakeServiceImpl implements StakeService {
         return created;
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Stake save(StakeTo stakeTo, int userId) {
         final User user = userService.get(userId);
         final Horse horse = horseService.getByName(stakeTo.getHorseName());
@@ -79,8 +79,8 @@ public class StakeServiceImpl implements StakeService {
         return stake;
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Stake update(Stake stake, int userId) {
         Assert.notNull(stake, "stake must not be null");
         final Double oldStakeValue = repository.get(stake.getId(), userId).getStakeValue();
@@ -89,8 +89,8 @@ public class StakeServiceImpl implements StakeService {
         return updated;
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Stake update(StakeTo stakeTo, int userId) {
         int id = stakeTo.getId();
         final Double oldStakeValue = repository.get(id, userId).getStakeValue();
@@ -161,6 +161,7 @@ public class StakeServiceImpl implements StakeService {
     public List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate) {
         return repository.getBetween(startDate, endDate);
     }
+
     @Override
     public List<Stake> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
         Assert.notNull(startDateTime, "startDateTime must not be null");

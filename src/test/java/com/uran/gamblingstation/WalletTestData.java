@@ -6,6 +6,7 @@ import com.uran.gamblingstation.model.Wallet;
 import java.util.Objects;
 
 import static com.uran.gamblingstation.UserTestData.*;
+import static com.uran.gamblingstation.model.BaseEntity.START_SEQ;
 
 public class WalletTestData {
     public static final ModelMatcher<Wallet> WALLET_MATCHER = new ModelMatcher<>(Wallet.class,
@@ -15,6 +16,7 @@ public class WalletTestData {
                     )
     );
 
+    public static final int WALLET_ID = START_SEQ + 3;
     public static final Wallet WALLET_1 = new Wallet(USER_ID_1, 10.0d);
     public static final Wallet WALLET_2 = new Wallet(USER_ID_2, 15.0d);
     public static final Wallet WALLET_ADMIN = new Wallet(ADMIN_ID, 0.0d);

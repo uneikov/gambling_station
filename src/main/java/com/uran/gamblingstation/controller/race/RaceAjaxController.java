@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static com.uran.gamblingstation.model.BaseEntity.USERS_CAN_MAKE_STAKES;
+import static com.uran.gamblingstation.service.scheduler.RaceScheduler.USERS_CAN_MAKE_STAKES;
 
 @RestController
 @RequestMapping("/ajax/admin/races")

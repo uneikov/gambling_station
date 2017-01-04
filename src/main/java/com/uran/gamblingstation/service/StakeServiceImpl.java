@@ -111,6 +111,7 @@ public class StakeServiceImpl implements StakeService {
         return repository.getWithUser(id);
     }
 
+    @Override
     public List<Stake> getAllByUserId(int userId) {
         return repository.getAllByUserId(userId);
     }

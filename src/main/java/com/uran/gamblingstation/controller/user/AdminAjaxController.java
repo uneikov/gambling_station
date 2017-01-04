@@ -20,6 +20,7 @@ public class AdminAjaxController extends AbstractUserController {
     @Autowired
     private MessageSource messageSource;
 
+    @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll() {
         return super.getAll();
@@ -31,11 +32,11 @@ public class AdminAjaxController extends AbstractUserController {
         return super.get(id);
     }
 
+    @Override
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id) {
         super.delete(id);
     }
-
 
     @PostMapping
     public void createOrUpdate(@Valid UserTo userTo) {
@@ -50,8 +51,9 @@ public class AdminAjaxController extends AbstractUserController {
         }
     }
 
+    @Override
     @PostMapping(value = "/{id}")
-    public void enabled(@PathVariable("id") int id, @RequestParam("enabled") boolean enabled) {
+    public void enable(@PathVariable("id") int id, @RequestParam("enabled") boolean enabled) {
         super.enable(id, enabled);
     }
 }

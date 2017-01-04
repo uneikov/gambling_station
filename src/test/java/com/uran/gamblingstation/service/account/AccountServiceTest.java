@@ -3,6 +3,7 @@ package com.uran.gamblingstation.service.account;
 import com.uran.gamblingstation.service.AbstractServiceTest;
 import com.uran.gamblingstation.service.WalletService;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,6 +15,11 @@ public class AccountServiceTest extends AbstractServiceTest {
 
     @Autowired private AccountService accountService;
     @Autowired private WalletService walletService;
+
+    @Before
+    public void setUp() {
+        testName = getClass().getSimpleName();
+    }
 
     @Test
     public void addToStationAccount() throws Exception {

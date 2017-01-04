@@ -23,17 +23,6 @@ public class JpaWalletRepositoryImpl implements WalletRepository {
         return wallet;
     }
 
-    /*@Override
-    @Transactional
-    public Wallet save(Wallet wallet) {
-        if (wallet.isNew()) {
-            em.persist(wallet);
-            return wallet;
-        } else {
-            return em.merge(wallet);
-        }
-    }*/
-
     @Override
     @Transactional
     public void update(Wallet wallet) {

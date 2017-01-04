@@ -38,6 +38,7 @@ public class StakeAjaxController extends AbstractStakeController{
         return super.get(id);
     }
 
+
     @Override
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
@@ -51,9 +52,9 @@ public class StakeAjaxController extends AbstractStakeController{
         } else {
             super.update(stakeTo);
         }
-
     }
 
+    @Override
     @PostMapping(value = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Stake> getBetween(
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,

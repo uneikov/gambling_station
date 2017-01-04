@@ -2,6 +2,7 @@ package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Race;
 import com.uran.gamblingstation.util.exception.NotFoundException;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,6 +17,11 @@ public class RaceServiceTest extends AbstractServiceTest{
 
     @Autowired RaceService raceService;
 
+    @Before
+    public void setUp() {
+        testName = getClass().getSimpleName();
+    }
+
     @Test
     public void save() throws Exception {
         Race created = getNewRace();
@@ -29,8 +35,9 @@ public class RaceServiceTest extends AbstractServiceTest{
         RACE_MATCHER.assertCollectionEquals(raceService.getAll(), Arrays.asList(RACE_4, RACE_3, RACE_2));
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void deleteNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
         raceService.delete(1);
     }
 

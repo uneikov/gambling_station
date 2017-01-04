@@ -34,6 +34,8 @@ abstract public class AbstractServiceTest {
 
     private static StringBuilder results = new StringBuilder();
 
+    protected static String testName;
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -51,7 +53,9 @@ abstract public class AbstractServiceTest {
 
     @AfterClass
     public static void printResults() {
-        results = new StringBuilder("\n---------------------------------")
+        results =
+                new StringBuilder( "\n\n-------" + testName + "---------\n")
+                .append("\n---------------------------------")
                 .append("\nTest                 Duration, ms")
                 .append("\n---------------------------------\n")
                 .append(results)

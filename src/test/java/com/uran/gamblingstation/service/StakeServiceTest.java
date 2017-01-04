@@ -3,6 +3,7 @@ package com.uran.gamblingstation.service;
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,6 +22,11 @@ public class StakeServiceTest extends AbstractServiceTest{
 
     @Autowired
     private StakeService service;
+
+    @Before
+    public void setUp() {
+        testName = getClass().getSimpleName();
+    }
 
     @Test
     public void testGetAll() throws Exception {

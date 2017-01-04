@@ -106,9 +106,10 @@ function checkForm() {
     var valid = [valid_stake_value, valid_horse_name];
     var formGroup = $('.form-group.has-feedback');
     var glyphicon = formGroup.find('.form-control-feedback');
+    var i;
 
     var formValid = true;
-    for (i =0; i < valid.length; i++){
+    for (i=0; i < valid.length; i++){
         if (valid[i]) {
             $(formGroup[i]).addClass('has-success').removeClass('has-error');
             $(glyphicon[i]).addClass('glyphicon-ok').removeClass('glyphicon-remove');

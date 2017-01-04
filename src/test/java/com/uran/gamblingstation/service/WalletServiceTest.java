@@ -4,6 +4,7 @@ import com.uran.gamblingstation.model.Role;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.model.Wallet;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,6 +21,11 @@ public class WalletServiceTest extends AbstractServiceTest{
     @Autowired private WalletService walletService;
 
     @Autowired private UserService userService;
+
+    @Before
+    public void setUp() {
+        testName = getClass().getSimpleName();
+    }
 
     @Test
     public void testSave() throws Exception {

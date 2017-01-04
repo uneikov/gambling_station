@@ -48,6 +48,7 @@ public class AccountServiceImpl implements AccountService{
         walletService.update(userWallet);
     }
 
+    @Override
     public void debitAccount(int userId, Double value){
         Wallet userWallet = walletService.get(userId);
         userWallet.setCash(userWallet.getCash() - value);

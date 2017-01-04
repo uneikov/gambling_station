@@ -7,6 +7,7 @@ import com.uran.gamblingstation.service.HorseService;
 import com.uran.gamblingstation.service.StakeService;
 import com.uran.gamblingstation.service.WalletService;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +25,11 @@ public class RaceProcessorTest extends AbstractServiceTest {
     @Autowired private WalletService walletService;
     @Autowired private HorseService horseService;
     @Autowired private RaceProcessor raceProcessor;
+
+    @Before
+    public void setUp() {
+        testName = getClass().getSimpleName();
+    }
 
     @Test
     public void testWinningStakes(){

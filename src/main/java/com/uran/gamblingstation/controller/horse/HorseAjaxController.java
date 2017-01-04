@@ -25,6 +25,7 @@ public class HorseAjaxController extends AbstractHorseController {
         return super.get(id);
     }
 
+    @Override
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id) {
         super.delete(id);
@@ -41,7 +42,7 @@ public class HorseAjaxController extends AbstractHorseController {
     }
 
     @PostMapping(value = "/{id}")
-    public void update(@PathVariable("id") int id) {
+    public void enableOrDisable(@PathVariable("id") int id) {
         Horse horse = super.get(id);
         horse.setReady(!horse.isReady());
         super.update(horse, id);

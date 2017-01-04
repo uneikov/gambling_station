@@ -3,9 +3,8 @@ package com.uran.gamblingstation.service;
 import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.junit.Assert;
-import org.junit.Rule;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
@@ -18,11 +17,13 @@ import static com.uran.gamblingstation.HorseTestData.*;
 
 public class HorseServiceTest extends AbstractServiceTest{
 
-    @Rule
-    public final ExpectedException expected = ExpectedException.none();
-
     @Autowired
     protected HorseService service;
+
+    @Before
+    public void setUp() {
+        testName = getClass().getSimpleName();
+    }
 
     @Test
     public void testGetAll() throws Exception {
@@ -47,8 +48,6 @@ public class HorseServiceTest extends AbstractServiceTest{
         Assert.assertEquals(deserialized.get("Alien"), "Чужой");
     }
 
-
-
     @Test
     public void testReady() throws Exception {
         Horse horse = service.get(HORSE_1_ID + 3);
@@ -66,8 +65,9 @@ public class HorseServiceTest extends AbstractServiceTest{
         );
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void testDeleteNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
         service.delete(1);
     }
 

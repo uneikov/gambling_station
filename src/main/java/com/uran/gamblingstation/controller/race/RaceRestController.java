@@ -14,6 +14,7 @@ public class RaceRestController extends AbstractRaceController{
     static final String REST_URL = "/rest/races";
     private static final String contentType = MediaType.APPLICATION_JSON_VALUE;
 
+    @Override
     @GetMapping(produces = contentType)
     public List<Race> getAll() {
         return super.getAll();

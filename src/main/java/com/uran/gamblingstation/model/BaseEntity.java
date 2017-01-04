@@ -30,6 +30,7 @@ public class BaseEntity implements Persistable<Integer>{
         this.id = id;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -38,6 +39,7 @@ public class BaseEntity implements Persistable<Integer>{
         this.id = id;
     }
 
+    @Override
     public boolean isNew() {
         return (this.id == null);
     }

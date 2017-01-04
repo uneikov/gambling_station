@@ -12,13 +12,13 @@
     display: inline-block;
     color: black;
 }
-.loosed {
+/*.loosed {
     color: red;
 }
 
 .winned {
     color: green;
-}
+}*/
 
 .footer {
     padding-bottom: 15px;
@@ -44,11 +44,11 @@
 }
 
 
-.infoString {
+/*.infoString {
     height: 50px;
     overflow: hidden;
     position: relative;
-}
+}*/
 .infoString h3 {
     position: absolute;
     width: 100%;

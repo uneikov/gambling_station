@@ -19,26 +19,31 @@ public class StakeRestController extends AbstractStakeController{
     static final String REST_URL = "/rest/admin/stakes";
     private static final String contentType = MediaType.APPLICATION_JSON_VALUE;
 
+    @Override
     @GetMapping(produces = contentType)
     public List<Stake> getAll() {
         return super.getAll();
     }
 
+    @Override
     @GetMapping(value = "/by/{id}", produces = contentType)
     public List<Stake> getAllByUserId(@PathVariable("id") int userId) {
         return super.getAllByUserId(userId);
     }
 
+    @Override
     @GetMapping(value = "/{id}", produces = contentType)
     public Stake get(@PathVariable("id") int id) {
         return super.get(id);
     }
 
+    @Override
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id")int id) {
         super.delete(id);
     }
 
+    @Override
     @PutMapping(value = "/{id}", consumes = contentType)
     public void update(@RequestBody Stake stake, @PathVariable int id) {
         super.update(stake, id);

@@ -3,6 +3,8 @@ package com.uran.gamblingstation.service;
 import com.uran.gamblingstation.model.Role;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.util.exception.NotFoundException;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -17,6 +19,11 @@ public class UserServiceTest extends AbstractServiceTest{
     @Autowired
     private UserService userService;
 
+    @Before
+    public void setUp() {
+        testName = getClass().getSimpleName();
+    }
+
     @Test
     public void testSave() throws Exception {
         User newUser = new User(null, "New", "new@gmail.com", "newPass", true, Collections.singleton(Role.ROLE_USER));
@@ -24,8 +31,9 @@ public class UserServiceTest extends AbstractServiceTest{
         USER_MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, newUser, STATION, USER_1, USER_2), userService.getAll());
     }
 
-    @Test(expected = DataAccessException.class)
+    @Test
     public void testDuplicateMailSave() throws Exception {
+        thrown.expect(DataAccessException.class);
         userService.save(new User(null, "Duplicate", "user1@yandex.ru", "newPass", Role.ROLE_USER));
     }
 
@@ -35,8 +43,9 @@ public class UserServiceTest extends AbstractServiceTest{
         USER_MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, STATION, USER_2), userService.getAll());
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void testNotFoundDelete() throws Exception {
+        thrown.expect(NotFoundException.class);
         userService.delete(1);
     }
 
@@ -46,8 +55,9 @@ public class UserServiceTest extends AbstractServiceTest{
         USER_MATCHER.assertEquals(USER_2, user);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void testGetNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
         userService.get(1);
     }
 
@@ -71,17 +81,11 @@ public class UserServiceTest extends AbstractServiceTest{
         USER_MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, STATION, USER_1, USER_2), users);
     }
 
-   /* @Test
+    @Test
     public void testUserWallet(){
         User user = userService.get(USER_ID_2);
         Double cash = user.getWallet().getCash();
         Assert.assertEquals(new Double(15.0), cash);
     }
-
-    @Test
-    public void testUserStakes(){
-        User user = userService.get(USER_ID_2);
-        STAKE_MATCHER.assertCollectionEquals(user.getStakes(), Arrays.asList(STAKE_2, STAKE_4));
-    }*/
 
 }

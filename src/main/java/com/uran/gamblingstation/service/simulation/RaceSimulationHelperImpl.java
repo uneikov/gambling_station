@@ -47,6 +47,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     private static int botsNumber = 0;
     private static int count = 0;
 
+    @Override
     public void selectHorsesForRace(){
         final List<Horse> all = horseService.getAll();
         // set ready to false for all horses
@@ -58,10 +59,12 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
                 .collect(Collectors.toList());
     }
 
+    @Override
     public List<Horse> getHorsesForRace(){
         return selectedHorses;
     }
 
+    @Override
     public void createBots(int max){
         botsNumber = max;
         BotFactory botFactory = new BotFactory();
@@ -69,10 +72,12 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
         bots.forEach(userService::save);
     }
 
+    @Override
     public void initBots(int min, int max){
         botsNumber = ThreadLocalRandom.current().nextInt(min, max);
     }
 
+    @Override
     public void fillWallets(){
         bots.forEach(user -> {
             Wallet botWallet = walletService.get(user.getId());
@@ -88,12 +93,14 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
         });
     }
 
+    @Override
     public void killBots(){
         userService.getAll().stream()
                 .filter(user -> user.getName().startsWith("testuser"))
                 .forEach(user -> userService.delete(user.getId()));
     }
 
+    @Override
     public void startGamble(){
         final List<Integer> randomTimePoints = RandomUtil.getRandomTimePoints(0, 45, botsNumber);
         LOG.info("Make random time points, race is running? - {}", RACE_IS_RUNNING);

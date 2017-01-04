@@ -19,6 +19,7 @@ public class RaceAjaxController extends AbstractRaceController{
 
     @Autowired RaceService raceService;
 
+    @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Race> getAll() {
         return raceService.getAll();
@@ -29,6 +30,7 @@ public class RaceAjaxController extends AbstractRaceController{
         return super.getAllWithStakes();
     }
 
+    @Override
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Race get(@PathVariable("id") int id) {
         return raceService.get(id);

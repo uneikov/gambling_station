@@ -26,7 +26,7 @@ $(function () {
         paging: true,
         info: true,
         width: true,
-        "language": {
+        language: {
             "search": i18n["common.search"]
         },
         columns: [

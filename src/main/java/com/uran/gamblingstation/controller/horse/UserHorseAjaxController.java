@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/ajax/profile/horses")
 public class UserHorseAjaxController extends AbstractHorseController {
+
     @GetMapping(value = "/names", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> getAllReadyForRaceHorsesNamesAsList() {
         return getAll().stream().filter(Horse::isReady).map(Horse::getName).collect(Collectors.toList());

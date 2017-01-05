@@ -14,7 +14,7 @@ import java.util.List;
 import static com.uran.gamblingstation.service.scheduler.RaceScheduler.USERS_CAN_MAKE_STAKES;
 
 @RestController
-@RequestMapping("/ajax/admin/races")
+@RequestMapping(value = "/ajax/admin/races")
 public class RaceAjaxController extends AbstractRaceController{
 
     @Autowired RaceService raceService;
@@ -40,6 +40,5 @@ public class RaceAjaxController extends AbstractRaceController{
     public String get() {
         return USERS_CAN_MAKE_STAKES ? "enabled" : "disabled";
     }
-
 
 }

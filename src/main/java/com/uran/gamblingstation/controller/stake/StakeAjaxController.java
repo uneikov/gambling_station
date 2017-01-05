@@ -27,7 +27,7 @@ public class StakeAjaxController extends AbstractStakeController{
     }
 
     @GetMapping(value = "/cash",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Double getAllCash() {
+    public Double getAllCashOfCurrentRace() {
         Race current = RaceScheduler.getCurrentRace();
         return current == null ? 0.0 : StakeUtil.getValue(super.getAllByRaceId(current.getId()));
     }

@@ -25,25 +25,25 @@ public class AbstractRaceController {
     }
 
     public Race get(int id) {
-        log.info("get " + id);
+        log.info("get {}", id);
         return raceService.get(id);
     }
 
     @Transactional
     public Race create(Race race) {
         race.setId(null);
-        log.info("create " + race);
+        log.info("create {}", race);
         return raceService.save(race);
     }
 
     public void delete(int id) {
-        log.info("delete " + id);
+        log.info("delete {}", id);
         raceService.delete(id);
     }
 
     public void update(Race race, int id) {
         race.setId(id);
-        log.info("update " + race);
+        log.info("update {}", race);
         raceService.update(race);
     }
 }

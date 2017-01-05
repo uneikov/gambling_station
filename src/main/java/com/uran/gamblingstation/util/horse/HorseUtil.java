@@ -38,7 +38,7 @@ public class HorseUtil {
 
     }
 
-    public static List<String> getEnNames(String serialized) {
+   /* public static List<String> getEnNames(String serialized) {
         return getDeserialized(serialized).entrySet().stream()
                 .map(Map.Entry::getKey)
                 .sorted()
@@ -50,5 +50,5 @@ public class HorseUtil {
                 .map(Map.Entry::getValue)
                 .sorted()
                 .collect(Collectors.toList());
-    }
+    }*/
 }

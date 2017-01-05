@@ -37,7 +37,7 @@ public class RaceProcessorImpl implements RaceProcessor{
         Double allCash = stakeService.getAllCash(raceId);
         List<Stake> winningStakes = stakeService.getWinningStakes(raceId);
         if (!winningStakes.isEmpty()) {
-            Double winCash = StakeUtil.getValue(winningStakes);
+            Double winCash = StakeUtil.getValuesSum(winningStakes);
             Double winRatio = allCash / winCash;
             Map<Integer, Double> winningMap = winningStakes.stream()
                     .collect(Collectors.toMap(s -> s.getUser().getId(), s -> s.getStakeValue() * winRatio));

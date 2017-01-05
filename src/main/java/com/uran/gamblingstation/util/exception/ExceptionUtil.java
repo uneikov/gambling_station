@@ -24,6 +24,6 @@ public class ExceptionUtil {
     }
 
     public static void checkPositive(Double value){
-        if (value < 0) throw new NegativeValueException("Negative double value for wallet balance" + value);
+        if (value < 0) throw new NegativeValueException("Negative double value for wallet balance " + value);
     }
 }

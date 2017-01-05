@@ -1,9 +1,6 @@
 package com.uran.gamblingstation.service.simulation;
 
-import com.uran.gamblingstation.model.Horse;
-import com.uran.gamblingstation.model.Stake;
-import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.model.Wallet;
+import com.uran.gamblingstation.model.*;
 import com.uran.gamblingstation.service.HorseService;
 import com.uran.gamblingstation.service.StakeService;
 import com.uran.gamblingstation.service.UserService;
@@ -13,6 +10,7 @@ import com.uran.gamblingstation.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,6 +46,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     private static int count = 0;
 
     @Override
+    @Transactional
     public void selectHorsesForRace(){
         final List<Horse> all = horseService.getAll();
         // set ready to false for all horses
@@ -67,8 +66,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     @Override
     public void createBots(int max){
         botsNumber = max;
-        BotFactory botFactory = new BotFactory();
-        bots = botFactory.getBots(botsNumber);
+        bots = new BotFactory().getBots(botsNumber);
         bots.forEach(userService::save);
     }
 
@@ -78,6 +76,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     }
 
     @Override
+    @Transactional
     public void fillWallets(){
         bots.forEach(user -> {
             Wallet botWallet = walletService.get(user.getId());
@@ -86,6 +85,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
         });
     }
 
+    @Override
     public void clearWallets(){
         bots.forEach(user -> {
             user.getWallet().setCash(0.0d);
@@ -121,8 +121,9 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
         Double stakeValue = 10 + ThreadLocalRandom.current().nextDouble(90.0);
         stakeValue = stakeValue > botCash ? botCash : stakeValue;
         Horse stakeHorse = RandomUtil.getRandomHorseFromList(selectedHorses);
+        Race currentRace = RaceScheduler.getCurrentRace();
         final Stake stake = stakeService.save(
-                new Stake(null, botUser, stakeHorse, RaceScheduler.getCurrentRace(), stakeValue, LocalDateTime.now(), false, 0.0d, false),
+                new Stake(null, botUser, stakeHorse, currentRace, stakeValue, LocalDateTime.now(), false, 0.0d, false),
                 botUser.getId()
         );
         LOG.info("Bot {} make stake as big as {} at {} minute", botUser.getName(), stakeValue, stake.getDateTime().getMinute());

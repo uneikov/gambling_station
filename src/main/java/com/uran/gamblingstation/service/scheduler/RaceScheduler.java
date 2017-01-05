@@ -27,6 +27,8 @@ public class RaceScheduler {
     public static boolean USERS_CAN_MAKE_STAKES;
 
     public static int NUMBER_OF_HORSES_FOR_RACE = 6;
+    public static int MIN_BOTS = 30;
+    public static int MAX_BOTS = 50;
 
     private static LocalDateTime START = null;
     private static LocalDateTime FINISH = null;
@@ -62,10 +64,10 @@ public class RaceScheduler {
 
         if (FIRST) {
             helper.killBots();
-            helper.createBots(50);
+            helper.createBots(MAX_BOTS);
             FIRST = false;
         }else {
-            helper.initBots(30, 50);
+            helper.initBots(MIN_BOTS, MAX_BOTS);
         }
 
         helper.fillWallets();
@@ -96,7 +98,7 @@ public class RaceScheduler {
         RACE_IS_RUNNING = false;
         USERS_CAN_MAKE_STAKES = false;
 
-        LOG.info("Race results processing start at {}", LocalDateTime.now().format(TimeUtil.DATE_TIME_FORMATTER));
+        LOG.info("Race results processing starts at {}", LocalDateTime.now().format(TimeUtil.DATE_TIME_FORMATTER));
 
         Horse winning = RandomUtil.getRandomHorseFromList(horsesForRace);
 

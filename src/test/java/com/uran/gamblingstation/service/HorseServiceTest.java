@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,11 +15,11 @@ import java.util.stream.Collectors;
 
 import static com.uran.gamblingstation.HorseTestData.*;
 
-
+@Component
 public class HorseServiceTest extends AbstractServiceTest{
 
     @Autowired
-    protected HorseService service;
+    private HorseService service;
 
     @Before
     public void setUp() {
@@ -28,13 +29,13 @@ public class HorseServiceTest extends AbstractServiceTest{
     @Test
     public void testGetAll() throws Exception {
         List<Horse> horseList = service.getAll();
-        MATCHER.assertCollectionEquals(HORSES, horseList);
+        HORSE_MATCHER.assertCollectionEquals(HORSES, horseList);
     }
 
     @Test
     public void testGet() throws Exception {
         Horse horse = service.get(HORSE_1_ID + 3);
-        MATCHER.assertEquals(HORSE_4, horse);
+        HORSE_MATCHER.assertEquals(HORSE_4, horse);
     }
 
     @Test
@@ -53,13 +54,13 @@ public class HorseServiceTest extends AbstractServiceTest{
         Horse horse = service.get(HORSE_1_ID + 3);
         horse.setReady(true);
         service.update(horse);
-        MATCHER.assertEquals(HORSE_4, service.get(HORSE_1_ID + 3));
+        HORSE_MATCHER.assertEquals(HORSE_4, service.get(HORSE_1_ID + 3));
     }
 
     @Test
     public void testDelete() throws Exception {
         service.delete(HORSE_1_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(
+        HORSE_MATCHER.assertCollectionEquals(Arrays.asList(
                 HORSE_7, HORSE_10, HORSE_3, HORSE_8, HORSE_6, HORSE_9, HORSE_5, HORSE_4, HORSE_2),
                 service.getAll()
         );
@@ -75,7 +76,7 @@ public class HorseServiceTest extends AbstractServiceTest{
     public void testUpdate() throws Exception {
         Horse updated = getUpdated();
         service.update(updated);
-        MATCHER.assertEquals(updated, service.get(HORSE_1_ID));
+        HORSE_MATCHER.assertEquals(updated, service.get(HORSE_1_ID));
     }
 
     @Test
@@ -83,7 +84,7 @@ public class HorseServiceTest extends AbstractServiceTest{
         Horse newHorse = new Horse(null, "Captain", "Капитан", 5, 0);
         Horse created = service.save(newHorse);
         newHorse.setId(created.getId());
-        MATCHER.assertCollectionEquals(Arrays.asList(
+        HORSE_MATCHER.assertCollectionEquals(Arrays.asList(
                 HORSE_7, HORSE_10, HORSE_1, created, HORSE_3, HORSE_8, HORSE_6, HORSE_9, HORSE_5, HORSE_4, HORSE_2),
                 service.getAll()
         );

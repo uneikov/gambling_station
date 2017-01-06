@@ -17,7 +17,7 @@ import static com.uran.gamblingstation.service.scheduler.RaceScheduler.USERS_CAN
 @RequestMapping(value = "/ajax/admin/races")
 public class RaceAjaxController extends AbstractRaceController{
 
-    @Autowired RaceService raceService;
+    @Autowired private RaceService raceService;
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

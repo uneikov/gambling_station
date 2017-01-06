@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -18,6 +19,7 @@ import static com.uran.gamblingstation.RaceTestData.RACE_4_ID;
 import static com.uran.gamblingstation.StakeTestData.*;
 import static com.uran.gamblingstation.UserTestData.*;
 
+@Component
 public class StakeServiceTest extends AbstractServiceTest{
 
     @Autowired

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class AccountServiceImpl implements AccountService{
 
     private final WalletService walletService;
@@ -21,21 +22,18 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    @Transactional
     public void transferToStation(int userId, Double value) {
         debitAccount(userId, value);
         addToStationAccount(value);
     }
 
     @Override
-    @Transactional
     public void transferToUser(int userId, Double value) {
         debitStationAccount(value);
         addToAccount(userId, value);
     }
 
     @Override
-    @Transactional
     public void addToStationAccount(Double value) {
         Wallet stationWallet = getStationWallet();
         stationWallet.setCash(stationWallet.getCash() + value);
@@ -43,7 +41,6 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    @Transactional
     public void debitStationAccount(Double value) {
         Wallet stationWallet = getStationWallet();
         stationWallet.setCash(stationWallet.getCash() - value);
@@ -51,7 +48,6 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    @Transactional
     public void addToAccount(int userId, Double value) {
         Wallet userWallet = walletService.get(userId);
         userWallet.setCash(userWallet.getCash() + value);
@@ -59,7 +55,6 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    @Transactional
     public void debitAccount(int userId, Double value){
         Wallet userWallet = walletService.get(userId);
         userWallet.setCash(userWallet.getCash() - value);
@@ -67,6 +62,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Wallet getStationWallet(){
         Wallet walletStation;
 

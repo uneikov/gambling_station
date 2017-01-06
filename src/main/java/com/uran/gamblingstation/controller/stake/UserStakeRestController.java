@@ -17,16 +17,16 @@ import java.util.List;
 public class UserStakeRestController extends AbstractStakeController {
 
     static final String REST_URL = "/rest/profile/stakes";
-    private static final String contentType = MediaType.APPLICATION_JSON_VALUE;
+    private static final String JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
 
     @Override
-    @GetMapping(value = "/by/{id}", produces = contentType)
+    @GetMapping(value = "/by/{id}", produces = JSON_VALUE)
     public List<Stake> getAllByUserId(@PathVariable("id") int userId) {
         return super.getAllByUserId(userId);
     }
 
     @Override
-    @GetMapping(value = "/{id}", produces = contentType)
+    @GetMapping(value = "/{id}", produces = JSON_VALUE)
     public Stake get(@PathVariable("id") int id) {
         return super.get(id);
     }
@@ -38,12 +38,12 @@ public class UserStakeRestController extends AbstractStakeController {
     }
 
     @Override
-    @PutMapping(value = "/{id}", consumes = contentType)
+    @PutMapping(value = "/{id}", consumes = JSON_VALUE)
     public void update(@RequestBody Stake stake, @PathVariable int id) {
         super.update(stake, id);
     }
 
-    @PostMapping(consumes = contentType, produces = contentType)
+    @PostMapping(consumes = JSON_VALUE, produces = JSON_VALUE)
     public ResponseEntity<Stake> createWithLocation(@Valid @RequestBody Stake stake) {
         Stake created = super.create(stake);
 
@@ -54,7 +54,7 @@ public class UserStakeRestController extends AbstractStakeController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @GetMapping(value = "/between", produces = contentType)
+    @GetMapping(value = "/between", produces = JSON_VALUE)
     public List<Stake> getBetween(
             @RequestParam("startDateTime")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
             @RequestParam("endDateTime")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end,

@@ -29,7 +29,7 @@ public class HorseUtil {
 
     }
 
-    // return map(en_name->ru_name, ...)
+    // return map(en_name->ru_name, ...)  ??????
     private static Map<String,String> getDeserialized(String horses){
         return Arrays.stream(horses.split(","))
                 .sorted()

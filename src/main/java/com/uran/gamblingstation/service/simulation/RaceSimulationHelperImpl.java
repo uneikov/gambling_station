@@ -25,6 +25,11 @@ import static com.uran.gamblingstation.service.scheduler.RaceScheduler.USERS_CAN
 public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     private static final Logger LOG = LoggerFactory.getLogger(RaceSimulationHelperImpl.class);
 
+    private List<User> bots = new ArrayList<>();
+    private List<Horse> selectedHorses = new ArrayList<>();
+    private static int botsNumber = 0;
+    private static int count = 0;
+
     private final StakeService stakeService;
     private final UserService userService;
     private final WalletService walletService;
@@ -39,11 +44,6 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
         this.walletService = walletService;
         this.horseService = horseService;
     }
-
-    private List<User> bots = new ArrayList<>();
-    private List<Horse> selectedHorses = new ArrayList<>();
-    private static int botsNumber = 0;
-    private static int count = 0;
 
     @Override
     @Transactional

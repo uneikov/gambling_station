@@ -8,14 +8,16 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class RaceSimulationHelperlTest extends AbstractServiceTest{
 
-    @Autowired RaceSimulationHelper helper;
-    @Autowired UserService userService;
-    @Autowired WalletService walletService;
+    @Autowired private RaceSimulationHelper helper;
+    @Autowired private UserService userService;
+    @Autowired private WalletService walletService;
 
     @Before
     public void setUp() {

@@ -12,16 +12,16 @@ import java.util.List;
 @RequestMapping(value = RaceRestController.REST_URL)
 public class RaceRestController extends AbstractRaceController{
     static final String REST_URL = "/rest/admin/races";
-    private static final String CONTENT_TYPE = MediaType.APPLICATION_JSON_VALUE;
+    private static final String JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
 
     @Override
-    @GetMapping(produces = CONTENT_TYPE)
+    @GetMapping(produces = JSON_VALUE)
     public List<Race> getAll() {
         return super.getAll();
     }
 
     @Override
-    @GetMapping(value = "/with", produces = CONTENT_TYPE)
+    @GetMapping(value = "/with", produces = JSON_VALUE)
     public List<Race> getAllWithStakes() {
         return super.getAllWithStakes();
     }

@@ -6,18 +6,14 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static com.uran.gamblingstation.StakeTestData.STAKE_1;
-import static com.uran.gamblingstation.StakeTestData.STAKE_MATCHER;
+import static com.uran.gamblingstation.StakeTestData.*;
 
-/**
- * GKislin
- * 22.07.2015.
- */
+
 public class JsonUtilTest {
 
     @Test
     public void testReadWriteValue() throws Exception {
-        String json = JsonUtil.writeValue(StakeTestData.STAKE_1);
+        String json = JsonUtil.writeValue(STAKE_1);
         System.out.println(json);
         Stake stake = JsonUtil.readValue(json, Stake.class);
         STAKE_MATCHER.assertEquals(STAKE_1, stake);
@@ -28,6 +24,6 @@ public class JsonUtilTest {
         String json = JsonUtil.writeValue(StakeTestData.STAKES);
         System.out.println(json);
         List<Stake> stakes = JsonUtil.readValues(json, Stake.class);
-        STAKE_MATCHER.assertCollectionEquals(StakeTestData.STAKES, stakes);
+        STAKE_MATCHER.assertCollectionEquals(STAKES, stakes);
     }
 }

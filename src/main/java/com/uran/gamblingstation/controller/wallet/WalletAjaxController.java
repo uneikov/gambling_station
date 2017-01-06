@@ -16,7 +16,7 @@ import static com.uran.gamblingstation.AuthorizedUser.id;
 public class WalletAjaxController extends AbstractWalletController{
 
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Wallet get(){

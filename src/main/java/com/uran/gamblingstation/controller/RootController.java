@@ -4,8 +4,6 @@ import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.controller.user.AbstractUserController;
 import com.uran.gamblingstation.to.UserTo;
 import com.uran.gamblingstation.util.user.UserUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,7 +16,6 @@ import javax.validation.Valid;
 
 @Controller
 public class RootController extends AbstractUserController{
-    private static final Logger LOG = LoggerFactory.getLogger(RootController.class);
 
     @GetMapping(value = "/")
     public String root() {

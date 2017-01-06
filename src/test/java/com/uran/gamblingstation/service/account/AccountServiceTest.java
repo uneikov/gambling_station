@@ -6,11 +6,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static com.uran.gamblingstation.UserTestData.USER_ID_1;
 import static com.uran.gamblingstation.UserTestData.USER_ID_2;
 import static com.uran.gamblingstation.WalletTestData.WALLET_ID;
 
+@Component
 public class AccountServiceTest extends AbstractServiceTest {
 
     @Autowired private AccountService accountService;

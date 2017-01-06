@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +20,7 @@ import static com.uran.gamblingstation.StakeTestData.*;
 import static com.uran.gamblingstation.UserTestData.USER_ID_1;
 import static com.uran.gamblingstation.UserTestData.USER_ID_2;
 
+@Component
 public class RaceProcessorTest extends AbstractServiceTest {
 
     @Autowired private StakeService stakeService;

@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class RaceServiceImpl implements RaceService {
 
-    @Autowired RaceRepository repository;
+    @Autowired private RaceRepository repository;
 
     @Override
     public Race save(Race race) {

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 /**
- * GKislin
+ * GKislin + Uran
  * 06.01.2015.
  * <p>
  * This class wrap every entity by Wrapper before assertEquals in order to compare them by comparator
@@ -81,6 +81,11 @@ public class ModelMatcher<T> {
 
     public T fromJsonAction(ResultActions action) throws UnsupportedEncodingException {
         return fromJsonValue(TestUtil.getContent(action));
+    }
+
+    // new
+    public Collection<T> fromJsonActions(ResultActions action) throws UnsupportedEncodingException {
+        return fromJsonValues(TestUtil.getContent(action));
     }
 
     public void assertEquals(T expected, T actual) {

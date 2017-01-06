@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = RaceRestController.REST_URL)
 public class RaceRestController extends AbstractRaceController{
-    static final String REST_URL = "/rest/admin/races";
+    protected static final String REST_URL = "/rest/admin/races";
     private static final String JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
 
     @Override

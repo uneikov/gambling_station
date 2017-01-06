@@ -20,9 +20,9 @@ public class UserStakeRestController extends AbstractStakeController {
     private static final String JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
 
     @Override
-    @GetMapping(value = "/by/{id}", produces = JSON_VALUE)
-    public List<Stake> getAllByUserId(@PathVariable("id") int userId) {
-        return super.getAllByUserId(userId);
+    @GetMapping(produces = JSON_VALUE)
+    public List<Stake> getAllForAuthorizedUser() {
+        return super.getAllForAuthorizedUser();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class UserStakeRestController extends AbstractStakeController {
 
     @Override
     @PutMapping(value = "/{id}", consumes = JSON_VALUE)
-    public void update(@RequestBody Stake stake, @PathVariable int id) {
+    public void update(@RequestBody Stake stake, @PathVariable("id") int id) {
         super.update(stake, id);
     }
 

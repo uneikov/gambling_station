@@ -6,9 +6,7 @@ import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.repository.StakeRepository;
 import com.uran.gamblingstation.service.account.AccountService;
-import com.uran.gamblingstation.service.scheduler.RaceScheduler;
 import com.uran.gamblingstation.to.StakeTo;
-import com.uran.gamblingstation.util.exception.ExceptionUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -17,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import static com.uran.gamblingstation.service.scheduler.RaceScheduler.getCurrentRace;
 import static com.uran.gamblingstation.util.exception.ExceptionUtil.checkNotFoundWithId;
 
 @Service
@@ -70,7 +69,7 @@ public class StakeServiceImpl implements StakeService {
     public Stake save(StakeTo stakeTo, int userId) {
         final User user = userService.get(userId);
         final Horse horse = horseService.getByName(stakeTo.getHorseName());
-        final Race race = RaceScheduler.getCurrentRace();
+        final Race race = getCurrentRace();
         Stake stake = repository.save(
                 new Stake(null, user, horse, race, stakeTo.getStakeValue(), LocalDateTime.now(), false, 0.0d, true),
                 userId
@@ -84,7 +83,7 @@ public class StakeServiceImpl implements StakeService {
     public Stake update(Stake stake, int userId) {
         Assert.notNull(stake, "stake must not be null");
         final Double oldStakeValue = repository.get(stake.getId(), userId).getStakeValue();
-        Stake updated = ExceptionUtil.checkNotFoundWithId(repository.save(stake, userId), stake.getId());
+        Stake updated = checkNotFoundWithId(repository.save(stake, userId), stake.getId());
         updateUserAndStationWallets(oldStakeValue - updated.getStakeValue(), userId);
         return updated;
     }
@@ -96,7 +95,7 @@ public class StakeServiceImpl implements StakeService {
         final Double oldStakeValue = repository.get(id, userId).getStakeValue();
         final User user = userService.get(userId);
         final Horse horse = horseService.getByName(stakeTo.getHorseName());
-        final Race race = RaceScheduler.getCurrentRace();
+        final Race race = getCurrentRace();
         Stake updated = repository.save(
                 new Stake(id, user, horse, race,  stakeTo.getStakeValue(), LocalDateTime.now(), false, 0.0d, true),
                 userId
@@ -105,7 +104,6 @@ public class StakeServiceImpl implements StakeService {
         return updated;
     }
 
-    // а оно надо ???
     @Override
     public Stake getWithUser(int id) {
         return repository.getWithUser(id);
@@ -129,7 +127,8 @@ public class StakeServiceImpl implements StakeService {
     @Override
     @Transactional
     public void setNotEditable(int raceId) {
-        repository.getAllByRaceId(raceId).forEach(stake -> { stake.setEditable(false); repository.update(stake); });
+        repository.getAllByRaceId(raceId)
+                .forEach(stake -> { stake.setEditable(false); repository.update(stake); });
     }
 
     @Override

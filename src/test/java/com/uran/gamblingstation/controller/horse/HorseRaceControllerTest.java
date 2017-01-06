@@ -17,7 +17,7 @@ import static com.uran.gamblingstation.HorseTestData.*;
 import static com.uran.gamblingstation.TestUtil.userHttpBasic;
 import static com.uran.gamblingstation.UserTestData.ADMIN;
 import static com.uran.gamblingstation.UserTestData.USER_1;
-import static com.uran.gamblingstation.controller.horse.HorseRaceController.REST_URL;
+import static com.uran.gamblingstation.controller.horse.HorseRestController.REST_URL;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -29,7 +29,7 @@ public class HorseRaceControllerTest extends AbstractControllerTest{
     private static final String HORSE_REST_URL = REST_URL + '/';
 
     @Autowired
-    HorseService horseService;
+    private HorseService horseService;
 
     @Test
     public void testGetUnauth() throws Exception {

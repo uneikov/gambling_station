@@ -8,6 +8,7 @@ import com.uran.gamblingstation.util.stake.StakeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ public class RaceProcessorImpl implements RaceProcessor{
     }
 
     @Override
+    @Transactional
     public void process(int horseId, int raceId) {
         stakeService.setNotEditable(raceId);
         horseService.update(horseService.get(horseId).addWins());

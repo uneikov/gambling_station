@@ -46,6 +46,24 @@ public class StakeRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    public void testGetAllBelongsToUser() throws Exception {
+        mockMvc.perform(get(STAKE_REST_URL)
+                .with(userHttpBasic(USER_1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(JSON_VALUE))
+                .andExpect(STAKE_MATCHER.contentListMatcher(Arrays.asList(STAKE_5, STAKE_3, STAKE_1))
+                );
+    }
+
+    @Test
+    public void testGetAllForbidden() throws Exception {
+        mockMvc.perform(get(ADMIN_STAKE_REST_URL)
+                .with(userHttpBasic(USER_1)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     public void testGetAll() throws Exception {
         mockMvc.perform(get(ADMIN_STAKE_REST_URL)
                 .with(userHttpBasic(ADMIN)))

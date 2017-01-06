@@ -18,22 +18,23 @@ import java.util.List;
 @RestController
 @RequestMapping("/ajax/profile/stakes")
 public class StakeAjaxController extends AbstractStakeController{
+    private static final String JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
 
     @Override
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = JSON_VALUE)
     public List<Stake> getAll() {
         int userId = AuthorizedUser.id();
         return super.getAllByUserId(userId);
     }
 
-    @GetMapping(value = "/cash",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/cash",produces = JSON_VALUE)
     public Double getAllCashOfCurrentRace() {
         Race current = RaceScheduler.getCurrentRace();
         return current == null ? 0.0 : StakeUtil.getValuesSum(super.getAllByRaceId(current.getId()));
     }
 
     @Override
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = JSON_VALUE)
     public Stake get(@PathVariable("id") int id) {
         return super.get(id);
     }
@@ -55,7 +56,7 @@ public class StakeAjaxController extends AbstractStakeController{
     }
 
     @Override
-    @PostMapping(value = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/filter", produces = JSON_VALUE)
     public List<Stake> getBetween(
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(value = "startTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime,

@@ -31,7 +31,13 @@ public class AbstractStakeController {
         return service.getAllByUserId(userId);
     }
 
-    public List<Stake> getAllByRaceId(int raceId) {
+    public List<Stake> getAllForAuthorizedUser() {
+        int userId = AuthorizedUser.id();
+        LOG.info("getAll for User {}", userId);
+        return service.getAllByUserId(userId);
+    }
+
+    List<Stake> getAllByRaceId(int raceId) {
         LOG.info("getAll for Race {}", raceId);
         return service.getAllByRaceId(raceId);
     }

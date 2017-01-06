@@ -1,6 +1,5 @@
 package com.uran.gamblingstation.controller.json;
 
-import com.uran.gamblingstation.StakeTestData;
 import com.uran.gamblingstation.model.Stake;
 import org.junit.Test;
 
@@ -21,7 +20,7 @@ public class JsonUtilTest {
 
     @Test
     public void testReadWriteValues() throws Exception {
-        String json = JsonUtil.writeValue(StakeTestData.STAKES);
+        String json = JsonUtil.writeValue(STAKES);
         System.out.println(json);
         List<Stake> stakes = JsonUtil.readValues(json, Stake.class);
         STAKE_MATCHER.assertCollectionEquals(STAKES, stakes);

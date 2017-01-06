@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
                 "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate ORDER BY s.dateTime DESC"),
         @NamedQuery(name = Stake.GET_BETWEEN_WITH_USER, query =
                 "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate AND s.user.id=:user_id ORDER BY s.dateTime DESC"),
-        @NamedQuery(name = Stake.ALL_SORTED_WITH_USER, query =
+        @NamedQuery(name = Stake.ALL_SORTED_BELONG_TO_USER, query =
                 "SELECT s FROM Stake s WHERE s.user.id=:userId ORDER BY s.dateTime DESC "),
         @NamedQuery(name = Stake.ALL_SORTED, query =
                 "SELECT s FROM Stake s ORDER BY s.dateTime DESC "),
@@ -34,7 +34,7 @@ import java.time.LocalDateTime;
 public class Stake extends BaseEntity {
 
     public static final String ALL_SORTED = "Stake.getAllSorted";
-    public static final String ALL_SORTED_WITH_USER = "Stake.getAllSortedWithUser";
+    public static final String ALL_SORTED_BELONG_TO_USER = "Stake.getAllSortedBelongToUser";
     public static final String DELETE = "Stake.delete";
     public static final String ALL_WINNING = "Stake.getWinningStakes";
     public static final String WINNING_WITH_RACE_ID = "Stake.getWinningWithRaceId";

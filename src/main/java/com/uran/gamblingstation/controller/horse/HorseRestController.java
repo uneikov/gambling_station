@@ -11,9 +11,9 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = HorseRaceController.REST_URL)
-public class HorseRaceController extends AbstractHorseController {
-    static final String REST_URL = "/rest/admin/horses";
+@RequestMapping(value = HorseRestController.REST_URL)
+public class HorseRestController extends AbstractHorseController {
+    protected static final String REST_URL = "/rest/admin/horses";
     private static final String JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
 
     @Override
@@ -24,19 +24,19 @@ public class HorseRaceController extends AbstractHorseController {
 
     @Override
     @GetMapping(value = "/{id}", produces = JSON_VALUE)
-    public Horse get(@PathVariable int id) {
+    public Horse get(@PathVariable("id") int id) {
         return super.get(id);
     }
 
     @Override
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable int id) {
+    public void delete(@PathVariable("id") int id) {
         super.delete(id);
     }
 
     @Override
     @PutMapping(value = "/{id}", produces = JSON_VALUE)
-    public void update(@RequestBody Horse horse, @PathVariable int id) {
+    public void update(@RequestBody Horse horse, @PathVariable("id") int id) {
         super.update(horse, id);
     }
 

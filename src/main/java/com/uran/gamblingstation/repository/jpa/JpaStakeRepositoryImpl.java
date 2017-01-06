@@ -61,7 +61,7 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
 
     @Override
     public List<Stake> getAllByUserId(int userId) {
-        return em.createNamedQuery(Stake.ALL_SORTED_WITH_USER, Stake.class)
+        return em.createNamedQuery(Stake.ALL_SORTED_BELONG_TO_USER, Stake.class)
                 .setParameter("userId", userId)
                 .getResultList();
     }

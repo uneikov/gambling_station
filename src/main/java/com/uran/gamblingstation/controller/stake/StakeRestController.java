@@ -3,6 +3,7 @@ package com.uran.gamblingstation.controller.stake;
 import com.uran.gamblingstation.model.Stake;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,13 +22,13 @@ public class StakeRestController extends AbstractStakeController{
         return super.getAll();
     }
 
-    /*@Override
+    @Override
     @GetMapping(value = "/by/{id}", produces = JSON_VALUE)
     public List<Stake> getAllByUserId(@PathVariable("id") int userId) {
         return super.getAllByUserId(userId);
     }
 
-    @Override
+    /*@Override
     @GetMapping(value = "/{id}", produces = JSON_VALUE)
     public Stake get(@PathVariable("id") int id) {
         return super.get(id);

@@ -86,7 +86,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     }
 
     @Override
-    public void clearWallets(){
+    public void clearWallets(){ // no usage ?
         bots.forEach(user -> {
             user.getWallet().setCash(0.0d);
             walletService.update(user.getWallet());

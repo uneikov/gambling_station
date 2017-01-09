@@ -1,32 +1,27 @@
 var ajaxUrl = 'ajax/profile/stakes/';
-var ajaxHorsesUrl ='ajax/profile/horses/names/';
+var ajaxHorsesUrl = 'ajax/profile/horses/names/';
 var ajaxWalletsUrl = 'ajax/profile/wallets/';
 
 var datatableApi;
 
-/*function rowColor(row) {
-    return row.wins ? 'winned' : 'loosed';
-}*/
-
 function checkStatus() {
-     $.get(ajaxRacesUrl + 'run', function (status) {
-        $('#addButton')[0].disabled = status=='disabled';
+    $.get(ajaxRacesUrl + 'run', function (status) {
+        $('#addButton')[0].disabled = status == 'disabled';
     });
 }
 
 function checkAddStatus() {
     $.when($.ajax(ajaxWalletsUrl + 'cash'), $.ajax(ajaxRacesUrl + 'run')).done(function (w, s) {
-        var cash=w[0];
-        var status= s[0];
-        if (cash<1) {
+        var cash = w[0];
+        var status = s[0];
+        if (cash < 1) {
             $('#walletInfo').modal({backdrop: true});
         }
-        if (status=='disabled') {
+        if (status == 'disabled') {
             alert('You can`t make stakes now. Race is running.');
-            //document.getElementById("addButton").disabled = status=='disabled';
         }
-        $('#addButton')[0].disabled = status=='disabled';
-        if ( cash>=1 && status=='enabled') add();
+        $('#addButton')[0].disabled = status == 'disabled';
+        if (cash >= 1 && status == 'enabled') add();
     });
 }
 
@@ -41,8 +36,8 @@ function fillWallet() {
     });
 }
 
-function addModal(){
-    $.when( $.ajax(ajaxHorsesUrl), $.ajax(ajaxWalletsUrl + 'cash') ).done(function( r1, r2 ) {
+function addModal() {
+    $.when($.ajax(ajaxHorsesUrl), $.ajax(ajaxWalletsUrl + 'cash')).done(function (r1, r2) {
         var horses = r1[0];
         var available = r2[0];
         $('#value').html(
@@ -67,13 +62,12 @@ function addModal(){
             '</select>' +
             '</div>'
         );
-        //<%=(horseName==select ? selected="selected" : "");%>
         $('#editRow').modal({backdrop: true});
     });
 }
-function updateModal(id){
+function updateModal(id) {
     debugger;
-    $.when( $.ajax(ajaxHorsesUrl), $.ajax(ajaxUrl + id), $.ajax(ajaxWalletsUrl + 'cash') ).done(function( r1, r2, r3 ) {
+    $.when($.ajax(ajaxHorsesUrl), $.ajax(ajaxUrl + id), $.ajax(ajaxWalletsUrl + 'cash')).done(function (r1, r2, r3) {
         var horses = r1[0];
         var stake = r2[0];
         var available = r3[0];
@@ -109,14 +103,14 @@ function checkForm() {
     var i;
 
     var formValid = true;
-    for (i=0; i < valid.length; i++){
+    for (i = 0; i < valid.length; i++) {
         if (valid[i]) {
             $(formGroup[i]).addClass('has-success').removeClass('has-error');
             $(glyphicon[i]).addClass('glyphicon-ok').removeClass('glyphicon-remove');
-        }else {
+        } else {
             $(formGroup[i]).addClass('has-error').removeClass('has-success');
             $(glyphicon[i]).addClass('glyphicon-remove').removeClass('glyphicon-ok');
-            formValid=false;
+            formValid = false;
         }
     }
     if (formValid) save();
@@ -165,17 +159,17 @@ $(function () {
             },
             {
                 data: "amount",
-                render: $.fn.dataTable.render.number( ' ', '.', 2)
+                render: $.fn.dataTable.render.number(' ', '.', 2)
             },
             {
                 data: "editable",
                 orderable: false,
                 defaultContent: "",
                 render: function (data, type, row) {
-                    if (type == 'display'){
+                    if (type == 'display') {
                         if (!data) {
                             return '<span class="glyphicon glyphicon-lock" style="color: black"/>';
-                        }else {
+                        } else {
                             return renderEditBtn(data, type, row);
                         }
                     }
@@ -186,10 +180,10 @@ $(function () {
                 orderable: false,
                 defaultContent: "",
                 render: function (data, type, row) {
-                    if (type == 'display'){
+                    if (type == 'display') {
                         if (!data) {
                             return '<span class="glyphicon glyphicon-lock" style="color: black"/>';
-                        }else {
+                        } else {
                             return renderDeleteBtn(data, type, row);
                         }
                     }

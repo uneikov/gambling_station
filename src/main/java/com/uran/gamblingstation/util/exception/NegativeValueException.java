@@ -1,7 +1,7 @@
 package com.uran.gamblingstation.util.exception;
 
-public class NegativeValueException extends RuntimeException{
-    public NegativeValueException(String message) {
+class NegativeValueException extends RuntimeException {
+    NegativeValueException(final String message) {
         super(message);
     }
 }

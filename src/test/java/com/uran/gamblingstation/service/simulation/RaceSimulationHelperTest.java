@@ -13,11 +13,14 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class RaceSimulationHelperlTest extends AbstractServiceTest{
+public class RaceSimulationHelperTest extends AbstractServiceTest {
 
-    @Autowired private RaceSimulationHelper helper;
-    @Autowired private UserService userService;
-    @Autowired private WalletService walletService;
+    @Autowired
+    private RaceSimulationHelper helper;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private WalletService walletService;
 
     @Before
     public void setUp() {

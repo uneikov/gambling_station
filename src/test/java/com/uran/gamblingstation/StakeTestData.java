@@ -61,14 +61,13 @@ public class StakeTestData {
                             && Objects.equals(expected.getAmount(), actual.getAmount())
                             && Objects.equals(expected.isEditable(), actual.isEditable())
                             && Objects.equals(expected.getStakeValue(), actual.getStakeValue())
-                            //&& Objects.equals(expected.getHorse().getId(), actual.getHorse().getId())
-                            //&& Objects.equals(expected.getUser().getId(), actual.getUser().getId())
                     )
     );
 
     public static Stake getCreated() {
-        return new Stake(null, USER_1, HORSE_1, RACE_4,  5.25, of(2016, Month.OCTOBER, 3, 10, 35).truncatedTo(ChronoUnit.SECONDS), false, 0.0, true);
+        return new Stake(null, USER_1, HORSE_1, RACE_4, 5.25, of(2016, Month.OCTOBER, 3, 10, 35).truncatedTo(ChronoUnit.SECONDS), false, 0.0, true);
     }
+
     public static Stake getUpdated() {
         return new Stake(STAKE_1_ID, USER_1, HORSE_6, RACE_1, 100.0, of(2016, Month.MAY, 30, 10, 0).truncatedTo(ChronoUnit.SECONDS), false, 0.0, false);
     }

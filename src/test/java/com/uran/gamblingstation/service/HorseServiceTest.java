@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,8 +14,8 @@ import java.util.stream.Collectors;
 
 import static com.uran.gamblingstation.HorseTestData.*;
 
-@Component
-public class HorseServiceTest extends AbstractServiceTest{
+
+public class HorseServiceTest extends AbstractServiceTest {
 
     @Autowired
     private HorseService service;

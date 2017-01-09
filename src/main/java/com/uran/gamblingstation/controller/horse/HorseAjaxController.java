@@ -3,24 +3,25 @@ package com.uran.gamblingstation.controller.horse;
 import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.to.HorseTo;
 import com.uran.gamblingstation.util.horse.HorseUtil;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/ajax/admin/horses")
 public class HorseAjaxController extends AbstractHorseController {
 
     @Override
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
     public List<Horse> getAll() {
         return super.getAll();
     }
 
     @Override
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     public Horse get(@PathVariable("id") int id) {
         return super.get(id);
     }
@@ -32,8 +33,7 @@ public class HorseAjaxController extends AbstractHorseController {
     }
 
     @PostMapping
-    public void createOrUpdate(@Valid HorseTo horseTo)
-    {
+    public void createOrUpdate(@Valid HorseTo horseTo) {
         if (horseTo.isNew()) {
             super.create(HorseUtil.createNewFromTo(horseTo));
         } else {

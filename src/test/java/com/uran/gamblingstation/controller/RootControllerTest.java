@@ -9,11 +9,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/**
- * GKislin
- * 10.04.2015.
- */
-
 public class RootControllerTest extends AbstractControllerTest {
 
     @Test

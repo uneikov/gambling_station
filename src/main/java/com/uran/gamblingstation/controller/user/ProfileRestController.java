@@ -3,10 +3,11 @@ package com.uran.gamblingstation.controller.user;
 import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.to.UserTo;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 
 /**
@@ -18,7 +19,7 @@ import javax.validation.Valid;
 public class ProfileRestController extends AbstractUserController {
     protected static final String REST_URL = "/rest/profile";
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
     public User get() {
         return super.get(AuthorizedUser.id());
     }
@@ -29,7 +30,7 @@ public class ProfileRestController extends AbstractUserController {
     }
 
     @Override
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = APPLICATION_JSON_VALUE)
     public void update(@Valid @RequestBody UserTo userTo) {
         userTo.setId(AuthorizedUser.id());
         super.update(userTo);

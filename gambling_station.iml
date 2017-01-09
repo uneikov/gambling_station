@@ -22,7 +22,7 @@
           <file>file://$MODULE_DIR$/src/main/resourses/spring/spring-database.xml</file>
           <file>file://$MODULE_DIR$/src/main/resourses/spring/spring-security.xml</file>
         </fileset>
-        <fileset id="web application context" profiles="heroku,jpa" autodetected="true" />
+        <fileset id="web application context" profiles="jpa,postgres" autodetected="true" />
       </configuration>
     </facet>
     <facet type="jpa" name="JPA">

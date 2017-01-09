@@ -6,11 +6,9 @@ import com.uran.gamblingstation.to.HorseTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@Controller
 public class AbstractHorseController {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractHorseController.class);
 
@@ -48,4 +46,5 @@ public class AbstractHorseController {
         LOG.info("create horse {}", horse);
         return service.save(horse);
     }
+
 }

@@ -41,8 +41,6 @@ $(function () {
                     var horses = split.reduce(function (prev, curr) {
                         return locale == 'en' ? prev.concat(curr.split(':')[0]) : prev.concat(curr.split(':')[1]);
                     }, []);
-                    //var max = horses.sort(function (a, b) { return b.length - a.length; })[0];
-                    //console.log("Maximum = "+max);
                     var view = horses.reduce(function (prev, curr) {
                         return prev + '<option value="' + curr + '">' + curr + '</option>'
                     }, '<option value="" selected="selected">---</horses></option>');

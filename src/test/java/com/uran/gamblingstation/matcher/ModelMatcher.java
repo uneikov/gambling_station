@@ -83,7 +83,6 @@ public class ModelMatcher<T> {
         return fromJsonValue(TestUtil.getContent(action));
     }
 
-    // new
     public Collection<T> fromJsonActions(ResultActions action) throws UnsupportedEncodingException {
         return fromJsonValues(TestUtil.getContent(action));
     }

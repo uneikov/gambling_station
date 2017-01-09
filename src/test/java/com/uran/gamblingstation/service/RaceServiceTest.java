@@ -5,7 +5,6 @@ import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.time.Month;
 import java.util.Arrays;
@@ -13,8 +12,8 @@ import java.util.Arrays;
 import static com.uran.gamblingstation.RaceTestData.*;
 import static java.time.LocalDateTime.of;
 
-@Component
-public class RaceServiceTest extends AbstractServiceTest{
+
+public class RaceServiceTest extends AbstractServiceTest {
 
     @Autowired
     private RaceService raceService;

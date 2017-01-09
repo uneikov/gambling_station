@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,8 +15,8 @@ import java.util.List;
 import static com.uran.gamblingstation.UserTestData.USER_ID_1;
 import static com.uran.gamblingstation.WalletTestData.*;
 
-@Component
-public class WalletServiceTest extends AbstractServiceTest{
+
+public class WalletServiceTest extends AbstractServiceTest {
 
     @Autowired
     private WalletService walletService;

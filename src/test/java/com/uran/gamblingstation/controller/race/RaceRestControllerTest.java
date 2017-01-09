@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class RaceRestControllerTest extends AbstractControllerTest{
+public class RaceRestControllerTest extends AbstractControllerTest {
     private static final String CONTENT_TYPE = MediaType.APPLICATION_JSON_VALUE;
     private static final String RACE_REST_URL = RaceRestController.REST_URL;
 

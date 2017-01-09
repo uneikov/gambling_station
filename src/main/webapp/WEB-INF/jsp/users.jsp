@@ -76,8 +76,10 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
-                            <button class="btn btn-default" type="button" data-dismiss="modal"><spring:message code="common.cancel"/></button>
-                            <button class="btn btn-primary"  type="button" onclick="save()"><spring:message code="common.save"/></button>
+                            <button class="btn btn-default" type="button" data-dismiss="modal"><spring:message
+                                    code="common.cancel"/></button>
+                            <button class="btn btn-primary" type="button" onclick="save()"><spring:message
+                                    code="common.save"/></button>
                         </div>
                     </div>
                 </form:form>
@@ -87,8 +89,8 @@
 </div>
 </body>
 <script type="text/javascript">
-    var edit_title ='<spring:message code="users.edit"/>';
-    var add_title ='<spring:message code="users.add"/>';
+    var edit_title = '<spring:message code="users.edit"/>';
+    var add_title = '<spring:message code="users.add"/>';
 </script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
@@ -96,7 +98,7 @@
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/userDatatables.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('#addButton').hide();
     });
 </script>

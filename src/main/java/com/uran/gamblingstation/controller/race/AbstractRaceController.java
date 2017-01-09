@@ -10,9 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public class AbstractRaceController {
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired private RaceService raceService;
+    @Autowired
+    private RaceService raceService;
 
     public List<Race> getAll() {
         log.info("getAll");

@@ -23,10 +23,14 @@ import static com.uran.gamblingstation.UserTestData.USER_ID_2;
 @Component
 public class RaceProcessorTest extends AbstractServiceTest {
 
-    @Autowired private StakeService stakeService;
-    @Autowired private WalletService walletService;
-    @Autowired private HorseService horseService;
-    @Autowired private RaceProcessor raceProcessor;
+    @Autowired
+    private StakeService stakeService;
+    @Autowired
+    private WalletService walletService;
+    @Autowired
+    private HorseService horseService;
+    @Autowired
+    private RaceProcessor raceProcessor;
 
     @Before
     public void setUp() {
@@ -34,7 +38,7 @@ public class RaceProcessorTest extends AbstractServiceTest {
     }
 
     @Test
-    public void testWinningStakes(){
+    public void testWinningStakes() {
         stakeService.save(STAKE_6, USER_ID_1);
         raceProcessor.process(HorseTestData.HORSE_4.getId(), RACE_4_ID);
         //-----------------------= wins =----------------------------

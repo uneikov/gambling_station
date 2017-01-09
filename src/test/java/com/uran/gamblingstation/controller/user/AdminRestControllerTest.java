@@ -22,8 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class AdminRestControllerTest extends AbstractControllerTest {
-
     private static final String REST_URL = AdminRestController.REST_URL + '/';
+
     @Autowired
     protected UserService userService;
 
@@ -64,7 +64,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
-    
+
     @Test
     public void testUpdate() throws Exception {
         User updated = new User(USER_1);
@@ -76,7 +76,6 @@ public class AdminRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
-        //final User user = userService.get(USER_ID_1);
         USER_MATCHER.assertEquals(updated, userService.get(USER_ID_1));
     }
 

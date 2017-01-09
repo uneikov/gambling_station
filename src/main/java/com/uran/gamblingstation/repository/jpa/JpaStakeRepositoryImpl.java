@@ -41,9 +41,9 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     @Transactional
     public boolean delete(int id, int userId) {
         return em.createNamedQuery(Stake.DELETE)
-                 .setParameter("id", id)
-                 .setParameter("userId", userId)
-                 .executeUpdate() != 0;
+                .setParameter("id", id)
+                .setParameter("userId", userId)
+                .executeUpdate() != 0;
     }
 
     @Override

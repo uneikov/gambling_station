@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -19,8 +18,8 @@ import static com.uran.gamblingstation.RaceTestData.RACE_4_ID;
 import static com.uran.gamblingstation.StakeTestData.*;
 import static com.uran.gamblingstation.UserTestData.*;
 
-@Component
-public class StakeServiceTest extends AbstractServiceTest{
+
+public class StakeServiceTest extends AbstractServiceTest {
 
     @Autowired
     private StakeService service;
@@ -37,7 +36,7 @@ public class StakeServiceTest extends AbstractServiceTest{
     }
 
     @Test
-    public void testGetByRace(){
+    public void testGetByRace() {
         List<Stake> allStakes = service.getAllByRaceId(RACE_1_ID);
         STAKE_MATCHER.assertCollectionEquals(allStakes, Collections.singletonList(STAKE_1));
     }
@@ -132,7 +131,7 @@ public class StakeServiceTest extends AbstractServiceTest{
     }
 
     @Test
-    public void testGetBetween(){
+    public void testGetBetween() {
         List<Stake> stake = service.getBetween(
                 LocalDateTime.of(2016, Month.JUNE, 13, 16, 0).truncatedTo(ChronoUnit.SECONDS),
                 LocalDateTime.of(2016, Month.JUNE, 13, 20, 0).truncatedTo(ChronoUnit.SECONDS)
@@ -141,7 +140,7 @@ public class StakeServiceTest extends AbstractServiceTest{
     }
 
     @Test
-    public void testGetUser(){
+    public void testGetUser() {
         Stake stake = service.getWithUser(STAKE_2_ID);
         USER_MATCHER.assertEquals(USER_2, stake.getUser());
     }

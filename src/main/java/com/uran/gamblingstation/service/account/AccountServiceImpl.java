@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
 
     private final WalletService walletService;
     private final UserService userService;
@@ -55,7 +55,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public void debitAccount(int userId, Double value){
+    public void debitAccount(int userId, Double value) {
         Wallet userWallet = walletService.get(userId);
         userWallet.setCash(userWallet.getCash() - value);
         walletService.update(userWallet);
@@ -63,7 +63,7 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     @Transactional(readOnly = true)
-    public Wallet getStationWallet(){
+    public Wallet getStationWallet() {
         Wallet walletStation;
 
         User userStation = userService.getAll().stream()
@@ -73,12 +73,14 @@ public class AccountServiceImpl implements AccountService{
 
         if (userStation != null) {
             walletStation = userStation.getWallet();
+        } else {
+            throw new NotFoundException("No station as user.");
         }
-        else throw new NotFoundException("No station as user.");
 
         if (walletStation != null) {
             return walletStation;
+        } else {
+            throw new NotFoundException("No station wallet.");
         }
-        else throw new NotFoundException("No station wallet.");
     }
 }

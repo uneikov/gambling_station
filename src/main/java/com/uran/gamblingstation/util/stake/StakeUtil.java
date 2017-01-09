@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class StakeUtil {
 
-    public static Double getValuesSum(List<Stake> stakes){
+    public static Double getValuesSum(List<Stake> stakes) {
         return stakes.stream().mapToDouble(Stake::getStakeValue).sum();
     }
 
@@ -19,10 +19,15 @@ public class StakeUtil {
         Stream<Stake> streamFiltered = stakes.stream()
                 .filter(stake -> TimeUtil.isBetween(stake.getDateTime().toLocalTime(), start, end));
 
-        switch (filterOption){
-            case "winned":  streamFiltered = streamFiltered.filter(Stake::isWins); break;
-            case "loosed":  streamFiltered = streamFiltered.filter(stake -> !stake.isWins()); break;
-            default: break;
+        switch (filterOption) {
+            case "winned":
+                streamFiltered = streamFiltered.filter(Stake::isWins);
+                break;
+            case "loosed":
+                streamFiltered = streamFiltered.filter(stake -> !stake.isWins());
+                break;
+            default:
+                break;
         }
 
         return streamFiltered.collect(Collectors.toList());

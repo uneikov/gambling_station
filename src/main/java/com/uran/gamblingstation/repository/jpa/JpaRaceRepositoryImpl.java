@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
-public class JpaRaceRepositoryImpl implements RaceRepository{
+public class JpaRaceRepositoryImpl implements RaceRepository {
 
     @PersistenceContext
     private EntityManager em;

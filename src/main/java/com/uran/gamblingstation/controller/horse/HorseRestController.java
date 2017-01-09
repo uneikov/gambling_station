@@ -1,7 +1,6 @@
 package com.uran.gamblingstation.controller.horse;
 
 import com.uran.gamblingstation.model.Horse;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -10,20 +9,21 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequestMapping(value = HorseRestController.REST_URL)
 public class HorseRestController extends AbstractHorseController {
     protected static final String REST_URL = "/rest/admin/horses";
-    private static final String JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
 
     @Override
-    @GetMapping(produces = JSON_VALUE)
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
     public List<Horse> getAll() {
         return super.getAll();
     }
 
     @Override
-    @GetMapping(value = "/{id}", produces = JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     public Horse get(@PathVariable("id") int id) {
         return super.get(id);
     }
@@ -35,12 +35,12 @@ public class HorseRestController extends AbstractHorseController {
     }
 
     @Override
-    @PutMapping(value = "/{id}", produces = JSON_VALUE)
+    @PutMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     public void update(@RequestBody Horse horse, @PathVariable("id") int id) {
         super.update(horse, id);
     }
 
-    @PostMapping(consumes = JSON_VALUE, produces = JSON_VALUE)
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Horse> createWithLocation(@Valid @RequestBody Horse horse) {
         Horse created = super.create(horse);
 

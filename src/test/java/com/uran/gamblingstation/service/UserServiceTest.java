@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,8 +15,8 @@ import java.util.List;
 
 import static com.uran.gamblingstation.UserTestData.*;
 
-@Component
-public class UserServiceTest extends AbstractServiceTest{
+
+public class UserServiceTest extends AbstractServiceTest {
 
     @Autowired
     private UserService userService;
@@ -85,7 +84,7 @@ public class UserServiceTest extends AbstractServiceTest{
     }
 
     @Test
-    public void testUserWallet(){
+    public void testUserWallet() {
         User user = userService.get(USER_ID_2);
         Double cash = user.getWallet().getCash();
         Assert.assertEquals(new Double(15.0), cash);

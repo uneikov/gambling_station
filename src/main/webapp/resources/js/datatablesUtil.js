@@ -10,38 +10,38 @@ function makeEditable() {
 
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
-    $(document).ajaxSend(function(e, xhr, options) {
+    $(document).ajaxSend(function (e, xhr, options) {
         xhr.setRequestHeader(header, token);
     });
 }
 
 function add() {
-    var form_title= this.form[0].title;
+    var form_title = this.form[0].title;
     $('#modalTitle').html(add_title);
     form.find(":input").val("");
-    if (form_title=='stake'){
+    if (form_title == 'stake') {
         addModal();
-    }else {
+    } else {
         $('#editRow').modal();
     }
 }
 
 function updateRow(id) {
-    var form_title= this.form[0].title;
+    var form_title = this.form[0].title;
     $('#modalTitle').html(edit_title);
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
             form.find("input[name='" + key + "']").val(value);
         });
     });
-    if (form_title=='stake'){
+    if (form_title == 'stake') {
         updateModal(id);
     }
-    if (form_title=='horse' || form_title=='user'){
+    if (form_title == 'horse' || form_title == 'user') {
         $.get(ajaxRacesUrl + 'can', function (editable) {
-            if (editable=='editable') {
+            if (editable == 'editable') {
                 $('#editRow').modal();
-            }else {
+            } else {
                 notEditableNoty('common.not_editable');
                 updateTable();
             }
@@ -50,18 +50,18 @@ function updateRow(id) {
 }
 
 function checkDelete(id) {
-    var form_title= this.form[0].title;
-    if (form_title=='horse' || form_title=='user'){
+    var form_title = this.form[0].title;
+    if (form_title == 'horse' || form_title == 'user') {
         $.get(ajaxRacesUrl + 'can', function (editable) {
-            if (editable=='editable') {
+            if (editable == 'editable') {
                 deleteRow(id);
-            }else {
+            } else {
                 notEditableNoty('common.not_editable');
                 updateTable();
             }
         });
     }
-    if (form_title=='stake'){
+    if (form_title == 'stake') {
         deleteRow(id);
     }
 }
@@ -130,7 +130,7 @@ function failNoty(event, jqXHR, options, jsExc) {
     closeNoty();
     var errorInfo = $.parseJSON(jqXHR.responseText);
     failedNote = noty({
-        text: i18n['common.failed'] + ': ' + jqXHR.statusText + "<br>"+ errorInfo.cause + "<br>" + errorInfo.details.join("<br>"),
+        text: i18n['common.failed'] + ': ' + jqXHR.statusText + "<br>" + errorInfo.cause + "<br>" + errorInfo.details.join("<br>"),
         type: 'error',
         layout: 'bottomRight'
     });
@@ -148,13 +148,13 @@ function notEditableNoty(key) {
 
 function renderEditBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-xs btn-primary" onclick="updateRow(' + row.id + ');">'+i18n['common.update']+'</a>';
+        return '<a class="btn btn-xs btn-primary" onclick="updateRow(' + row.id + ');">' + i18n['common.update'] + '</a>';
     }
 }
 
 function renderDeleteBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-xs btn-danger" onclick="checkDelete(' + row.id + ');">'+i18n['common.delete']+'</a>';
+        return '<a class="btn btn-xs btn-danger" onclick="checkDelete(' + row.id + ');">' + i18n['common.delete'] + '</a>';
     }
 }
 

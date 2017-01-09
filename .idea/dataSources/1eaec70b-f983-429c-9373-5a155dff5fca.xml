@@ -1,4 +1,4 @@
-<dataSource name="HSQLDB (Local) - temp">
+<dataSource name="HSQLDB (Local) - gamblingstation">
   <database-model serializer="dbm" rdbms="HSQLDB" format-version="2.6">
     <database id="1" name="PUBLIC">
       <visible>1</visible>

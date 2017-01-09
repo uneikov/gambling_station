@@ -12,7 +12,7 @@ public class ResourceControllerTest extends AbstractControllerTest {
     private static final String RESOURCES_URL = "/resources/css/style.css";
 
     @Test
-    public void testResourceCSS() throws Exception{
+    public void testResourceCSS() throws Exception {
         mockMvc.perform(get(RESOURCES_URL))
                 .andExpect(status().isOk())
                 .andDo(print())

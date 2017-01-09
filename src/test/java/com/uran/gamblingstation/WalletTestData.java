@@ -21,6 +21,6 @@ public class WalletTestData {
     public static final Wallet WALLET_2 = new Wallet(USER_ID_2, 15.0d);
     public static final Wallet WALLET_ADMIN = new Wallet(ADMIN_ID, 0.0d);
 
-    public static final Wallet WALLET_STATION = new Wallet(STATION_ID, 200.5d);
+    public static final Wallet WALLET_STATION = new Wallet(WALLET_ID, 200.5d);
     public static final Wallet WALLET_1_UP = new Wallet(USER_ID_1, 200.44d);
 }

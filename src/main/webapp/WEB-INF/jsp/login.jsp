@@ -63,7 +63,8 @@
         <p><h5>Admin login: <b>admin@gmail.com / admin</b></h5></p>
         <br>
 
-        <p><a class="btn btn-primary btn-lg" role="button" href="register"><spring:message code="app.register"/> &raquo;</a></p>
+        <p><a class="btn btn-primary btn-lg" role="button" href="register"><spring:message
+                code="app.register"/> &raquo;</a></p>
         <p><a class="btn btn-info btn-lg" role="button" href="about"><spring:message code="app.about"/></a></p>
 
     </div>
@@ -72,7 +73,8 @@
 <jsp:include page="fragments/footer.jsp"/>
 <div class="navbar navbar-inverse navbar-fixed-bottom" role="banner" data-spy="affix">
     <div class="scroll">
-        <h3>Horses, races, stakes and more...&nbsp;&nbsp;&nbsp;Start gambling now with us!&nbsp;&nbsp;&nbsp;Are you ready to win?&nbsp;&nbsp;&nbsp;Yes you will!</h3>
+        <h3>Horses, races, stakes and more...&nbsp;&nbsp;&nbsp;Start gambling now with us!&nbsp;&nbsp;&nbsp;Are you
+            ready to win?&nbsp;&nbsp;&nbsp;Yes you will!</h3>
     </div>
 </div>
 </body>

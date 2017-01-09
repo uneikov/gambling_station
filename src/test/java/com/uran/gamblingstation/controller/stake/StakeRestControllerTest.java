@@ -8,7 +8,6 @@ import com.uran.gamblingstation.service.StakeService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.Arrays;
@@ -22,10 +21,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Component
 public class StakeRestControllerTest extends AbstractControllerTest {
     private static final String JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
-    private static final String STAKE_REST_URL = UserStakeRestController.REST_URL + '/';
+    private static final String USER_STAKE_REST_URL = UserStakeRestController.REST_URL + '/';
     private static final String ADMIN_STAKE_REST_URL = StakeRestController.REST_URL + '/';
 
     private static final String START = "2016-06-13T16:00";
@@ -36,7 +34,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(STAKE_REST_URL + STAKE_1_ID)
+        mockMvc.perform(get(USER_STAKE_REST_URL + STAKE_1_ID)
                 .with(userHttpBasic(USER_1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -47,7 +45,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetAllBelongsToUser() throws Exception {
-        mockMvc.perform(get(STAKE_REST_URL)
+        mockMvc.perform(get(USER_STAKE_REST_URL)
                 .with(userHttpBasic(USER_1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -74,7 +72,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(STAKE_REST_URL + STAKE_1_ID)
+        mockMvc.perform(delete(USER_STAKE_REST_URL + STAKE_1_ID)
                 .with(userHttpBasic(USER_1)))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -87,7 +85,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
     @Test
     public void testUpdate() throws Exception {
         Stake updated = getUpdated();
-        TestUtil.print(mockMvc.perform(put(STAKE_REST_URL + STAKE_1_ID)
+        TestUtil.print(mockMvc.perform(put(USER_STAKE_REST_URL + STAKE_1_ID)
                 .contentType(JSON_VALUE)
                 .content(JsonUtil.writeValue(updated))
                 .with(userHttpBasic(USER_1)))
@@ -98,7 +96,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
     @Test
     public void testCreate() throws Exception {
         Stake expected = getCreated();
-        ResultActions action = mockMvc.perform(post(STAKE_REST_URL)
+        ResultActions action = mockMvc.perform(post(USER_STAKE_REST_URL)
                 .contentType(JSON_VALUE)
                 .content(JsonUtil.writeValue(expected))
                 .with(userHttpBasic(USER_1)))
@@ -112,7 +110,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
     @Test
     public void testBetween() throws Exception {
         TestUtil.print(mockMvc.perform(get(
-                STAKE_REST_URL + "between?startDateTime=" + START + "&endDateTime=" + END + "&option=loosed")
+                USER_STAKE_REST_URL + "between?startDateTime=" + START + "&endDateTime=" + END + "&option=loosed")
                 .with(userHttpBasic(USER_1)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(JSON_VALUE))

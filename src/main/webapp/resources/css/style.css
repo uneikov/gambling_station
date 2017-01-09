@@ -43,12 +43,6 @@
     border: 1px solid #9feba6;
 }
 
-
-/*.infoString {
-    height: 50px;
-    overflow: hidden;
-    position: relative;
-}*/
 .infoString h3 {
     position: absolute;
     width: 100%;

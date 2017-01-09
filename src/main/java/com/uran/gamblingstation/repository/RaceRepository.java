@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface RaceRepository {
+
     Race save(Race race);
 
     boolean delete(int id);

@@ -181,16 +181,15 @@
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/stakeDatatables.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         window.setInterval(function () {
-            ajaxCallStation();  //calling every 1 seconds
+            ajaxCallStation();
             checkStatus();
-        }, 1000);
+        }, 1000); //calling every 1 seconds
 
         function ajaxCallStation() {
             $.get(ajaxUrl + 'cash', function (data) {
-                //$("#station").html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сумма ставок: ' + data.toFixed(2));
                 $(".logo").html('&nbsp;&nbsp;&nbsp; Сумма ставок: ' + data.toFixed(2));
             });
         }

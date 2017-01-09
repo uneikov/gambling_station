@@ -87,8 +87,8 @@
 </div>
 </body>
 <script type="text/javascript">
-    var edit_title ='<fmt:message key="horses.edit"/>';
-    var add_title ='<fmt:message key="horses.add"/>';
+    var edit_title = '<fmt:message key="horses.edit"/>';
+    var add_title = '<fmt:message key="horses.add"/>';
 </script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
@@ -96,7 +96,7 @@
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/horseDatatables.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('#addButton').hide();
     });
 </script>

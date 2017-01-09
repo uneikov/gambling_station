@@ -47,7 +47,7 @@
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/raceDatatables.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('#addButton').hide();
     });
 </script>

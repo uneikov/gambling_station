@@ -15,8 +15,10 @@ import static com.uran.gamblingstation.WalletTestData.WALLET_ID;
 @Component
 public class AccountServiceTest extends AbstractServiceTest {
 
-    @Autowired private AccountService accountService;
-    @Autowired private WalletService walletService;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private WalletService walletService;
 
     @Before
     public void setUp() {

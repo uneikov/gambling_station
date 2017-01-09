@@ -8,7 +8,6 @@ import com.uran.gamblingstation.service.HorseService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.Arrays;
@@ -23,8 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Component
-public class HorseRaceControllerTest extends AbstractControllerTest{
+
+public class HorseRaceControllerTest extends AbstractControllerTest {
     private static final String JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
     private static final String HORSE_REST_URL = REST_URL + '/';
 

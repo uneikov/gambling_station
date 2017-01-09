@@ -19,7 +19,8 @@ import static java.time.LocalDateTime.of;
 public class AbstractStakeController {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractStakeController.class);
 
-    @Autowired private StakeService service;
+    @Autowired
+    private StakeService service;
 
     public List<Stake> getAll() {
         LOG.info("getAll for all users");

@@ -19,9 +19,7 @@ import java.util.concurrent.TimeUnit;
 import static com.uran.gamblingstation.Profiles.DB_ACTIVE;
 import static com.uran.gamblingstation.Profiles.DB_IMPLEMENTATION;
 
-/**
- * User: gkislin
- */
+
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
         "classpath:spring/spring-database.xml"
@@ -54,12 +52,12 @@ abstract public class AbstractServiceTest {
     @AfterClass
     public static void printResults() {
         results =
-                new StringBuilder( "\n\n-------" + testName + "---------\n")
-                .append("\n---------------------------------")
-                .append("\nTest                 Duration, ms")
-                .append("\n---------------------------------\n")
-                .append(results)
-                .append("---------------------------------\n");
+                new StringBuilder("\n\n-------" + testName + "---------\n")
+                        .append("\n---------------------------------")
+                        .append("\nTest                 Duration, ms")
+                        .append("\n---------------------------------\n")
+                        .append(results)
+                        .append("---------------------------------\n");
         LOG.info(results.toString());
         results.setLength(0);
     }

@@ -7,7 +7,6 @@ import com.uran.gamblingstation.service.scheduler.RaceScheduler;
 import com.uran.gamblingstation.to.StakeTo;
 import com.uran.gamblingstation.util.stake.StakeUtil;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,26 +14,27 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequestMapping("/ajax/profile/stakes")
 public class StakeAjaxController extends AbstractStakeController{
-    private static final String JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
 
     @Override
-    @GetMapping(produces = JSON_VALUE)
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
     public List<Stake> getAll() {
         int userId = AuthorizedUser.id();
         return super.getAllByUserId(userId);
     }
 
-    @GetMapping(value = "/cash",produces = JSON_VALUE)
+    @GetMapping(value = "/cash",produces = APPLICATION_JSON_VALUE)
     public Double getAllCashOfCurrentRace() {
         Race current = RaceScheduler.getCurrentRace();
         return current == null ? 0.0 : StakeUtil.getValuesSum(super.getAllByRaceId(current.getId()));
     }
 
     @Override
-    @GetMapping(value = "/{id}", produces = JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     public Stake get(@PathVariable("id") int id) {
         return super.get(id);
     }
@@ -56,7 +56,7 @@ public class StakeAjaxController extends AbstractStakeController{
     }
 
     @Override
-    @PostMapping(value = "/filter", produces = JSON_VALUE)
+    @PostMapping(value = "/filter", produces = APPLICATION_JSON_VALUE)
     public List<Stake> getBetween(
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(value = "startTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime,

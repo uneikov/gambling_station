@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="HSQLDB (Local) - temp" uuid="1eaec70b-f983-429c-9373-5a155dff5fca">
+    <data-source source="LOCAL" name="HSQLDB (Local) - gamblingstation" uuid="1eaec70b-f983-429c-9373-5a155dff5fca">
       <driver-ref>hsqldb.local</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.hsqldb.jdbc.JDBCDriver</jdbc-driver>
-      <jdbc-url>jdbc:hsqldb:file:E:/temp/gamblingstation</jdbc-url>
+      <jdbc-url>jdbc:hsqldb:mem:gamblingstation</jdbc-url>
     </data-source>
     <data-source source="LOCAL" name="PostgreSQL - gamblingstation@localhost" uuid="d22ae63d-ed2e-4f6b-b77f-f13b1c140922">
       <driver-ref>postgresql</driver-ref>

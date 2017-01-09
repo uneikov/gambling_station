@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
-public class RaceProcessorImpl implements RaceProcessor{
+public class RaceProcessorImpl implements RaceProcessor {
     private static final Logger LOG = LoggerFactory.getLogger(RaceProcessor.class);
 
     private final StakeService stakeService;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static com.uran.gamblingstation.service.scheduler.RaceScheduler.USERS_CAN_MAKE_STAKES;
+import static com.uran.gamblingstation.service.scheduler.RaceScheduler.isUsersCanMakeStakes;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -39,7 +39,7 @@ public class RaceAjaxController extends AbstractRaceController {
 
     @GetMapping(value = "/run", produces = APPLICATION_JSON_VALUE)
     public String get() {
-        return USERS_CAN_MAKE_STAKES ? "enabled" : "disabled";
+        return isUsersCanMakeStakes() ? "enabled" : "disabled";
     }
 
 }

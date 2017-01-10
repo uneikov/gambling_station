@@ -18,8 +18,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-import static com.uran.gamblingstation.service.scheduler.RaceScheduler.RACE_IS_RUNNING;
-import static com.uran.gamblingstation.service.scheduler.RaceScheduler.USERS_CAN_MAKE_STAKES;
+import static com.uran.gamblingstation.service.scheduler.RaceScheduler.*;
 
 @Component
 public class RaceSimulationHelperImpl implements RaceSimulationHelper{
@@ -86,6 +85,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     }
 
     @Override
+    @Transactional
     public void clearWallets(){ // no usage ?
         bots.forEach(user -> {
             user.getWallet().setCash(0.0d);
@@ -103,9 +103,9 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     @Override
     public void startGamble(){
         final List<Integer> randomTimePoints = RandomUtil.getRandomTimePoints(0, 45, botsNumber);
-        LOG.info("Make random time points, race is running? - {}", RACE_IS_RUNNING);
+        LOG.info("Make random time points, race is running? - {}", isRaceIsRunning());
         randomTimePoints.forEach(tick -> {
-            while (USERS_CAN_MAKE_STAKES){
+            while (isUsersCanMakeStakes()){
                 if (tick <= LocalDateTime.now().getMinute()){
                     makeStake();
                     break;

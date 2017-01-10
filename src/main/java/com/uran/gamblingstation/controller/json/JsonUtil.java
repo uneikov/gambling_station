@@ -8,10 +8,7 @@ import java.util.List;
 
 import static com.uran.gamblingstation.controller.json.JacksonObjectMapper.getMapper;
 
-/**
- * User: gkislin
- * Date: 30.04.2014
- */
+
 public class JsonUtil {
 
     public static <T> List<T> readValues(String json, Class<T> clazz) {

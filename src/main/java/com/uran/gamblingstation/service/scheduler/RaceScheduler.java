@@ -11,7 +11,6 @@ import com.uran.gamblingstation.util.TimeUtil;
 import com.uran.gamblingstation.util.horse.HorseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -23,12 +22,16 @@ import java.util.List;
 public class RaceScheduler {
     private static final Logger LOG = LoggerFactory.getLogger(RaceScheduler.class);
 
-    public static boolean RACE_IS_RUNNING;
-    public static boolean USERS_CAN_MAKE_STAKES;
+    private static boolean RACE_IS_RUNNING;
+    private static boolean USERS_CAN_MAKE_STAKES;
 
-    public static int NUMBER_OF_HORSES_FOR_RACE = 6;
-    public static int MIN_BOTS = 30;
-    public static int MAX_BOTS = 50;
+    private static final int MIN_BOTS = 30;
+    private static final int MAX_BOTS = 50;
+    public static final int NUMBER_OF_HORSES_FOR_RACE = 6;
+
+    private static final String START_GAMBLE = "0 0 * * * ?";
+    private static final String START_RACE = "0 45 * * * ?";
+    private static final String SERVICE_TIME = "0 55 * * * ?";
 
     private static LocalDateTime START = null;
     private static LocalDateTime FINISH = null;
@@ -37,12 +40,18 @@ public class RaceScheduler {
     private static Race currentRace = null;
     private static boolean FIRST = true;
 
-    @Autowired private RaceSimulationHelper helper;
-    @Autowired private RaceProcessor processor;
-    @Autowired private RaceService raceService;
+    private final RaceSimulationHelper helper;
+    private final RaceProcessor processor;
+    private final RaceService raceService;
+
+    public RaceScheduler(RaceSimulationHelper helper, RaceProcessor processor, RaceService raceService) {
+        this.helper = helper;
+        this.processor = processor;
+        this.raceService = raceService;
+    }
 
     //Fire every new hour (10:00, 11:00, ... etc) every day
-    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(cron = START_GAMBLE)
     public void startGamble() {
         LOG.info("Race stopped & Game Started at {}", LocalDateTime.now().format(TimeUtil.DATE_TIME_FORMATTER));
 
@@ -75,7 +84,7 @@ public class RaceScheduler {
     }
 
     //Fire every new hour at *:45 every day
-    @Scheduled(cron = "0 45 * * * ?")
+    @Scheduled(cron = START_RACE)
     public void startRace() {
 
         if (START == null) return;
@@ -90,7 +99,7 @@ public class RaceScheduler {
     }
 
     //Fire every new hour (10:55, 11:55, ... etc) every day
-    @Scheduled(cron = "0 55 * * * ?")
+    @Scheduled(cron = SERVICE_TIME)
     public void processRaceResult() {
 
         if (FINISH == null) return;
@@ -115,5 +124,13 @@ public class RaceScheduler {
 
     public static Race getCurrentRace(){
         return currentRace;
+    }
+
+    public static boolean  isRaceIsRunning(){
+        return RACE_IS_RUNNING;
+    }
+
+    public static boolean  isUsersCanMakeStakes(){
+        return USERS_CAN_MAKE_STAKES;
     }
 }

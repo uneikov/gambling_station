@@ -26,24 +26,24 @@ public class UserStakeRestController extends AbstractStakeController {
 
     @Override
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public Stake get(@PathVariable("id") int id) {
+    public Stake get(@PathVariable("id") final int id) {
         return super.get(id);
     }
 
     @Override
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id")int id) {
+    public void delete(@PathVariable("id") final int id) {
         super.delete(id);
     }
 
     @Override
     @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE)
-    public void update(@RequestBody Stake stake, @PathVariable("id") int id) {
+    public void update(@RequestBody final Stake stake, @PathVariable("id") final int id) {
         super.update(stake, id);
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Stake> createWithLocation(@Valid @RequestBody Stake stake) {
+    public ResponseEntity<Stake> createWithLocation(@Valid @RequestBody final Stake stake) {
         Stake created = super.create(stake);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -55,9 +55,9 @@ public class UserStakeRestController extends AbstractStakeController {
 
     @GetMapping(value = "/between", produces = APPLICATION_JSON_VALUE)
     public List<Stake> getBetween(
-            @RequestParam("startDateTime")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
-            @RequestParam("endDateTime")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end,
-            @RequestParam("option") String option) {
+            @RequestParam("startDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final LocalDateTime start,
+            @RequestParam("endDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final LocalDateTime end,
+            @RequestParam("option") final String option) {
         return super.getBetween(start.toLocalDate(), start.toLocalTime(), end.toLocalDate(), end.toLocalTime(), option);
     }
 }

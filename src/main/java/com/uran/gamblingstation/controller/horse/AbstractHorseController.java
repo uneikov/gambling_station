@@ -15,12 +15,12 @@ public class AbstractHorseController {
     @Autowired
     private HorseService service;
 
-    public Horse get(int id) {
+    public Horse get(final int id) {
         LOG.info("get horse {}", id);
         return service.get(id);
     }
 
-    public void delete(int id) {
+    public void delete(final int id) {
         LOG.info("delete horse {}", id);
         service.delete(id);
     }
@@ -30,18 +30,18 @@ public class AbstractHorseController {
         return service.getAll();
     }
 
-    public void update(Horse horse, int id) {
+    public void update(final Horse horse, final int id) {
         horse.setId(id);
         LOG.info("update horse {}", horse);
         service.update(horse);
     }
 
-    public void update(HorseTo horseTo) {
+    public void update(final HorseTo horseTo) {
         LOG.info("update horse from horseTo {}", horseTo);
         service.update(horseTo);
     }
 
-    public Horse create(Horse horse) {
+    public Horse create(final Horse horse) {
         horse.setId(null);
         LOG.info("create horse {}", horse);
         return service.save(horse);

@@ -12,7 +12,8 @@ import java.util.List;
 public abstract class AbstractWalletController {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractWalletController.class);
 
-    @Autowired private WalletService service;
+    @Autowired
+    private WalletService service;
 
     public Wallet get(int id) {
         int userId = AuthorizedUser.id();

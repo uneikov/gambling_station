@@ -24,7 +24,7 @@ public class Race extends BaseEntity {
 
     @Column(name = "start", nullable = false)
     private LocalDateTime start;
-    
+
     @Column(name = "finish", nullable = false)
     private LocalDateTime finish;
 
@@ -35,7 +35,7 @@ public class Race extends BaseEntity {
     // Winning horse (serialized)
     @Column(name = "winning", nullable = false)
     private String winning;
-    
+
     @OneToMany(mappedBy = "race", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Stake> stakes;
@@ -116,14 +116,14 @@ public class Race extends BaseEntity {
         this.winning = winning;
         return this;
     }
-    
+
     @Override
     public String toString() {
-        return "Race{" +
-                "start=" + start +
-                ", finish=" + finish +
-                ", horses='" + horses + '\'' +
-                ", winning='" + winning + '\'' +
-                '}';
+        return "Race{"
+                + "start=" + start
+                + ", finish=" + finish
+                + ", horses='" + horses + '\''
+                + ", winning='" + winning + '\''
+                + '}';
     }
 }

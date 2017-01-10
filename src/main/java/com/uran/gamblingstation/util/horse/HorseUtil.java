@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 
 public class HorseUtil {
 
-    public static Horse createNewFromTo(HorseTo newHorse) {
+    public static Horse createNewFromTo(final HorseTo newHorse) {
         return new Horse(null, newHorse.getName(), newHorse.getRuName(), newHorse.getAge(), 0, false);
     }
 
-    public static Horse updateFromTo(Horse horse, HorseTo horseTo) {
+    public static Horse updateFromTo(final Horse horse, final HorseTo horseTo) {
         horse.setName(horse.getName());
         horse.setRuName(horseTo.getRuName());
         horse.setAge(horseTo.getAge());
@@ -22,15 +22,15 @@ public class HorseUtil {
     }
 
     // return "en_name:ru_name,en_name:ru:name ..."
-    public static String getSerialized(List<Horse> horses){
+    public static String getSerialized(final List<Horse> horses) {
         return horses.stream()
                 .map(horse -> horse.getName() + ":" + horse.getRuName())
                 .collect(Collectors.joining(","));
 
     }
 
-    // return map(en_name->ru_name, ...)  ??????
-    private static Map<String,String> getDeserialized(String horses){
+    // return map(en_name->ru_name, ...)
+    private static Map<String, String> getDeserialized(final String horses) {
         return Arrays.stream(horses.split(","))
                 .sorted()
                 .map(s -> s.split(":"))
@@ -38,17 +38,4 @@ public class HorseUtil {
 
     }
 
-   /* public static List<String> getEnNames(String serialized) {
-        return getDeserialized(serialized).entrySet().stream()
-                .map(Map.Entry::getKey)
-                .sorted()
-                .collect(Collectors.toList());
-    }
-
-    public static List<String> getRuNames(String serialized) {
-        return getDeserialized(serialized).entrySet().stream()
-                .map(Map.Entry::getValue)
-                .sorted()
-                .collect(Collectors.toList());
-    }*/
 }

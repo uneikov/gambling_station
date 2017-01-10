@@ -16,9 +16,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractUserController {
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(AbstractUserController.class);
 
-    @Autowired private UserService userService;
+    @Autowired
+    private UserService userService;
 
     private boolean systemUserForbiddenModification;
 
@@ -32,6 +33,7 @@ public abstract class AbstractUserController {
             throw new ValidationException("Admin/User modification is not allowed. <br><br><a class=\"btn btn-primary btn-lg\" role=\"button\" href=\"register\">Register &raquo;</a> your own please.");
         }
     }
+
     public List<User> getAll() {
         log.info("getAll");
         return userService.getAll();

@@ -7,7 +7,6 @@ import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.service.StakeService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.Arrays;
@@ -16,13 +15,13 @@ import java.util.Collections;
 import static com.uran.gamblingstation.StakeTestData.*;
 import static com.uran.gamblingstation.TestUtil.userHttpBasic;
 import static com.uran.gamblingstation.UserTestData.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class StakeRestControllerTest extends AbstractControllerTest {
-    private static final String JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
     private static final String USER_STAKE_REST_URL = UserStakeRestController.REST_URL + '/';
     private static final String ADMIN_STAKE_REST_URL = StakeRestController.REST_URL + '/';
 
@@ -38,7 +37,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(USER_1)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(JSON_VALUE))
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON_VALUE))
                 .andExpect(STAKE_MATCHER.contentMatcher(STAKE_1)
                 );
     }
@@ -49,7 +48,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(USER_1)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(JSON_VALUE))
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON_VALUE))
                 .andExpect(STAKE_MATCHER.contentListMatcher(Arrays.asList(STAKE_5, STAKE_3, STAKE_1))
                 );
     }
@@ -66,7 +65,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
         mockMvc.perform(get(ADMIN_STAKE_REST_URL)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(JSON_VALUE))
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON_VALUE))
                 .andExpect(STAKE_MATCHER.contentListMatcher(STAKES));
     }
 
@@ -86,7 +85,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
     public void testUpdate() throws Exception {
         Stake updated = getUpdated();
         TestUtil.print(mockMvc.perform(put(USER_STAKE_REST_URL + STAKE_1_ID)
-                .contentType(JSON_VALUE)
+                .contentType(APPLICATION_JSON_VALUE)
                 .content(JsonUtil.writeValue(updated))
                 .with(userHttpBasic(USER_1)))
                 .andExpect(status().isOk()));
@@ -97,7 +96,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
     public void testCreate() throws Exception {
         Stake expected = getCreated();
         ResultActions action = mockMvc.perform(post(USER_STAKE_REST_URL)
-                .contentType(JSON_VALUE)
+                .contentType(APPLICATION_JSON_VALUE)
                 .content(JsonUtil.writeValue(expected))
                 .with(userHttpBasic(USER_1)))
                 .andDo(print())
@@ -113,7 +112,7 @@ public class StakeRestControllerTest extends AbstractControllerTest {
                 USER_STAKE_REST_URL + "between?startDateTime=" + START + "&endDateTime=" + END + "&option=loosed")
                 .with(userHttpBasic(USER_1)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(JSON_VALUE))
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON_VALUE))
                 .andExpect(STAKE_MATCHER.contentListMatcher(Collections.singletonList(STAKE_3))));
     }
 }

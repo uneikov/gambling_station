@@ -73,11 +73,11 @@ public class UserTo implements Serializable {
 
     @Override
     public String toString() {
-        return "UserTo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return "UserTo{"
+                + "id=" + id +
+                ", name='" + name + '\''
+                + ", email='" + email + '\''
+                + ", password='" + password + '\''
+                + '}';
     }
 }

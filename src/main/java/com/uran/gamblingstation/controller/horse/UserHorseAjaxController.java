@@ -16,6 +16,9 @@ public class UserHorseAjaxController extends AbstractHorseController {
 
     @GetMapping(value = "/names", produces = APPLICATION_JSON_VALUE)
     public List<String> getAllReadyForRaceHorsesNamesAsList() {
-        return getAll().stream().filter(Horse::isReady).map(Horse::getName).collect(Collectors.toList());
+        return getAll().stream()
+                .filter(Horse::isReady)
+                .map(Horse::getName)
+                .collect(Collectors.toList());
     }
 }

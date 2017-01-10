@@ -22,18 +22,18 @@ public class HorseAjaxController extends AbstractHorseController {
 
     @Override
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public Horse get(@PathVariable("id") int id) {
+    public Horse get(@PathVariable("id") final int id) {
         return super.get(id);
     }
 
     @Override
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") final int id) {
         super.delete(id);
     }
 
     @PostMapping
-    public void createOrUpdate(@Valid HorseTo horseTo) {
+    public void createOrUpdate(@Valid final HorseTo horseTo) {
         if (horseTo.isNew()) {
             super.create(HorseUtil.createNewFromTo(horseTo));
         } else {
@@ -42,7 +42,7 @@ public class HorseAjaxController extends AbstractHorseController {
     }
 
     @PostMapping(value = "/{id}")
-    public void enableOrDisable(@PathVariable("id") int id) {
+    public void enableOrDisable(@PathVariable("id") final int id) {
         Horse horse = super.get(id);
         horse.setReady(!horse.isReady());
         super.update(horse, id);

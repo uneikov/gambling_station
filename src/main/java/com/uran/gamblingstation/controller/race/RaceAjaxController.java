@@ -33,7 +33,7 @@ public class RaceAjaxController extends AbstractRaceController {
 
     @Override
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public Race get(@PathVariable("id") int id) {
+    public Race get(@PathVariable("id") final int id) {
         return raceService.get(id);
     }
 

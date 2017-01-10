@@ -18,7 +18,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/ajax/profile/stakes")
-public class StakeAjaxController extends AbstractStakeController{
+public class StakeAjaxController extends AbstractStakeController {
 
     @Override
     @GetMapping(produces = APPLICATION_JSON_VALUE)
@@ -27,7 +27,7 @@ public class StakeAjaxController extends AbstractStakeController{
         return super.getAllByUserId(userId);
     }
 
-    @GetMapping(value = "/cash",produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/cash", produces = APPLICATION_JSON_VALUE)
     public Double getAllCashOfCurrentRace() {
         Race current = RaceScheduler.getCurrentRace();
         return current == null ? 0.0 : StakeUtil.getValuesSum(super.getAllByRaceId(current.getId()));
@@ -35,19 +35,19 @@ public class StakeAjaxController extends AbstractStakeController{
 
     @Override
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public Stake get(@PathVariable("id") int id) {
+    public Stake get(@PathVariable("id") final int id) {
         return super.get(id);
     }
 
 
     @Override
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") final int id) {
         super.delete(id);
     }
 
     @PostMapping
-    public void createOrUpdate(@Valid StakeTo stakeTo) {
+    public void createOrUpdate(@Valid final StakeTo stakeTo) {
         if (stakeTo.isNew()) {
             super.create(stakeTo);
         } else {
@@ -58,12 +58,11 @@ public class StakeAjaxController extends AbstractStakeController{
     @Override
     @PostMapping(value = "/filter", produces = APPLICATION_JSON_VALUE)
     public List<Stake> getBetween(
-            @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam(value = "startTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime,
-            @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @RequestParam(value = "endTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime endTime,
-            @RequestParam(value = "option", required = false) String option )
-    {
+            @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate startDate,
+            @RequestParam(value = "startTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) final LocalTime startTime,
+            @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate endDate,
+            @RequestParam(value = "endTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) final LocalTime endTime,
+            @RequestParam(value = "option", required = false) final String option) {
         return super.getBetween(startDate, startTime, endDate, endTime, option);
     }
 

@@ -1,6 +1,7 @@
 package com.uran.gamblingstation.model;
 
 import javax.persistence.*;
+
 @NamedQueries({
         @NamedQuery(name = Wallet.DELETE, query = "DELETE FROM Wallet w WHERE w.id=:id"),
         @NamedQuery(name = Wallet.ALL_SORTED, query = "SELECT w FROM Wallet w ORDER BY w.cash DESC "),
@@ -19,7 +20,7 @@ public class Wallet {
     @Column(name = "cash_value")
     private Double cash;
 
-    public Wallet(){
+    public Wallet() {
     }
 
     public Wallet(Double cash) {
@@ -31,7 +32,7 @@ public class Wallet {
         this.cash = cash;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return Double.compare(this.cash, 0.0) == 0;
     }
 
@@ -53,9 +54,9 @@ public class Wallet {
 
     @Override
     public String toString() {
-        return "Wallet{" +
-                "id=" + id +
-                ", cash=" + cash +
-                '}';
+        return "Wallet{"
+                + "id=" + id
+                + ", cash=" + cash
+                + '}';
     }
 }

@@ -29,18 +29,18 @@ public class AdminAjaxController extends AbstractUserController {
 
     @Override
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public User get(@PathVariable("id") int id) {
+    public User get(@PathVariable("id") final int id) {
         return super.get(id);
     }
 
     @Override
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") final int id) {
         super.delete(id);
     }
 
     @PostMapping
-    public void createOrUpdate(@Valid UserTo userTo) {
+    public void createOrUpdate(@Valid final UserTo userTo) {
         try {
             if (userTo.isNew()) {
                 super.create(UserUtil.createNewFromTo(userTo));
@@ -54,7 +54,7 @@ public class AdminAjaxController extends AbstractUserController {
 
     @Override
     @PostMapping(value = "/{id}")
-    public void enable(@PathVariable("id") int id, @RequestParam("enabled") boolean enabled) {
+    public void enable(@PathVariable("id") final int id, @RequestParam("enabled") final boolean enabled) {
         super.enable(id, enabled);
     }
 }

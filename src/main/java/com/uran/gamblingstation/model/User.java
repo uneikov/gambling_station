@@ -127,11 +127,13 @@ public class User extends NamedEntity {
 
     @Override
     public String toString() {
-        return "User{" +
-                "email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", registered=" + registered +
-                ", roles=" + roles +
-                '}';
+        return "User{"
+                + "email='" + email + '\''
+                + ", password='" + password + '\''
+                + ", enabled=" + enabled
+                + ", registered=" + registered
+                + ", roles=" + roles
+                + '}';
     }
+
 }

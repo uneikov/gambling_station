@@ -13,28 +13,28 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/ajax/profile/wallets")
-public class WalletAjaxController extends AbstractWalletController{
+public class WalletAjaxController extends AbstractWalletController {
 
     @Autowired
     private AccountService accountService;
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public Wallet get(){
+    public final Wallet get() {
         return super.get(id());
     }
 
     @GetMapping(value = "/cash", produces = APPLICATION_JSON_VALUE)
-    public Double getUserCash(){
+    public final Double getUserCash() {
         return super.get(id()).getCash();
     }
 
     @GetMapping(value = "/station", produces = APPLICATION_JSON_VALUE)
-    public Double getStationCash(){
+    public final Double getStationCash() {
         return super.get(accountService.getStationWallet().getId()).getCash();
     }
 
     @PutMapping(value = "/add")
-    public void add() {
+    public final void add() {
         Wallet wallet = super.get(id());
         wallet.setCash(10.0d);
         super.update(wallet, id());

@@ -10,11 +10,15 @@ import java.util.stream.Stream;
 
 public class StakeUtil {
 
-    public static Double getValuesSum(List<Stake> stakes) {
+    public static Double getValuesSum(final List<Stake> stakes) {
         return stakes.stream().mapToDouble(Stake::getStakeValue).sum();
     }
 
-    public static List<Stake> getFilteredByTimeAndWins(List<Stake> stakes, LocalTime start, LocalTime end, String option) {
+    public static List<Stake> getFilteredByTimeAndWins(final List<Stake> stakes,
+                                                       final LocalTime start,
+                                                       final LocalTime end,
+                                                       final String option) {
+
         final String filterOption = option == null ? "all" : option;
         Stream<Stake> streamFiltered = stakes.stream()
                 .filter(stake -> TimeUtil.isBetween(stake.getDateTime().toLocalTime(), start, end));

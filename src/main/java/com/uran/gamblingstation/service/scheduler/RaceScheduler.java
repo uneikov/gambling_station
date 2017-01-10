@@ -22,20 +22,17 @@ import java.util.List;
 public class RaceScheduler {
     private static final Logger LOG = LoggerFactory.getLogger(RaceScheduler.class);
 
-    private static boolean RACE_IS_RUNNING;
-    private static boolean USERS_CAN_MAKE_STAKES;
-
-    private static final int MIN_BOTS = 30;
-    private static final int MAX_BOTS = 50;
     public static final int NUMBER_OF_HORSES_FOR_RACE = 6;
 
+    private static boolean RACE_IS_RUNNING;
+    private static boolean USERS_CAN_MAKE_STAKES;
+    private static final int MIN_BOTS = 30;
+    private static final int MAX_BOTS = 50;
     private static final String START_GAMBLE = "0 0 * * * ?";
     private static final String START_RACE = "0 45 * * * ?";
     private static final String SERVICE_TIME = "0 55 * * * ?";
-
     private static LocalDateTime START = null;
     private static LocalDateTime FINISH = null;
-
     private static List<Horse> horsesForRace = null;
     private static Race currentRace = null;
     private static boolean FIRST = true;
@@ -75,7 +72,7 @@ public class RaceScheduler {
             helper.killBots();
             helper.createBots(MAX_BOTS);
             FIRST = false;
-        }else {
+        } else {
             helper.initBots(MIN_BOTS, MAX_BOTS);
         }
 
@@ -87,10 +84,12 @@ public class RaceScheduler {
     @Scheduled(cron = START_RACE)
     public void startRace() {
 
-        if (START == null) return;
+        if (START == null) {
+            return;
+        }
 
         RACE_IS_RUNNING = true;
-        USERS_CAN_MAKE_STAKES=false;
+        USERS_CAN_MAKE_STAKES = false;
 
         FINISH = LocalDateTime.now(); // stakes to current race are done
         LOG.info("Race started at {}", FINISH.format(TimeUtil.DATE_TIME_FORMATTER));
@@ -102,7 +101,9 @@ public class RaceScheduler {
     @Scheduled(cron = SERVICE_TIME)
     public void processRaceResult() {
 
-        if (FINISH == null) return;
+        if (FINISH == null) {
+            return;
+        }
 
         RACE_IS_RUNNING = false;
         USERS_CAN_MAKE_STAKES = false;
@@ -122,15 +123,15 @@ public class RaceScheduler {
         processor.process(winning.getId(), currentRace.getId());
     }
 
-    public static Race getCurrentRace(){
+    public static Race getCurrentRace() {
         return currentRace;
     }
 
-    public static boolean  isRaceIsRunning(){
+    public static boolean isRaceIsRunning() {
         return RACE_IS_RUNNING;
     }
 
-    public static boolean  isUsersCanMakeStakes(){
+    public static boolean isUsersCanMakeStakes() {
         return USERS_CAN_MAKE_STAKES;
     }
 }

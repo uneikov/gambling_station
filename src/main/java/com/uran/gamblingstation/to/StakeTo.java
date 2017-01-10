@@ -59,10 +59,10 @@ public class StakeTo implements Serializable {
 
     @Override
     public String toString() {
-        return "StakeTo{" +
-                "id=" + id +
-                ", stakeValue=" + stakeValue +
-                ", horseName='" + horseName + '\'' +
-                '}';
+        return "StakeTo{"
+                + "id=" + id
+                + ", stakeValue=" + stakeValue
+                + ", horseName='" + horseName + '\''
+                + '}';
     }
 }

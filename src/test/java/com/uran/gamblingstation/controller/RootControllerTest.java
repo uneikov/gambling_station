@@ -30,11 +30,29 @@ public class RootControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testMeals() throws Exception {
+    public void testStakes() throws Exception {
         mockMvc.perform(get("/stakes")
                 .with(userAuth(USER_1)))
                 .andDo(print())
                 .andExpect(view().name("stakes"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/stakes.jsp"));
+    }
+
+    @Test
+    public void testRaces() throws Exception {
+        mockMvc.perform(get("/races")
+                .with(userAuth(ADMIN)))
+                .andDo(print())
+                .andExpect(view().name("races"))
+                .andExpect(forwardedUrl("/WEB-INF/jsp/races.jsp"));
+    }
+
+    @Test
+    public void testHorses() throws Exception {
+        mockMvc.perform(get("/horses")
+                .with(userAuth(ADMIN)))
+                .andDo(print())
+                .andExpect(view().name("horses"))
+                .andExpect(forwardedUrl("/WEB-INF/jsp/horses.jsp"));
     }
 }

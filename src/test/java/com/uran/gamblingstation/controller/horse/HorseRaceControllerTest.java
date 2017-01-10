@@ -7,7 +7,6 @@ import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.service.HorseService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.Arrays;
@@ -17,6 +16,7 @@ import static com.uran.gamblingstation.TestUtil.userHttpBasic;
 import static com.uran.gamblingstation.UserTestData.ADMIN;
 import static com.uran.gamblingstation.UserTestData.USER_1;
 import static com.uran.gamblingstation.controller.horse.HorseRestController.REST_URL;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 public class HorseRaceControllerTest extends AbstractControllerTest {
-    private static final String JSON_VALUE = MediaType.APPLICATION_JSON_VALUE;
     private static final String HORSE_REST_URL = REST_URL + '/';
 
     @Autowired
@@ -48,7 +47,7 @@ public class HorseRaceControllerTest extends AbstractControllerTest {
         mockMvc.perform(get(HORSE_REST_URL)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(JSON_VALUE))
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON_VALUE))
                 .andExpect(HORSE_MATCHER.contentListMatcher(HORSES));
     }
 
@@ -58,7 +57,7 @@ public class HorseRaceControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(JSON_VALUE))
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON_VALUE))
                 .andExpect(HORSE_MATCHER.contentMatcher(HORSE_1)
                 );
     }
@@ -87,7 +86,7 @@ public class HorseRaceControllerTest extends AbstractControllerTest {
     public void update() throws Exception {
         Horse updated = getUpdated();
         TestUtil.print(mockMvc.perform(put(HORSE_REST_URL + HORSE_1_ID)
-                .contentType(JSON_VALUE)
+                .contentType(APPLICATION_JSON_VALUE)
                 .content(JsonUtil.writeValue(updated))
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk()));
@@ -98,7 +97,7 @@ public class HorseRaceControllerTest extends AbstractControllerTest {
     public void createWithLocation() throws Exception {
         Horse expected = getCreated();
         ResultActions action = mockMvc.perform(post(HORSE_REST_URL)
-                .contentType(JSON_VALUE)
+                .contentType(APPLICATION_JSON_VALUE)
                 .content(JsonUtil.writeValue(expected))
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())

@@ -72,11 +72,11 @@ public class HorseTo implements Serializable {
 
     @Override
     public String toString() {
-        return "HorseTo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", ruName='" + ruName + '\'' +
-                ", age=" + age +
-                '}';
+        return "HorseTo{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", ruName='" + ruName + '\''
+                + ", age=" + age
+                + '}';
     }
 }

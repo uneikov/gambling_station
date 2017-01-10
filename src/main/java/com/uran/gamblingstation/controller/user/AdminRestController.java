@@ -11,10 +11,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-/**
- * GKislin
- * 06.03.2015.
- */
+
 @RestController
 @RequestMapping(AdminRestController.REST_URL)
 public class AdminRestController extends AbstractUserController {
@@ -28,12 +25,12 @@ public class AdminRestController extends AbstractUserController {
 
     @Override
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public User get(@PathVariable("id") int id) {
+    public User get(@PathVariable("id") final int id) {
         return super.get(id);
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createWithLocation(@Valid @RequestBody User user) {
+    public ResponseEntity<User> createWithLocation(@Valid @RequestBody final User user) {
         User created = super.create(user);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -45,19 +42,19 @@ public class AdminRestController extends AbstractUserController {
 
     @Override
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") final int id) {
         super.delete(id);
     }
 
     @Override
     @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE)
-    public void update(@Valid @RequestBody User user, @PathVariable("id") int id) {
+    public void update(@Valid @RequestBody final User user, @PathVariable("id") final int id) {
         super.update(user, id);
     }
 
     @Override
     @GetMapping(value = "/by", produces = APPLICATION_JSON_VALUE)
-    public User getByMail(@RequestParam("email") String email) {
+    public User getByMail(@RequestParam("email") final String email) {
         return super.getByMail(email);
     }
 }

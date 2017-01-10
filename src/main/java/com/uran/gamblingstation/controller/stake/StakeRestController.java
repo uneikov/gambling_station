@@ -23,7 +23,7 @@ public class StakeRestController extends AbstractStakeController {
 
     @Override
     @GetMapping(value = "/by/{id}", produces = APPLICATION_JSON_VALUE)
-    public List<Stake> getAllByUserId(@PathVariable("id") int userId) {
+    public List<Stake> getAllByUserId(@PathVariable("id") final int userId) {
         return super.getAllByUserId(userId);
     }
 

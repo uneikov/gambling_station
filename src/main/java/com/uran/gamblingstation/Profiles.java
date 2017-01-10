@@ -9,6 +9,6 @@ public class Profiles {
             DATAJPA = "datajpa",
             HEROKU = "heroku";
 
-    public static final String DB_ACTIVE= POSTGRES;
+    public static final String DB_ACTIVE = POSTGRES;
     public static final String DB_IMPLEMENTATION = JPA;
 }

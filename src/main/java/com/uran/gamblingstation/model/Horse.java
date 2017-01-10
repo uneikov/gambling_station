@@ -32,7 +32,7 @@ public class Horse extends NamedEntity {
     @Column(name = "ready", nullable = false)
     private boolean ready;
 
-    public Horse(){
+    public Horse() {
     }
 
     public Horse(String name, String ruName, int age, int wins) {
@@ -94,11 +94,11 @@ public class Horse extends NamedEntity {
 
     @Override
     public String toString() {
-        return "Horse{" +
-                "ruName='" + ruName + '\'' +
-                ", age=" + age +
-                ", wins=" + wins +
-                ", ready=" + ready +
-                '}';
+        return "Horse{"
+                + "ruName='" + ruName + '\''
+                + ", age=" + age
+                + ", wins=" + wins
+                + ", ready=" + ready
+                + '}';
     }
 }

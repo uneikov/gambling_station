@@ -10,7 +10,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/ajax/profile/users")
-public class ProfileAjaxController extends AbstractUserController{
+public class ProfileAjaxController extends AbstractUserController {
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public User get() {

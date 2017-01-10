@@ -24,24 +24,24 @@ public class HorseRestController extends AbstractHorseController {
 
     @Override
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public Horse get(@PathVariable("id") int id) {
+    public Horse get(@PathVariable("id") final int id) {
         return super.get(id);
     }
 
     @Override
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") final int id) {
         super.delete(id);
     }
 
     @Override
     @PutMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public void update(@RequestBody Horse horse, @PathVariable("id") int id) {
+    public void update(@RequestBody final Horse horse, @PathVariable("id") final int id) {
         super.update(horse, id);
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Horse> createWithLocation(@Valid @RequestBody Horse horse) {
+    public ResponseEntity<Horse> createWithLocation(@Valid @RequestBody final Horse horse) {
         Horse created = super.create(horse);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()

@@ -10,10 +10,6 @@ import javax.validation.Valid;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 
-/**
- * GKislin
- * 06.03.2015.
- */
 @RestController
 @RequestMapping(ProfileRestController.REST_URL)
 public class ProfileRestController extends AbstractUserController {
@@ -31,7 +27,7 @@ public class ProfileRestController extends AbstractUserController {
 
     @Override
     @PutMapping(consumes = APPLICATION_JSON_VALUE)
-    public void update(@Valid @RequestBody UserTo userTo) {
+    public void update(@Valid @RequestBody final UserTo userTo) {
         userTo.setId(AuthorizedUser.id());
         super.update(userTo);
     }

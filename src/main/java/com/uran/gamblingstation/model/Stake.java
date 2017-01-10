@@ -72,7 +72,7 @@ public class Stake extends BaseEntity {
     @JsonBackReference
     private Race race;
 
-    public Stake(){
+    public Stake() {
     }
 
     public Stake(Double stakeValue, boolean wins, Double amount) {
@@ -189,12 +189,12 @@ public class Stake extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Stake{" +
-                "stakeValue=" + stakeValue +
-                ", dateTime=" + dateTime +
-                ", wins=" + wins +
-                ", amount=" + amount +
-                ", editable=" + editable +
-                '}';
+        return "Stake{"
+                + "stakeValue=" + stakeValue
+                + ", dateTime=" + dateTime
+                + ", wins=" + wins
+                + ", amount=" + amount
+                + ", editable=" + editable
+                + '}';
     }
 }

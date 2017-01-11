@@ -4,6 +4,7 @@ import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.service.StakeService;
 import com.uran.gamblingstation.to.StakeTo;
+import com.uran.gamblingstation.util.TimeUtil;
 import com.uran.gamblingstation.util.stake.StakeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,14 +85,14 @@ public class AbstractStakeController {
                                   final LocalTime endTime,
                                   final String option) {
         int userId = AuthorizedUser.id();
-        LOG.info("getBetween dates {} - {} between times {} - {} for {}, for User {}", startDate, endDate, startTime, endTime, option, userId);
-        LocalDate sDate = startDate != null ? startDate : LocalDate.MIN;
-        LocalDate eDate = endDate != null ? endDate : LocalDate.MAX;
+        LOG.info("getBetween dates {} - {} between times {} - {} for {}, with {} for User {}", startDate, endDate, startTime, endTime, option, userId);
+        LocalDate sDate = startDate != null ? startDate : TimeUtil.MIN_DATE;
+        LocalDate eDate = endDate != null ? endDate : TimeUtil.MAX_DATE;
         LocalTime sTime = startTime != null ? startTime : LocalTime.MIN;
         LocalTime eTime = endTime != null ? endTime : LocalTime.MAX;
-        return StakeUtil.getFilteredByTimeAndWins(
+        return StakeUtil.getFilteredByWins(
                 service.getBetweenDateTimes(of(sDate, sTime), of(eDate, eTime), userId),
-                startTime, endTime, option
+                option
         );
     }
 

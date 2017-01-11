@@ -66,8 +66,8 @@
                                         class="glyphicon glyphicon-filter"></i></span>
                                 <select id="option" name="option" class="form-control">
                                     <option value="all"><spring:message code="filter.all"/></option>
-                                    <option value="winned"><spring:message code="filter.winned"/></option>
-                                    <option value="loosed"><spring:message code="filter.loosed"/></option>
+                                    <option value="success"><spring:message code="filter.winned"/></option>
+                                    <option value="failure"><spring:message code="filter.loosed"/></option>
                                 </select>
                             </div>
                         </div>

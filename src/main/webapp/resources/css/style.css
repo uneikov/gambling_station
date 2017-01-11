@@ -12,11 +12,11 @@
     display: inline-block;
     color: black;
 }
-.loosed {
+.failure {
     color: red;
 }
 
-.winned {
+.success {
     color: green;
 }
 

@@ -41,8 +41,6 @@ public interface StakeService {
 
     List<Stake> getWinningStakes(int raceId);
 
-    List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate);
-
     List<Stake> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId);
 
 }

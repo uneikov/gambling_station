@@ -128,10 +128,10 @@ public class User extends NamedEntity {
     @Override
     public String toString() {
         return "User{"
-                + "email='" + email + '\''
-                + ", password='" + password + '\''
+                + "id=" + id
+                + ", email='" + email + '\''
+                + ", name='" + name + '\''
                 + ", enabled=" + enabled
-                + ", registered=" + registered
                 + ", roles=" + roles
                 + '}';
     }

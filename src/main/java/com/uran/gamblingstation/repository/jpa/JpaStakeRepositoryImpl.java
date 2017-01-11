@@ -104,14 +104,6 @@ public class JpaStakeRepositoryImpl implements StakeRepository {
     }
 
     @Override
-    public List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate) {
-        return em.createNamedQuery(Stake.GET_BETWEEN, Stake.class)
-                .setParameter("startDate", startDate)
-                .setParameter("endDate", endDate)
-                .getResultList();
-    }
-
-    @Override
     public List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
         return em.createNamedQuery(Stake.GET_BETWEEN_WITH_USER, Stake.class)
                 .setParameter("startDate", startDate)

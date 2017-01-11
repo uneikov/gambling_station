@@ -3,7 +3,6 @@ var ajaxUrl = 'ajax/admin/users/';
 var datatableApi;
 
 function updateTable() {
-    debugger;
     $.get(ajaxUrl, updateTableByData);
 }
 
@@ -62,7 +61,7 @@ $(function () {
                 "asc"
             ]
         ],
-        createdRow: function (row, data, dataIndex) {
+        createdRow: function (row, data) {
             if (!data.enabled) {
                 $(row).css("opacity", 0.3);
             }

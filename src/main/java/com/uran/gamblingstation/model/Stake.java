@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
 @NamedQueries({
         @NamedQuery(name = Stake.DELETE, query =
                 "DELETE FROM Stake s WHERE s.id=:id AND s.user.id=:userId"),
-        @NamedQuery(name = Stake.GET_BETWEEN, query =
-                "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate ORDER BY s.dateTime DESC"),
         @NamedQuery(name = Stake.GET_BETWEEN_WITH_USER, query =
                 "SELECT s FROM Stake s WHERE s.dateTime BETWEEN :startDate AND :endDate AND s.user.id=:user_id ORDER BY s.dateTime DESC"),
         @NamedQuery(name = Stake.ALL_SORTED_BELONG_TO_USER, query =
@@ -38,7 +36,6 @@ public class Stake extends BaseEntity {
     public static final String DELETE = "Stake.delete";
     public static final String ALL_WINNING = "Stake.getWinningStakes";
     public static final String WINNING_WITH_RACE_ID = "Stake.getWinningWithRaceId";
-    public static final String GET_BETWEEN = "Stake.getBetween";
     public static final String GET_BETWEEN_WITH_USER = "Stake.getBetweenWithUser";
     public static final String ALL_WITH_RACE_ID = "Stake.getAllWithRaceId";
     public static final String SORTED_WITH_HORSE_ID_AND_RACE_ID = "Stake.getAllWithHorseIdAndRaceId";

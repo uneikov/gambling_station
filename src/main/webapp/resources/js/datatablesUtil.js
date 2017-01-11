@@ -1,5 +1,6 @@
-var form;
 var ajaxRacesUrl = 'ajax/profile/races/';
+
+var form;
 
 function makeEditable() {
     form = $('#detailsForm');

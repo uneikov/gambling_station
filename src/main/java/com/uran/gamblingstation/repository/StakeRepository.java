@@ -36,6 +36,4 @@ public interface StakeRepository {
 
     List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 
-    List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate);
-
 }

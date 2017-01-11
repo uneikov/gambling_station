@@ -7,9 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static com.uran.gamblingstation.HorseTestData.WINNING_HORSE;
@@ -130,14 +127,14 @@ public class StakeServiceTest extends AbstractServiceTest {
         );
     }
 
-    @Test
+    /*@Test
     public void testGetBetween() {
         List<Stake> stake = service.getBetween(
                 LocalDateTime.of(2016, Month.JUNE, 13, 16, 0).truncatedTo(ChronoUnit.SECONDS),
                 LocalDateTime.of(2016, Month.JUNE, 13, 20, 0).truncatedTo(ChronoUnit.SECONDS)
         );
         STAKE_MATCHER.assertCollectionEquals(stake, Collections.singletonList(STAKE_3));
-    }
+    }*/
 
     @Test
     public void testGetUser() {

@@ -157,11 +157,6 @@ public class StakeServiceImpl implements StakeService {
     }
 
     @Override
-    public List<Stake> getBetween(LocalDateTime startDate, LocalDateTime endDate) {
-        return repository.getBetween(startDate, endDate);
-    }
-
-    @Override
     public List<Stake> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
         Assert.notNull(startDateTime, "startDateTime must not be null");
         Assert.notNull(endDateTime, "endDateTime  must not be null");

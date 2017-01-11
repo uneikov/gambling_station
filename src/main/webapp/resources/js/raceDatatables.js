@@ -4,7 +4,6 @@ var datatableApi;
 var locale = $('#locale').val();
 
 function updateTable() {
-    debugger;
     $.get(ajaxUrl, updateTableByData);
 }
 

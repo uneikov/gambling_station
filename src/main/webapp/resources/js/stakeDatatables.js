@@ -66,7 +66,6 @@ function addModal() {
     });
 }
 function updateModal(id) {
-    debugger;
     $.when($.ajax(ajaxHorsesUrl), $.ajax(ajaxUrl + id), $.ajax(ajaxWalletsUrl + 'cash')).done(function (r1, r2, r3) {
         var horses = r1[0];
         var stake = r2[0];
@@ -195,7 +194,7 @@ $(function () {
             if (!data.editable) {
                 $(row).css("opacity", 0.5);
             }
-            $(row).addClass(data.wins ? 'winned' : 'loosed');
+            $(row).addClass(data.wins ? 'success' : 'failure');
         },
         initComplete: makeEditable
     });

@@ -11,8 +11,8 @@
         </encoder>
     </appender>
 
-    <!--<logger name="org.springframework.jdbc" level="debug"/>-->
-    <logger name="com.uran.gamblingstation" level="debug"/>
+    <logger name="org.springframework.jdbc" level="DEBUG"/>
+    <logger name="com.uran.gamblingstation" level="WARN"/>
 
     <root level="WARN">
         <appender-ref ref="console"/>

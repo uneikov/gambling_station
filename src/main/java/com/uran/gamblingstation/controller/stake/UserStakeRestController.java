@@ -16,7 +16,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(UserStakeRestController.REST_URL)
 public class UserStakeRestController extends AbstractStakeController {
-    static final String REST_URL = "/rest/profile/stakes";
+    public static final String REST_URL = "/rest/profile/stakes";
 
     @Override
     @GetMapping(produces = APPLICATION_JSON_VALUE)

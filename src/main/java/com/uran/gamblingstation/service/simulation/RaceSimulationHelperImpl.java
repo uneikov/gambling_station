@@ -5,7 +5,6 @@ import com.uran.gamblingstation.service.HorseService;
 import com.uran.gamblingstation.service.StakeService;
 import com.uran.gamblingstation.service.UserService;
 import com.uran.gamblingstation.service.WalletService;
-import com.uran.gamblingstation.service.scheduler.RaceScheduler;
 import com.uran.gamblingstation.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -117,7 +116,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
         Double stakeValue = 10 + ThreadLocalRandom.current().nextDouble(90.0);
         stakeValue = stakeValue > botCash ? botCash : stakeValue;
         Horse stakeHorse = RandomUtil.getRandomHorseFromList(selectedHorses);
-        Race currentRace = RaceScheduler.getCurrentRace();
+        Race currentRace = getCurrentRace();
         final Stake stake = stakeService.save(
                 new Stake(null, botUser, stakeHorse, currentRace, stakeValue, LocalDateTime.now(), false, 0.0d, false),
                 botUser.getId()

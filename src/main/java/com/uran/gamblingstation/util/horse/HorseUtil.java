@@ -4,6 +4,7 @@ import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.to.HorseDTO;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -15,7 +16,7 @@ public class HorseUtil {
     }
 
     public static Horse updateFromTo(final Horse horse, final HorseDTO horseDTO) {
-        horse.setName(horse.getName());
+        horse.setName(horseDTO.getName());
         horse.setRuName(horseDTO.getRuName());
         horse.setAge(horseDTO.getAge());
         return horse;
@@ -24,9 +25,9 @@ public class HorseUtil {
     // return "en_name:ru_name,en_name:ru:name ..."
     public static String getSerialized(final List<Horse> horses) {
         return horses.stream()
+                .sorted(Comparator.comparing(Horse::getName))
                 .map(horse -> horse.getName() + ":" + horse.getRuName())
                 .collect(Collectors.joining(","));
-
     }
 
     // return map(en_name->ru_name, ...)

@@ -39,6 +39,7 @@
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
+<!---------------------------------------- Modal window -------------------------------------------->
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">

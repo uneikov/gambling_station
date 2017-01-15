@@ -24,6 +24,17 @@ public class HorseTestData {
     public static final Horse HORSE_9 = new Horse(HORSE_1_ID + 8, "Rabindranate", "Рабиндранат", 5, 0);
     public static final Horse HORSE_10 = new Horse(HORSE_1_ID + 9, "Angelfire", "Энджелфае", 5, 0);
     public static final Horse HORSE_4_WINS = new Horse(HORSE_1_ID + 3, "Thunderbird", "Гром", 5, 1);
+    public static final String SERIALIZED_HORSES =
+            "Alien:Чужой"
+                    + ",Angelfire:Энджелфае"
+                    + ",Black Ghost:Черный призрак"
+                    + ",Enisei:Енисей"
+                    + ",Gulfstream:Гольфстрим"
+                    + ",Predator:Хищник"
+                    + ",Rabindranate:Рабиндранат"
+                    + ",Ruby Rose:Рубироуз"
+                    + ",Thunderbird:Гром"
+                    + ",White Ghost:Белый призрак";
 
     public static final Horse WINNING_HORSE = HORSE_4;
 

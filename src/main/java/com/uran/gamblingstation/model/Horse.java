@@ -95,7 +95,9 @@ public class Horse extends NamedEntity {
     @Override
     public String toString() {
         return "Horse{"
-                + "ruName='" + ruName + '\''
+                + "id='" + id + '\''
+                + ", name='" + name + '\''
+                + ", ruName='" + ruName + '\''
                 + ", age=" + age
                 + ", wins=" + wins
                 + ", ready=" + ready

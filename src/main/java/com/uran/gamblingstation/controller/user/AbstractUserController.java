@@ -4,7 +4,7 @@ import com.uran.gamblingstation.Profiles;
 import com.uran.gamblingstation.model.BaseEntity;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.service.UserService;
-import com.uran.gamblingstation.to.UserTo;
+import com.uran.gamblingstation.to.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,10 +64,10 @@ public abstract class AbstractUserController {
         userService.update(user);
     }
 
-    public void update(UserTo userTo) {
-        checkModificationAllowed(userTo.getId());
-        log.info("update " + userTo);
-        userService.update(userTo);
+    public void update(UserDTO userDTO) {
+        checkModificationAllowed(userDTO.getId());
+        log.info("update " + userDTO);
+        userService.update(userDTO);
     }
 
     public User getByMail(String email) {

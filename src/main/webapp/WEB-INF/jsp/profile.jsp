@@ -20,13 +20,13 @@
                     <spring:message code="common.add" var="saveButton"/>
                 </c:if>
                 <c:if test="${not register}">
-                    ${userTo.name} <spring:message code="app.profile"/>
+                    ${userDTO.name} <spring:message code="app.profile"/>
                     <spring:message code="common.update" var="saveButton"/>
                 </c:if>
             </h3>
 
             <div class="view-box">
-                <form:form modelAttribute="userTo" class="form-horizontal" method="post"
+                <form:form modelAttribute="userDTO" class="form-horizontal" method="post"
                            action="${register ? 'register' : 'profile'}" charset="utf-8" accept-charset="UTF-8">
 
                     <spring:message code="users.name" var="userName"/>

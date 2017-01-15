@@ -1,7 +1,7 @@
 package com.uran.gamblingstation.controller.horse;
 
 import com.uran.gamblingstation.model.Horse;
-import com.uran.gamblingstation.to.HorseTo;
+import com.uran.gamblingstation.to.HorseDTO;
 import com.uran.gamblingstation.util.horse.HorseUtil;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,11 +33,11 @@ public class HorseAjaxController extends AbstractHorseController {
     }
 
     @PostMapping
-    public void createOrUpdate(@Valid final HorseTo horseTo) {
-        if (horseTo.isNew()) {
-            super.create(HorseUtil.createNewFromTo(horseTo));
+    public void createOrUpdate(@Valid final HorseDTO horseDTO) {
+        if (horseDTO.isNew()) {
+            super.create(HorseUtil.createNewFromTo(horseDTO));
         } else {
-            super.update(horseTo);
+            super.update(horseDTO);
         }
     }
 

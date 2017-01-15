@@ -4,7 +4,7 @@ import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.model.Wallet;
 import com.uran.gamblingstation.repository.UserRepository;
-import com.uran.gamblingstation.to.UserTo;
+import com.uran.gamblingstation.to.UserDTO;
 import com.uran.gamblingstation.util.exception.ExceptionUtil;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +57,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    public void update(UserTo userTo) {
-        User user = updateFromTo(get(userTo.getId()), userTo);
+    public void update(UserDTO userDTO) {
+        User user = updateFromTo(get(userDTO.getId()), userDTO);
         repository.save(prepareToSave(user));
     }
 

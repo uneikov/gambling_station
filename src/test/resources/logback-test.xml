@@ -11,10 +11,13 @@
         </encoder>
     </appender>
 
-    <logger name="org.springframework.jdbc" level="DEBUG"/>
-    <logger name="com.uran.gamblingstation" level="WARN"/>
+    <logger name="org.springframework.security.web.csrf.CsrfFilter" level="info"/>
+    <logger name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" level="info"/>
+    <logger name="org.springframework.web" level="warn"/>
+    <logger name="org.springframework.jdbc" level="info"/>
+    <logger name="com.uran.gamblingstation" level="info"/>
 
-    <root level="WARN">
+    <root level="warn">
         <appender-ref ref="console"/>
     </root>
 

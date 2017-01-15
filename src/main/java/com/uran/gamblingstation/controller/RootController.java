@@ -2,7 +2,7 @@ package com.uran.gamblingstation.controller;
 
 import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.controller.user.AbstractUserController;
-import com.uran.gamblingstation.to.UserTo;
+import com.uran.gamblingstation.to.UserDTO;
 import com.uran.gamblingstation.util.user.UserUtil;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -63,12 +63,12 @@ public class RootController extends AbstractUserController{
     }
 
     @PostMapping("/profile")
-    public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status) {
+    public String updateProfile(@Valid UserDTO userDTO, BindingResult result, SessionStatus status) {
         if (!result.hasErrors()) {
             try {
-                userTo.setId(AuthorizedUser.id());
-                super.update(userTo);
-                AuthorizedUser.get().update(userTo);
+                userDTO.setId(AuthorizedUser.id());
+                super.update(userDTO);
+                AuthorizedUser.get().update(userDTO);
                 status.setComplete();
                 return "redirect:stakes";
             } catch (DataIntegrityViolationException ex) {
@@ -80,16 +80,16 @@ public class RootController extends AbstractUserController{
 
     @GetMapping("/register")
     public String register(ModelMap model) {
-        model.addAttribute("userTo", new UserTo());
+        model.addAttribute("userTo", new UserDTO());
         model.addAttribute("register", true);
         return "profile";
     }
 
     @PostMapping("/register")
-    public String saveRegister(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
+    public String saveRegister(@Valid UserDTO userDTO, BindingResult result, SessionStatus status, ModelMap model) {
         if (!result.hasErrors()) {
             try {
-                super.create(UserUtil.createNewFromTo(userTo));
+                super.create(UserUtil.createNewFromTo(userDTO));
                 status.setComplete();
                 return "redirect:login?message=app.registered";
             } catch (DataIntegrityViolationException ex) {

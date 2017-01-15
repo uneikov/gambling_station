@@ -1,7 +1,7 @@
 package com.uran.gamblingstation.util.horse;
 
 import com.uran.gamblingstation.model.Horse;
-import com.uran.gamblingstation.to.HorseTo;
+import com.uran.gamblingstation.to.HorseDTO;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,14 +10,14 @@ import java.util.stream.Collectors;
 
 public class HorseUtil {
 
-    public static Horse createNewFromTo(final HorseTo newHorse) {
+    public static Horse createNewFromTo(final HorseDTO newHorse) {
         return new Horse(null, newHorse.getName(), newHorse.getRuName(), newHorse.getAge(), 0, false);
     }
 
-    public static Horse updateFromTo(final Horse horse, final HorseTo horseTo) {
+    public static Horse updateFromTo(final Horse horse, final HorseDTO horseDTO) {
         horse.setName(horse.getName());
-        horse.setRuName(horseTo.getRuName());
-        horse.setAge(horseTo.getAge());
+        horse.setRuName(horseDTO.getRuName());
+        horse.setAge(horseDTO.getAge());
         return horse;
     }
 

@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-public class RaceScheduler {
+public final class RaceScheduler {
     private static final Logger LOG = LoggerFactory.getLogger(RaceScheduler.class);
 
     public static final int NUMBER_OF_HORSES_FOR_RACE = 6;

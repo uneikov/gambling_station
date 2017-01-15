@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-public class StakeTo implements Serializable {
+public class StakeDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
@@ -20,10 +20,10 @@ public class StakeTo implements Serializable {
     @NotEmpty(message = "  is required")
     private String horseName;
 
-    public StakeTo() {
+    public StakeDTO() {
     }
 
-    public StakeTo(Integer id, Double stakeValue, String horseName) {
+    public StakeDTO(Integer id, Double stakeValue, String horseName) {
         this.id = id;
         this.stakeValue = stakeValue;
         this.horseName = horseName;
@@ -59,7 +59,7 @@ public class StakeTo implements Serializable {
 
     @Override
     public String toString() {
-        return "StakeTo{"
+        return "StakeDTO{"
                 + "id=" + id
                 + ", stakeValue=" + stakeValue
                 + ", horseName='" + horseName + '\''

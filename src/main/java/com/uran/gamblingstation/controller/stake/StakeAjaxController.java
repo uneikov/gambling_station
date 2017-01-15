@@ -4,7 +4,7 @@ import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.Race;
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.service.scheduler.RaceScheduler;
-import com.uran.gamblingstation.to.StakeTo;
+import com.uran.gamblingstation.to.StakeDTO;
 import com.uran.gamblingstation.util.stake.StakeUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -47,11 +47,11 @@ public class StakeAjaxController extends AbstractStakeController {
     }
 
     @PostMapping
-    public void createOrUpdate(@Valid final StakeTo stakeTo) {
-        if (stakeTo.isNew()) {
-            super.create(stakeTo);
+    public void createOrUpdate(@Valid final StakeDTO stakeDTO) {
+        if (stakeDTO.isNew()) {
+            super.create(stakeDTO);
         } else {
-            super.update(stakeTo);
+            super.update(stakeDTO);
         }
     }
 

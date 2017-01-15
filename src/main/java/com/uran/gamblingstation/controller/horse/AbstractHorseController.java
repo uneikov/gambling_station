@@ -2,7 +2,7 @@ package com.uran.gamblingstation.controller.horse;
 
 import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.service.HorseService;
-import com.uran.gamblingstation.to.HorseTo;
+import com.uran.gamblingstation.to.HorseDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +36,9 @@ public class AbstractHorseController {
         service.update(horse);
     }
 
-    public void update(final HorseTo horseTo) {
-        LOG.info("update horse from horseTo {}", horseTo);
-        service.update(horseTo);
+    public void update(final HorseDTO horseDTO) {
+        LOG.info("update horse from horseDTO {}", horseDTO);
+        service.update(horseDTO);
     }
 
     public Horse create(final Horse horse) {

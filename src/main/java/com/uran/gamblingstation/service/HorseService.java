@@ -1,7 +1,7 @@
 package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Horse;
-import com.uran.gamblingstation.to.HorseTo;
+import com.uran.gamblingstation.to.HorseDTO;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 
 import java.util.List;
@@ -19,7 +19,7 @@ HorseService {
 
     void update(Horse horse) throws NotFoundException;
 
-    void update(HorseTo horseTo) throws NotFoundException;
+    void update(HorseDTO horseDTO) throws NotFoundException;
 
     List<Horse> getAll();
     

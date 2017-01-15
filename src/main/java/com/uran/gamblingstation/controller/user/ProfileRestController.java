@@ -2,7 +2,7 @@ package com.uran.gamblingstation.controller.user;
 
 import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.to.UserTo;
+import com.uran.gamblingstation.to.UserDTO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,9 +27,9 @@ public class ProfileRestController extends AbstractUserController {
 
     @Override
     @PutMapping(consumes = APPLICATION_JSON_VALUE)
-    public void update(@Valid @RequestBody final UserTo userTo) {
-        userTo.setId(AuthorizedUser.id());
-        super.update(userTo);
+    public void update(@Valid @RequestBody final UserDTO userDTO) {
+        userDTO.setId(AuthorizedUser.id());
+        super.update(userDTO);
     }
 
     @GetMapping(value = "/text")

@@ -3,7 +3,7 @@ package com.uran.gamblingstation.controller.stake;
 import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.service.StakeService;
-import com.uran.gamblingstation.to.StakeTo;
+import com.uran.gamblingstation.to.StakeDTO;
 import com.uran.gamblingstation.util.TimeUtil;
 import com.uran.gamblingstation.util.stake.StakeUtil;
 import org.slf4j.Logger;
@@ -62,9 +62,9 @@ public class AbstractStakeController {
         return service.save(stake, userId);
     }
 
-    public Stake create(final StakeTo stakeTo) {
+    public Stake create(final StakeDTO stakeDTO) {
         int userId = AuthorizedUser.id();
-        return service.save(stakeTo, userId);
+        return service.save(stakeDTO, userId);
     }
 
     public void update(final Stake stake, final int id) {
@@ -74,9 +74,9 @@ public class AbstractStakeController {
         service.update(stake, userId);
     }
 
-    public void update(final StakeTo stakeTo) {
+    public void update(final StakeDTO stakeDTO) {
         int userId = AuthorizedUser.id();
-        service.update(stakeTo, userId);
+        service.update(stakeDTO, userId);
     }
 
     public List<Stake> getBetween(final LocalDate startDate,

@@ -2,23 +2,23 @@ package com.uran.gamblingstation.util.user;
 
 import com.uran.gamblingstation.model.Role;
 import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.to.UserTo;
+import com.uran.gamblingstation.to.UserDTO;
 import com.uran.gamblingstation.util.PasswordUtil;
 
 public class UserUtil {
 
-    public static User createNewFromTo(UserTo newUser) {
+    public static User createNewFromTo(UserDTO newUser) {
         return new User(null, newUser.getName(), newUser.getEmail().toLowerCase(), newUser.getPassword(), Role.ROLE_USER);
     }
 
-    public static UserTo asTo(User user) {
-        return new UserTo(user.getId(), user.getName(), user.getEmail(), user.getPassword());
+    public static UserDTO asTo(User user) {
+        return new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getPassword());
     }
 
-    public static User updateFromTo(User user, UserTo userTo) {
-        user.setName(userTo.getName());
-        user.setEmail(userTo.getEmail());
-        user.setPassword(userTo.getPassword());
+    public static User updateFromTo(User user, UserDTO userDTO) {
+        user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
         return user;
     }
 

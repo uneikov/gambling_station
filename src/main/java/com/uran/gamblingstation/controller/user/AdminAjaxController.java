@@ -1,7 +1,7 @@
 package com.uran.gamblingstation.controller.user;
 
 import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.to.UserTo;
+import com.uran.gamblingstation.to.UserDTO;
 import com.uran.gamblingstation.util.user.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -40,12 +40,12 @@ public class AdminAjaxController extends AbstractUserController {
     }
 
     @PostMapping
-    public void createOrUpdate(@Valid final UserTo userTo) {
+    public void createOrUpdate(@Valid final UserDTO userDTO) {
         try {
-            if (userTo.isNew()) {
-                super.create(UserUtil.createNewFromTo(userTo));
+            if (userDTO.isNew()) {
+                super.create(UserUtil.createNewFromTo(userDTO));
             } else {
-                super.update(userTo);
+                super.update(userDTO);
             }
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityViolationException(messageSource.getMessage("exception.duplicate_email", null, LocaleContextHolder.getLocale()));

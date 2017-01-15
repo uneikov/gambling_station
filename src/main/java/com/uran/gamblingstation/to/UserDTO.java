@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-public class UserTo implements Serializable {
+public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
@@ -25,10 +25,10 @@ public class UserTo implements Serializable {
     @SafeHtml
     private String password;
 
-    public UserTo() {
+    public UserDTO() {
     }
 
-    public UserTo(Integer id, String name, String email, String password) {
+    public UserDTO(Integer id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -73,7 +73,7 @@ public class UserTo implements Serializable {
 
     @Override
     public String toString() {
-        return "UserTo{"
+        return "UserDTO{"
                 + "id=" + id +
                 ", name='" + name + '\''
                 + ", email='" + email + '\''

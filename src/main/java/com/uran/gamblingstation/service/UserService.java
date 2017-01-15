@@ -2,7 +2,7 @@ package com.uran.gamblingstation.service;
 
 
 import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.to.UserTo;
+import com.uran.gamblingstation.to.UserDTO;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public interface UserService {
 
     User getByEmail(String email) throws NotFoundException;
 
-    void update(UserTo userTo);
+    void update(UserDTO userDTO);
 
     List<User> getAll();
 

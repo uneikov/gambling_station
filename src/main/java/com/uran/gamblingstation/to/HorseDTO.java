@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-public class HorseTo implements Serializable {
+public class HorseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
@@ -24,10 +24,10 @@ public class HorseTo implements Serializable {
     @DecimalMin("1")
     private Integer age;
 
-    public HorseTo() {
+    public HorseDTO() {
     }
 
-    public HorseTo(Integer id, String name, String ruName, Integer age) {
+    public HorseDTO(Integer id, String name, String ruName, Integer age) {
         this.id = id;
         this.name = name;
         this.ruName = ruName;
@@ -72,7 +72,7 @@ public class HorseTo implements Serializable {
 
     @Override
     public String toString() {
-        return "HorseTo{"
+        return "HorseDTO{"
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", ruName='" + ruName + '\''

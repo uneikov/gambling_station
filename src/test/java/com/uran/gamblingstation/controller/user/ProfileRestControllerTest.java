@@ -5,7 +5,7 @@ import com.uran.gamblingstation.controller.AbstractControllerTest;
 import com.uran.gamblingstation.controller.json.JsonUtil;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.service.UserService;
-import com.uran.gamblingstation.to.UserTo;
+import com.uran.gamblingstation.to.UserDTO;
 import com.uran.gamblingstation.util.user.UserUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        UserTo updatedTo = new UserTo(USER_ID_1, "newName", "newemail@ya.ru", "newPassword");
+        UserDTO updatedTo = new UserDTO(USER_ID_1, "newName", "newemail@ya.ru", "newPassword");
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updatedTo))
                 .with(userHttpBasic(USER_1)))
@@ -60,7 +60,7 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdateInvalid() throws Exception {
-        UserTo updatedTo = new UserTo(null, null, "password", null);
+        UserDTO updatedTo = new UserDTO(null, null, "password", null);
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER_1))

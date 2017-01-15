@@ -1,7 +1,7 @@
 package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Stake;
-import com.uran.gamblingstation.to.StakeTo;
+import com.uran.gamblingstation.to.StakeDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,11 +17,11 @@ public interface StakeService {
 
     Stake save(Stake stake, int userId);
 
-    Stake save(StakeTo stakeTo, int userId);
+    Stake save(StakeDTO stakeDTO, int userId);
 
     Stake update(Stake stake, int userId);
 
-    Stake update(StakeTo stakeTo, int userId);
+    Stake update(StakeDTO stakeDTO, int userId);
 
     Stake getWithUser(int id); //??? а оно надо?
 

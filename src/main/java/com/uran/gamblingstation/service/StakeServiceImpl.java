@@ -6,7 +6,7 @@ import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.repository.StakeRepository;
 import com.uran.gamblingstation.service.account.AccountService;
-import com.uran.gamblingstation.to.StakeTo;
+import com.uran.gamblingstation.to.StakeDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -66,12 +66,12 @@ public class StakeServiceImpl implements StakeService {
 
     @Override
     @Transactional
-    public Stake save(StakeTo stakeTo, int userId) {
+    public Stake save(StakeDTO stakeDTO, int userId) {
         final User user = userService.get(userId);
-        final Horse horse = horseService.getByName(stakeTo.getHorseName());
+        final Horse horse = horseService.getByName(stakeDTO.getHorseName());
         final Race race = getCurrentRace();
         Stake stake = repository.save(
-                new Stake(null, user, horse, race, stakeTo.getStakeValue(), LocalDateTime.now(), false, 0.0d, true),
+                new Stake(null, user, horse, race, stakeDTO.getStakeValue(), LocalDateTime.now(), false, 0.0d, true),
                 userId
         );
         accountService.transferToStation(userId, stake.getStakeValue());
@@ -90,14 +90,14 @@ public class StakeServiceImpl implements StakeService {
 
     @Override
     @Transactional
-    public Stake update(StakeTo stakeTo, int userId) {
-        int id = stakeTo.getId();
+    public Stake update(StakeDTO stakeDTO, int userId) {
+        int id = stakeDTO.getId();
         final Double oldStakeValue = repository.get(id, userId).getStakeValue();
         final User user = userService.get(userId);
-        final Horse horse = horseService.getByName(stakeTo.getHorseName());
+        final Horse horse = horseService.getByName(stakeDTO.getHorseName());
         final Race race = getCurrentRace();
         Stake updated = repository.save(
-                new Stake(id, user, horse, race,  stakeTo.getStakeValue(), LocalDateTime.now(), false, 0.0d, true),
+                new Stake(id, user, horse, race,  stakeDTO.getStakeValue(), LocalDateTime.now(), false, 0.0d, true),
                 userId
         );
         updateUserAndStationWallets(oldStakeValue - updated.getStakeValue(), userId);

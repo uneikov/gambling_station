@@ -18,8 +18,6 @@ public interface RaceSimulationHelper {
 
     void startGamble();
 
-    void selectHorsesForRace();
-
     List<Horse> getHorsesForRace();
 
 }

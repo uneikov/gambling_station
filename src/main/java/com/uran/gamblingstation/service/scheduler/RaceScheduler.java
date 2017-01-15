@@ -24,18 +24,20 @@ public class RaceScheduler {
 
     public static final int NUMBER_OF_HORSES_FOR_RACE = 6;
 
-    private static boolean RACE_IS_RUNNING;
-    private static boolean USERS_CAN_MAKE_STAKES;
     private static final int MIN_BOTS = 30;
     private static final int MAX_BOTS = 50;
     private static final String START_GAMBLE = "0 0 * * * ?";
     private static final String START_RACE = "0 45 * * * ?";
     private static final String SERVICE_TIME = "0 55 * * * ?";
-    private static LocalDateTime START = null;
-    private static LocalDateTime FINISH = null;
-    private static List<Horse> horsesForRace = null;
+
+    private static boolean RACE_IS_RUNNING = false;
+    private static boolean USERS_CAN_MAKE_STAKES = false;
     private static Race currentRace = null;
-    private static boolean FIRST = true;
+
+    private boolean first = true;
+    private LocalDateTime start = null;
+    private LocalDateTime finish = null;
+    private List<Horse> horsesForRace = null;
 
     private final RaceSimulationHelper helper;
     private final RaceProcessor processor;
@@ -52,26 +54,24 @@ public class RaceScheduler {
     public void startGamble() {
         LOG.info("Race stopped & Game Started at {}", LocalDateTime.now().format(TimeUtil.DATE_TIME_FORMATTER));
 
-        START = LocalDateTime.now();
+        start = LocalDateTime.now();
         RACE_IS_RUNNING = false;
         USERS_CAN_MAKE_STAKES = true;
-
-        helper.selectHorsesForRace();
 
         horsesForRace = helper.getHorsesForRace();
 
         currentRace = RaceFactory
                 .open()
-                .addStart(START)
+                .addStart(start)
                 .addFinish(null)
                 .addHorses(HorseUtil.getSerialized(horsesForRace))
                 .addWinning("not yet:еще нет");
         currentRace = raceService.save(currentRace);
 
-        if (FIRST) {
+        if (first) {
             helper.killBots();
             helper.createBots(MAX_BOTS);
-            FIRST = false;
+            first = false;
         } else {
             helper.initBots(MIN_BOTS, MAX_BOTS);
         }
@@ -84,15 +84,15 @@ public class RaceScheduler {
     @Scheduled(cron = START_RACE)
     public void startRace() {
 
-        if (START == null) {
+        if (start == null) {
             return;
         }
 
         RACE_IS_RUNNING = true;
         USERS_CAN_MAKE_STAKES = false;
 
-        FINISH = LocalDateTime.now(); // stakes to current race are done
-        LOG.info("Race started at {}", FINISH.format(TimeUtil.DATE_TIME_FORMATTER));
+        finish = LocalDateTime.now(); // stakes to current race are done
+        LOG.info("Race started at {}", finish.format(TimeUtil.DATE_TIME_FORMATTER));
 
         // TODO race simulation realisation & visualisation
     }
@@ -101,7 +101,7 @@ public class RaceScheduler {
     @Scheduled(cron = SERVICE_TIME)
     public void processRaceResult() {
 
-        if (FINISH == null) {
+        if (finish == null) {
             return;
         }
 
@@ -113,7 +113,7 @@ public class RaceScheduler {
         Horse winning = RandomUtil.getRandomHorseFromList(horsesForRace);
 
         currentRace
-                .addFinish(FINISH)
+                .addFinish(finish)
                 .setWinning(HorseUtil.getSerialized(Collections.singletonList(winning)));
         raceService.update(currentRace);
 

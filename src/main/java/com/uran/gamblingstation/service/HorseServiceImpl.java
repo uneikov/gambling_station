@@ -18,15 +18,17 @@ import static com.uran.gamblingstation.util.horse.HorseUtil.updateFromTo;
 @Service
 public class HorseServiceImpl implements HorseService {
 
-    @Autowired private HorseRepository repository;
+    @Autowired
+    private HorseRepository repository;
 
     @Override
     public Horse get(int id) throws NotFoundException {
-            return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
+        return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
     }
 
     @Override
     public Horse getByName(String name) throws NotFoundException {
+        Assert.notNull(name, "horse name must not be null");
         return getAll().stream().filter(horse -> name.equals(horse.getName())).findFirst().orElse(null);
     }
 

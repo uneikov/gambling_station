@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ActiveProfiles({HEROKU, DB_IMPLEMENTATION})
 public class HerokuRestControllerTest extends AbstractControllerTest {
-
     private static final String REST_URL = AdminRestController.REST_URL + '/';
 
     // Set DATABASE_URL environment for heroku profile

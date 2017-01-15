@@ -34,7 +34,7 @@ public class HorseUtil {
         return Arrays.stream(horses.split(","))
                 .sorted()
                 .map(s -> s.split(":"))
-                .collect(Collectors.toMap(e -> e[0], e -> e[1]));
+                .collect(Collectors.toMap(s -> s[0], s -> s[1]));
 
     }
 

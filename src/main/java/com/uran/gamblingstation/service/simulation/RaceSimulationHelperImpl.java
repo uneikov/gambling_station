@@ -46,7 +46,7 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
 
     @Override
     @Transactional
-    public void selectHorsesForRace(){
+    public List<Horse> getHorsesForRace(){
         final List<Horse> all = horseService.getAll();
         // set ready to false for all horses
         all.stream().peek(horse -> horse.setReady(false)).forEach(horseService::save);
@@ -55,10 +55,6 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
                 .peek(horse -> horse.setReady(true))
                 .peek(horseService::save)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Horse> getHorsesForRace(){
         return selectedHorses;
     }
 

@@ -10,7 +10,8 @@ import java.util.stream.IntStream;
 
 class BotFactory {
     List<User> getBots(int size) {
-        return IntStream.range(0, size)
+        return IntStream
+                .range(0, size)
                 .mapToObj(i -> new User(
                         null,
                         "testuser" + i,

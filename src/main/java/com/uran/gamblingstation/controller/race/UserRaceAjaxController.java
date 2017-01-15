@@ -4,7 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.uran.gamblingstation.service.scheduler.RaceScheduler.*;
+import static com.uran.gamblingstation.service.scheduler.RaceScheduler.isRaceIsRunning;
+import static com.uran.gamblingstation.service.scheduler.RaceScheduler.isUsersCanMakeStakes;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController

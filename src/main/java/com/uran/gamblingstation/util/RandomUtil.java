@@ -10,14 +10,12 @@ import static com.uran.gamblingstation.service.scheduler.RaceScheduler.NUMBER_OF
 
 public class RandomUtil {
 
-    public static List<Horse> getHorsesForRace(final List<Horse> allHorses) {
-        final List<Horse> randomHorses = new ArrayList<>(allHorses);
-        Collections.shuffle(randomHorses, new Random(System.nanoTime()));
-        return randomHorses.subList(0, NUMBER_OF_HORSES_FOR_RACE);
+    public static List<Horse> getHorsesForRace(final List<Horse> horses) {
+        return getShuffled(horses).subList(0, NUMBER_OF_HORSES_FOR_RACE);
     }
 
-    public static Horse getRandomHorseFromList(final List<Horse> allHorses) {
-        return allHorses.get(ThreadLocalRandom.current().nextInt(NUMBER_OF_HORSES_FOR_RACE));
+    public static Horse getRandomHorseFromList(final List<Horse> horses) {
+        return getShuffled(horses).get(0);
     }
 
     public static List<Integer> getRandomTimePoints(final int start, final int end, final int count) {
@@ -26,5 +24,11 @@ public class RandomUtil {
                 .boxed()
                 .sorted()
                 .collect(Collectors.toList());
+    }
+
+    private static List<Horse> getShuffled(final List<Horse> horses) {
+        final List<Horse> randomHorses = new ArrayList<>(horses);
+        Collections.shuffle(randomHorses, new Random(System.nanoTime()));
+        return randomHorses;
     }
 }

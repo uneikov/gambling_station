@@ -15,13 +15,13 @@ import java.util.Arrays;
 
 import static com.uran.gamblingstation.TestUtil.userHttpBasic;
 import static com.uran.gamblingstation.UserTestData.*;
-import static com.uran.gamblingstation.controller.user.ProfileRestController.REST_URL;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ProfileRestControllerTest extends AbstractControllerTest {
+    private static final String REST_URL = ProfileRestController.REST_URL + '/';
 
     @Autowired
     protected UserService userService;

@@ -32,16 +32,16 @@ public class RaceProcessorImpl implements RaceProcessor {
 
     @Override
     @Transactional
-    public void process(int horseId, int raceId) {
+    public void process(final int horseId, final int raceId) {
         stakeService.setNotEditable(raceId);
         horseService.update(horseService.get(horseId).addWins());
         stakeService.setWinningStakes(horseId, raceId);
-        Double allCash = stakeService.getAllCash(raceId);
+        final Double allCash = stakeService.getAllCash(raceId);
         List<Stake> winningStakes = stakeService.getWinningStakes(raceId);
         if (!winningStakes.isEmpty()) {
-            Double winCash = StakeUtil.getValuesSum(winningStakes);
-            Double winRatio = allCash / winCash;
-            Map<Integer, Double> winningMap = winningStakes.stream()
+            final Double winCash = StakeUtil.getValuesSum(winningStakes);
+            final Double winRatio = allCash / winCash;
+            final Map<Integer, Double> winningMap = winningStakes.stream()
                     .collect(Collectors.toMap(s -> s.getUser().getId(), s -> s.getStakeValue() * winRatio));
             stakeService.processWinningStakes(winningStakes, winningMap);
             stakeService.getWinningStakes(raceId)

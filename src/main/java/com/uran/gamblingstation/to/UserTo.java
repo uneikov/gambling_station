@@ -77,7 +77,6 @@ public class UserTo implements Serializable {
                 + "id=" + id +
                 ", name='" + name + '\''
                 + ", email='" + email + '\''
-                + ", password='" + password + '\''
                 + '}';
     }
 }

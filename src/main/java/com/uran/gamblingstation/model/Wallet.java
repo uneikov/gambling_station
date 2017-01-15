@@ -17,6 +17,7 @@ public class Wallet {
     @Id
     @Column(name = "user_id")
     private Integer id;
+
     @Column(name = "cash_value")
     private Double cash;
 

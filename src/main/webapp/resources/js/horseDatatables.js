@@ -8,7 +8,7 @@ function updateTable() {
 
 function checkEditable(checkbox, id) {
     $.get(ajaxRacesUrl + 'can', function (editable) {
-        if (editable == 'editable') {
+        if (editable === 'editable') {
             enable(checkbox, id);
         } else {
             notEditableNoty('common.not_editable');

@@ -6,11 +6,11 @@
 <%@ taglib prefix="topjava" tagdir="/WEB-INF/tags" %>
 
 <html>
-<jsp:include page="fragments/headTag.jsp"/>
-
+<head>
+    <jsp:include page="fragments/headTag.jsp"/>
+    <jsp:include page="fragments/bodyHeader.jsp"/>
+</head>
 <body>
-<jsp:include page="fragments/bodyHeader.jsp"/>
-
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
@@ -19,7 +19,7 @@
                     <spring:message code="app.register"/>
                     <spring:message code="common.add" var="saveButton"/>
                 </c:if>
-                <c:if test="${not register}">
+                <c:if test="${not register}"><jsp:useBean id="userDTO" scope="request" class="com.uran.gamblingstation.to.UserDTO"/>
                     ${userDTO.name} <spring:message code="app.profile"/>
                     <spring:message code="common.update" var="saveButton"/>
                 </c:if>

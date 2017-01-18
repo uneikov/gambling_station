@@ -1,4 +1,4 @@
-var ajaxUrl = 'ajax/admin/users/';
+const ajaxUrl = 'ajax/admin/users/';
 
 var datatableApi;
 
@@ -24,7 +24,7 @@ $(function () {
             },
             {
                 data: "email",
-                render: function (data, type, row) {
+                render: function (data, type) {
                     if (type === 'display') {
                         return '<a href="mailto:' + data + '">' + data + '</a>';
                     }
@@ -45,7 +45,7 @@ $(function () {
             },
             {
                 data: "registered",
-                render: function (date, type, row) {
+                render: function (date, type) {
                     if (type === 'display') {
                         return '<span>' + date.substring(0, 10) + '</span>';
                     }

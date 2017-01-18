@@ -40,18 +40,17 @@ function addModal() {
     $.when($.ajax(ajaxHorsesUrl), $.ajax(ajaxWalletsUrl + 'cash')).done(function (r1, r2) {
         var horses = r1[0];
         var available = r2[0];
-        $('#value').html(
+        $('#value').html (
             '<div class="input-group">' +
             '<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>' +
-            '<input class="form-control" id="stakeValue" name="stakeValue" type="number" step="0.01" min="1" max="'
+            '<input class="form-control" id="value" name="stakeValue" type="number" step="0.01" min="1" max="'
             + available + '" value="' + available + '" required>' +
             '</div>'
         );
-        $('#horse').html
-        (
+        $('#horse').html (
             '<div class="input-group">' +
             '<span class="input-group-addon"><i class="glyphicon glyphicon-menu-hamburger"></i></span>' +
-            '<select class="form-control" id="horseName" name="horseName" >' +
+            '<select class="form-control" id="value" name="horseName" required>' +
             '<option value="" selected="selected">Select a horse</option>' +
             '<option value="' + horses[0] + '">' + horses[0] + '</option>' +
             '<option value="' + horses[1] + '">' + horses[1] + '</option>' +
@@ -72,38 +71,38 @@ function updateModal(id) {
         var available = r3[0];
         var current = stake.stakeValue;
         var updated = current + available;
-        var select = stake.horse.name;
+        var selected_horse_name = stake.horse.name;
+        var selected = new Array(6).join('a').split('a');
+
+        horses.forEach(function(name, i){
+            if (name === selected_horse_name) {
+                selected[i] = ' selected="selected"';
+            }
+        });
         $('#value').html(
-            '<input class="form-control" id="stakeValue" name="stakeValue" type="number" step="0.01" min="1" max="'
+            '<input class="form-control" id="value" name="stakeValue" type="number" step="0.01" min="1" max="'
             + updated + '" value="' + current + '">'
         );
         $('#horse').html(
-            '<select class="form-control" id="horseName" name="horseName" >' +
-            /* '<option value="" disabled="disabled" selected="selected">Please select a horse</option>' +*/
-            '<option value="' + horses[0] + '" selected="selected">' + horses[0] + '</option>' +
-            '<option value="' + horses[1] + '">' + horses[1] + '</option>' +
-            '<option value="' + horses[2] + '">' + horses[2] + '</option>' +
-            '<option value="' + horses[3] + '">' + horses[3] + '</option>' +
-            '<option value="' + horses[4] + '">' + horses[4] + '</option>' +
-            '<option value="' + horses[5] + '">' + horses[5] + '</option>' +
+            '<select class="form-control" id="value" name="horseName" required>' +
+            '<option value="' + horses[0] + '"' + selected[0] + '>' + horses[0] + '</option>' +
+            '<option value="' + horses[1] + '"' + selected[1] + '>' + horses[1] + '</option>' +
+            '<option value="' + horses[2] + '"' + selected[2] + '>' + horses[2] + '</option>' +
+            '<option value="' + horses[3] + '"' + selected[3] + '>' + horses[3] + '</option>' +
+            '<option value="' + horses[4] + '"' + selected[4] + '>' + horses[4] + '</option>' +
+            '<option value="' + horses[5] + '"' + selected[5] + '>' + horses[5] + '</option>' +
             '</select>'
         );
-        //<%=(horseName==select ? selected="selected" : "");%>
         $('#editRow').modal({backdrop: true});
     });
 }
 
 function checkForm() {
-    var valid_stake_value = $("#stakeValue")[0].checkValidity() == true;
-    var valid_horse_name = $("#horseName")[0].value != "";
-    var valid = [valid_stake_value, valid_horse_name];
     var formGroup = $('.form-group.has-feedback');
     var glyphicon = formGroup.find('.form-control-feedback');
-    var i;
-
     var formValid = true;
-    for (i = 0; i < valid.length; i++) {
-        if (valid[i]) {
+    [].forEach.call(form.find(":input#value"), function (value, i) {
+        if (value.checkValidity()) {
             $(formGroup[i]).addClass('has-success').removeClass('has-error');
             $(glyphicon[i]).addClass('glyphicon-ok').removeClass('glyphicon-remove');
         } else {
@@ -111,7 +110,7 @@ function checkForm() {
             $(glyphicon[i]).addClass('glyphicon-remove').removeClass('glyphicon-ok');
             formValid = false;
         }
-    }
+    });
     if (formValid) save();
 }
 

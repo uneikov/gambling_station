@@ -7,7 +7,6 @@ import com.uran.gamblingstation.to.StakeDTO;
 import com.uran.gamblingstation.util.TimeUtil;
 import com.uran.gamblingstation.util.stake.StakeUtil;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
@@ -15,9 +14,10 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static java.time.LocalDateTime.of;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class AbstractStakeController {
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractStakeController.class);
+    private static final Logger LOG = getLogger(AbstractStakeController.class);
 
     @Autowired
     private StakeService service;

@@ -1,4 +1,4 @@
-var ajaxRacesUrl = 'ajax/profile/races/';
+const ajaxRacesUrl = 'ajax/profile/races/';
 
 var form;
 
@@ -52,18 +52,21 @@ function updateRow(id) {
 
 function checkDelete(id) {
     var form_title = this.form[0].title;
-    if (form_title == 'horse' || form_title == 'user') {
-        $.get(ajaxRacesUrl + 'can', function (editable) {
-            if (editable == 'editable') {
-                deleteRow(id);
-            } else {
-                notEditableNoty('common.not_editable');
-                updateTable();
-            }
-        });
-    }
-    if (form_title == 'stake') {
-        deleteRow(id);
+    switch (form_title) {
+        case 'horse':
+        case 'user':
+            $.get(ajaxRacesUrl + 'can', function (editable) {
+                if (editable === 'editable') {
+                    deleteRow(id);
+                } else {
+                    notEditableNoty('common.not_editable');
+                    updateTable();
+                }
+            });
+            break;
+        case 'stake':
+            deleteRow(id);
+            break;
     }
 }
 
@@ -148,13 +151,13 @@ function notEditableNoty(key) {
 }
 
 function renderEditBtn(data, type, row) {
-    if (type == 'display') {
+    if (type === 'display') {
         return '<a class="btn btn-xs btn-primary" onclick="updateRow(' + row.id + ');">' + i18n['common.update'] + '</a>';
     }
 }
 
 function renderDeleteBtn(data, type, row) {
-    if (type == 'display') {
+    if (type === 'display') {
         return '<a class="btn btn-xs btn-danger" onclick="checkDelete(' + row.id + ');">' + i18n['common.delete'] + '</a>';
     }
 }

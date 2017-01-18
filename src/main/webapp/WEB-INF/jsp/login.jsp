@@ -69,13 +69,6 @@
 
     </div>
 </div>
-
 <jsp:include page="fragments/footer.jsp"/>
-<div class="navbar navbar-inverse navbar-fixed-bottom" role="banner" data-spy="affix">
-    <div class="scroll">
-        <h3>Horses, races, stakes and more...&nbsp;&nbsp;&nbsp;Start gambling now with us!&nbsp;&nbsp;&nbsp;Are you
-            ready to win?&nbsp;&nbsp;&nbsp;Yes you will!</h3>
-    </div>
-</div>
 </body>
 </html>

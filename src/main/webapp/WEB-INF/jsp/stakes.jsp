@@ -99,12 +99,6 @@
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
-
-<div class="navbar navbar-inverse navbar-fixed-bottom" role="banner" data-spy="affix">
-    <div class="scroll">
-        <h3>Horses, races, stakes and more... Start gambling now with us!  Are you ready to win? Yes you will!</h3>
-    </div>
-</div>
 <!---------------------------------------- Modal window -------------------------------------------->
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
@@ -120,10 +114,7 @@
                     <div class="form-group has-feedback">
                         <label for="value" class="control-label col-xs-3"><spring:message code="stake.addForm"/>:</label>
                         <div class="col-xs-9">
-                            <div id="value">
-                                <%-- <input class="form-control" id="stakeValue" name="stakeValue" type="number"
-                                        step="0.01" min="0" max="${availableValue}" value="${availableValue}">--%>
-                            </div>
+                            <div id="value"></div>
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
                     </div>
@@ -131,14 +122,7 @@
                     <div class="form-group has-feedback">
                         <label for="horse" class="control-label col-xs-3"><spring:message code="stake.horse"/>:</label>
                         <div class="col-xs-9">
-                            <div id="horse">
-                                <%--<select class="form-control" id="horseName" name="horseName" >
-                                    <c:forEach var="horseName" items="${horsesNames}">
-                                        <option value="${horseName}" ${horseName == selected ? 'selected="selected"' : ''}>${horseName}</option>
-                                        &lt;%&ndash;<option value="${horseName}">${horseName}</option>&ndash;%&gt;
-                                    </c:forEach>
-                                </select>--%>
-                            </div>
+                            <div id="horse"></div>
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
                     </div>
@@ -146,7 +130,6 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" type="button" data-dismiss="modal"><spring:message code="common.cancel"/></button>
-                <%--<button class="btn btn-primary" type="button" onclick="save()"><fmt:message key="common.save"/></button>--%>
                 <button id="save" class="btn btn-primary" type="button" onclick="checkForm()"><spring:message code="common.save"/></button>
             </div>
         </div>

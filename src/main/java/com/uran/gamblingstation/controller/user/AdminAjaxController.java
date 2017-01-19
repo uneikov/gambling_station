@@ -1,7 +1,7 @@
 package com.uran.gamblingstation.controller.user;
 
 import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.to.UserDTO;
+import com.uran.gamblingstation.dto.UserDTO;
 import com.uran.gamblingstation.util.user.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

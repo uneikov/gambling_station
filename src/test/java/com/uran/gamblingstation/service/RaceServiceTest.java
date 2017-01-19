@@ -12,7 +12,6 @@ import java.util.Arrays;
 import static com.uran.gamblingstation.RaceTestData.*;
 import static java.time.LocalDateTime.of;
 
-
 public class RaceServiceTest extends AbstractServiceTest {
 
     @Autowired

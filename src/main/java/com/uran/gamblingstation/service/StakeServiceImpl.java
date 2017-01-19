@@ -6,7 +6,7 @@ import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.repository.StakeRepository;
 import com.uran.gamblingstation.service.account.AccountService;
-import com.uran.gamblingstation.to.StakeDTO;
+import com.uran.gamblingstation.dto.StakeDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;

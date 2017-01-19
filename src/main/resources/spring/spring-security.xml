@@ -28,7 +28,7 @@
                     authentication-failure-url="/login?error=true"
                     login-processing-url="/spring_security_check"/>
         <logout logout-success-url="/login"/>
-        <!--<csrf disabled="true"/>-->
+        <csrf disabled="false"/>
     </http>
 
     <beans:bean class="com.uran.gamblingstation.util.PasswordUtil" id="passwordEncoder" factory-method="getPasswordEncoder"/>

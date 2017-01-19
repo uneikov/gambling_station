@@ -1,4 +1,4 @@
-var ajaxUrl = 'ajax/admin/horses/';
+const ajaxUrl = 'ajax/admin/horses/';
 
 var datatableApi;
 

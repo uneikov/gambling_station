@@ -2,7 +2,7 @@ package com.uran.gamblingstation.util.user;
 
 import com.uran.gamblingstation.model.Role;
 import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.to.UserDTO;
+import com.uran.gamblingstation.dto.UserDTO;
 import com.uran.gamblingstation.util.PasswordUtil;
 
 public class UserUtil {

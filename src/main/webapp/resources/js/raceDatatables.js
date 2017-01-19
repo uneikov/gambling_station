@@ -1,4 +1,4 @@
-var ajaxUrl = 'ajax/admin/races/';
+const ajaxUrl = 'ajax/admin/races/';
 
 var datatableApi;
 var locale = $('#locale').val();

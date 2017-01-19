@@ -1,7 +1,7 @@
 package com.uran.gamblingstation;
 
 import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.to.UserDTO;
+import com.uran.gamblingstation.dto.UserDTO;
 import com.uran.gamblingstation.util.user.UserUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

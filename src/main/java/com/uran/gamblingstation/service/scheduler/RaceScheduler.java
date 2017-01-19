@@ -91,7 +91,9 @@ public final class RaceScheduler {
         RACE_IS_RUNNING = true;
         USERS_CAN_MAKE_STAKES = false;
 
-        finish = LocalDateTime.now(); // stakes to current race are done
+        processor.forbidStakeEditing(currentRace.getId());
+
+        finish = LocalDateTime.now(); // stakes dto current race are done
         LOG.info("Race started at {}", finish.format(TimeUtil.DATE_TIME_FORMATTER));
 
         // TODO race simulation realisation & visualisation

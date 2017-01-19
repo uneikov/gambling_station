@@ -5,7 +5,7 @@ import com.uran.gamblingstation.controller.AbstractControllerTest;
 import com.uran.gamblingstation.controller.json.JsonUtil;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.service.UserService;
-import com.uran.gamblingstation.to.UserDTO;
+import com.uran.gamblingstation.dto.UserDTO;
 import com.uran.gamblingstation.util.user.UserUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.uran.gamblingstation.to;
+package com.uran.gamblingstation.dto;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

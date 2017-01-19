@@ -47,9 +47,9 @@ public class RaceSimulationHelperImpl implements RaceSimulationHelper{
     @Transactional
     public List<Horse> getHorsesForRace(){
         final List<Horse> all = horseService.getAll();
-        // set ready to false for all horses
+        // set ready dto false for all horses
         all.stream().peek(horse -> horse.setReady(false)).forEach(horseService::save);
-        // set ready to true for random selected horses and return as List
+        // set ready dto true for random selected horses and return as List
         selectedHorses =  RandomUtil.getHorsesForRace(all).stream()
                 .peek(horse -> horse.setReady(true))
                 .peek(horseService::save)

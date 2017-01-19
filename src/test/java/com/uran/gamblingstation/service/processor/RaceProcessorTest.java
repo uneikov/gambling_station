@@ -10,17 +10,17 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static com.uran.gamblingstation.RaceTestData.RACE_1_ID;
 import static com.uran.gamblingstation.RaceTestData.RACE_4_ID;
 import static com.uran.gamblingstation.StakeTestData.*;
 import static com.uran.gamblingstation.UserTestData.USER_ID_1;
 import static com.uran.gamblingstation.UserTestData.USER_ID_2;
 
-@Component
+
 public class RaceProcessorTest extends AbstractServiceTest {
 
     @Autowired
@@ -55,6 +55,14 @@ public class RaceProcessorTest extends AbstractServiceTest {
                 winningStakes,
                 Arrays.asList(STAKE_5_WIN_WITH_AMOUNT, STAKE_4_WIN_WITH_AMOUNT)
         );
+    }
+
+    @Test
+    public void testForbidStakeEditing() {
+        stakeService.update(getUpdated(), USER_ID_1);
+        Assert.assertTrue(stakeService.getAll().stream().anyMatch(Stake::isEditable));
+        raceProcessor.forbidStakeEditing(RACE_1_ID);
+        Assert.assertTrue(stakeService.getAll().stream().noneMatch(Stake::isEditable));
     }
 
 }

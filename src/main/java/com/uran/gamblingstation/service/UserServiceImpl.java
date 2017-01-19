@@ -4,7 +4,7 @@ import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.model.Wallet;
 import com.uran.gamblingstation.repository.UserRepository;
-import com.uran.gamblingstation.to.UserDTO;
+import com.uran.gamblingstation.dto.UserDTO;
 import com.uran.gamblingstation.util.exception.ExceptionUtil;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

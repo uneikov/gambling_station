@@ -17,7 +17,7 @@
         -moz-transform:translateX(100%);
         -webkit-transform:translateX(100%);
         transform:translateX(100%);
-        /* Apply animation to this element */
+        /* Apply animation dto this element */
         -moz-animation: move 10s linear infinite;
         -webkit-animation: move 10s linear infinite;
         animation: move 10s linear infinite;

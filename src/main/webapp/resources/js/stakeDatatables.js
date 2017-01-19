@@ -1,8 +1,6 @@
-var ajaxUrl = 'ajax/profile/stakes/';
-var ajaxHorsesUrl = 'ajax/profile/horses/names/';
-var ajaxWalletsUrl = 'ajax/profile/wallets/';
-
-var datatableApi;
+const ajaxUrl = 'ajax/profile/stakes/';
+const ajaxHorsesUrl = 'ajax/profile/horses/names/';
+const ajaxWalletsUrl = 'ajax/profile/wallets/';
 
 function checkStatus() {
     $.get(ajaxRacesUrl + 'run', function (status) {
@@ -16,12 +14,13 @@ function checkAddStatus() {
         var status = s[0];
         if (cash < 1) {
             $('#walletInfo').modal({backdrop: true});
+        } else {
+            if (status === 'enabled') {
+                add();
+            }else {
+                $('#raceInfo').modal({backdrop: true});
+            }
         }
-        if (status == 'disabled') {
-            alert('You can`t make stakes now. Race is running.');
-        }
-        $('#addButton')[0].disabled = status == 'disabled';
-        if (cash >= 1 && status == 'enabled') add();
     });
 }
 
@@ -36,34 +35,28 @@ function fillWallet() {
     });
 }
 
+const moneyGlyph =
+    '<div class="input-group">' +
+    '<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>' +
+    '<input class="form-control" id="value" name="stakeValue" type="number" step="0.01" min="1" max="';
+
+const horseGlyph =
+    '<div class="input-group">' +
+    '<span class="input-group-addon">' +
+    '<i class="glyphicon glyphicon-menu-hamburger"></i></span>' +
+    '<select class="form-control" id="value" name="horseName" required>' +
+    '<option value="" selected="selected">Select a horse</option>';
+
 function addModal() {
     $.when($.ajax(ajaxHorsesUrl), $.ajax(ajaxWalletsUrl + 'cash')).done(function (r1, r2) {
         var horses = r1[0];
         var available = r2[0];
-        $('#value').html (
-            '<div class="input-group">' +
-            '<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>' +
-            '<input class="form-control" id="value" name="stakeValue" type="number" step="0.01" min="1" max="'
-            + available + '" value="' + available + '" required>' +
-            '</div>'
-        );
-        $('#horse').html (
-            '<div class="input-group">' +
-            '<span class="input-group-addon"><i class="glyphicon glyphicon-menu-hamburger"></i></span>' +
-            '<select class="form-control" id="value" name="horseName" required>' +
-            '<option value="" selected="selected">Select a horse</option>' +
-            '<option value="' + horses[0] + '">' + horses[0] + '</option>' +
-            '<option value="' + horses[1] + '">' + horses[1] + '</option>' +
-            '<option value="' + horses[2] + '">' + horses[2] + '</option>' +
-            '<option value="' + horses[3] + '">' + horses[3] + '</option>' +
-            '<option value="' + horses[4] + '">' + horses[4] + '</option>' +
-            '<option value="' + horses[5] + '">' + horses[5] + '</option>' +
-            '</select>' +
-            '</div>'
-        );
+        $('#value').html(moneyGlyph + available + '" value="' + available + '" required>' + '</div>');
+        $('#horse').html(makeDropDown(horses, horseGlyph, "", '</div>'));
         $('#editRow').modal({backdrop: true});
     });
 }
+
 function updateModal(id) {
     $.when($.ajax(ajaxHorsesUrl), $.ajax(ajaxUrl + id), $.ajax(ajaxWalletsUrl + 'cash')).done(function (r1, r2, r3) {
         var horses = r1[0];
@@ -71,30 +64,18 @@ function updateModal(id) {
         var available = r3[0];
         var current = stake.stakeValue;
         var updated = current + available;
-        var selected_horse_name = stake.horse.name;
-        var selected = new Array(6).join('a').split('a');
-
-        horses.forEach(function(name, i){
-            if (name === selected_horse_name) {
-                selected[i] = ' selected="selected"';
-            }
-        });
-        $('#value').html(
-            '<input class="form-control" id="value" name="stakeValue" type="number" step="0.01" min="1" max="'
-            + updated + '" value="' + current + '">'
-        );
-        $('#horse').html(
-            '<select class="form-control" id="value" name="horseName" required>' +
-            '<option value="' + horses[0] + '"' + selected[0] + '>' + horses[0] + '</option>' +
-            '<option value="' + horses[1] + '"' + selected[1] + '>' + horses[1] + '</option>' +
-            '<option value="' + horses[2] + '"' + selected[2] + '>' + horses[2] + '</option>' +
-            '<option value="' + horses[3] + '"' + selected[3] + '>' + horses[3] + '</option>' +
-            '<option value="' + horses[4] + '"' + selected[4] + '>' + horses[4] + '</option>' +
-            '<option value="' + horses[5] + '"' + selected[5] + '>' + horses[5] + '</option>' +
-            '</select>'
-        );
+        $('#value').html(moneyGlyph + updated + '" value="' + current + '">');
+        $('#horse').html(makeDropDown(horses, horseGlyph, stake.horse.name, "", '</div>'));
         $('#editRow').modal({backdrop: true});
     });
+}
+
+function makeDropDown(horses, head, selected, tail) {
+    horses.forEach(function (name) {
+        var select = name === selected ? ' selected="selected"' : '';
+        head += '<option value="' + name + '"' + select + '>' + name + '</option>';
+    });
+    return head + tail;
 }
 
 function checkForm() {
@@ -123,6 +104,8 @@ function updateTable() {
         success: updateTableByData
     });
 }
+
+var datatableApi;
 
 $(function () {
     datatableApi = $("#stakestable").DataTable({

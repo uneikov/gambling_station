@@ -12,7 +12,7 @@ public class BaseEntity implements Persistable<Integer>{
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
+    // PROPERTY access for id due dto bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(AccessType.PROPERTY)
     protected Integer id;
 

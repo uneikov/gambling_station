@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 import static com.uran.gamblingstation.HorseTestData.*;
 
-
 public class HorseServiceTest extends AbstractServiceTest {
 
     @Autowired

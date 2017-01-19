@@ -2,7 +2,7 @@ package com.uran.gamblingstation.service;
 
 
 import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.to.UserDTO;
+import com.uran.gamblingstation.dto.UserDTO;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 
 import java.util.List;

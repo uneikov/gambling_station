@@ -1,13 +1,12 @@
 package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Horse;
-import com.uran.gamblingstation.to.HorseDTO;
+import com.uran.gamblingstation.dto.HorseDTO;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 
 import java.util.List;
 
-public interface
-HorseService {
+public interface HorseService {
 
     Horse get(int id) throws NotFoundException;
 

@@ -10,4 +10,4 @@ cache:
 # https://docs.travis-ci.com/user/database-setup/#PostgreSQL
 before_script:
   - psql -c 'create database gamblingstation' -U postgres
-  - psql -c 'create user "user"; grant all privileges on database gamblingstation to "user"' -U postgres
+  - psql -c 'create user "user"; grant all privileges on database gamblingstation dto "user"' -U postgres

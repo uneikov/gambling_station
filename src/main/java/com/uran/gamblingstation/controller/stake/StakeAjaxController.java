@@ -4,7 +4,7 @@ import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.Race;
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.service.scheduler.RaceScheduler;
-import com.uran.gamblingstation.to.StakeDTO;
+import com.uran.gamblingstation.dto.StakeDTO;
 import com.uran.gamblingstation.util.stake.StakeUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;

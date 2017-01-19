@@ -46,7 +46,6 @@ public class User extends NamedEntity {
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Stake> stakes;
 
-    //(optional = false, ...) throws "...not-null property references a null or transient value: "
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn
     private Wallet wallet;

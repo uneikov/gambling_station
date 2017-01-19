@@ -2,7 +2,7 @@ package com.uran.gamblingstation.service;
 
 import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.repository.HorseRepository;
-import com.uran.gamblingstation.to.HorseDTO;
+import com.uran.gamblingstation.dto.HorseDTO;
 import com.uran.gamblingstation.util.exception.ExceptionUtil;
 import com.uran.gamblingstation.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

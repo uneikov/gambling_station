@@ -3,7 +3,7 @@ package com.uran.gamblingstation.controller.stake;
 import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.Stake;
 import com.uran.gamblingstation.service.StakeService;
-import com.uran.gamblingstation.to.StakeDTO;
+import com.uran.gamblingstation.dto.StakeDTO;
 import com.uran.gamblingstation.util.TimeUtil;
 import com.uran.gamblingstation.util.stake.StakeUtil;
 import org.slf4j.Logger;

@@ -99,7 +99,7 @@
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
-<!---------------------------------------- Modal window -------------------------------------------->
+<!---------------------------------------- new stake modal window -------------------------------------------->
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -135,6 +135,7 @@
         </div>
     </div>
 </div>
+<!---------------------------------------- out of money popup window -------------------------------------------->
 <div class="modal fade" id="walletInfo">
     <div class="modal-dialog m">
         <div class="modal-content">
@@ -148,6 +149,23 @@
             <div class="modal-footer">
                 <button class="btn btn-default" type="button" data-dismiss="modal"><spring:message code="common.cancel"/></button>
                 <button id="fill" class="btn btn-primary" type="button" onclick=fillWallet()><spring:message code="wallet.add"/></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!---------------------------------------- race is running popup window -------------------------------------------->
+<div class="modal fade" id="raceInfo">
+    <div class="modal-dialog m">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" style="color: red" id="raceInfoHead"><spring:message code="wallet.empty"/></h4>
+            </div>
+            <div class="modal-body">
+                <h4><spring:message code="race.info"/></h4>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal"><spring:message code="common.cancel"/></button>
             </div>
         </div>
     </div>

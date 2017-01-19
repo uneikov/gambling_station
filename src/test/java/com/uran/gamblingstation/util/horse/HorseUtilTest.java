@@ -1,7 +1,7 @@
 package com.uran.gamblingstation.util.horse;
 
 import com.uran.gamblingstation.model.Horse;
-import com.uran.gamblingstation.to.HorseDTO;
+import com.uran.gamblingstation.dto.HorseDTO;
 import org.junit.Assert;
 import org.junit.Test;
 

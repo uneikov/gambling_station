@@ -2,7 +2,7 @@ package com.uran.gamblingstation.controller.user;
 
 import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.model.User;
-import com.uran.gamblingstation.to.UserDTO;
+import com.uran.gamblingstation.dto.UserDTO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

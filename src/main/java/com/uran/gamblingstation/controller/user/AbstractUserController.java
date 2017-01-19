@@ -4,7 +4,7 @@ import com.uran.gamblingstation.Profiles;
 import com.uran.gamblingstation.model.BaseEntity;
 import com.uran.gamblingstation.model.User;
 import com.uran.gamblingstation.service.UserService;
-import com.uran.gamblingstation.to.UserDTO;
+import com.uran.gamblingstation.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

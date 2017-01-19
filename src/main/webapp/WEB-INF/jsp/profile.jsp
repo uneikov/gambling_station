@@ -19,7 +19,7 @@
                     <spring:message code="app.register"/>
                     <spring:message code="common.add" var="saveButton"/>
                 </c:if>
-                <c:if test="${not register}"><jsp:useBean id="userDTO" scope="request" class="com.uran.gamblingstation.to.UserDTO"/>
+                <c:if test="${not register}"><jsp:useBean id="userDTO" scope="request" class="com.uran.gamblingstation.dto.UserDTO"/>
                     ${userDTO.name} <spring:message code="app.profile"/>
                     <spring:message code="common.update" var="saveButton"/>
                 </c:if>

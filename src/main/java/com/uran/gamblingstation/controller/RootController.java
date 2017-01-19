@@ -2,7 +2,7 @@ package com.uran.gamblingstation.controller;
 
 import com.uran.gamblingstation.AuthorizedUser;
 import com.uran.gamblingstation.controller.user.AbstractUserController;
-import com.uran.gamblingstation.to.UserDTO;
+import com.uran.gamblingstation.dto.UserDTO;
 import com.uran.gamblingstation.util.user.UserUtil;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;

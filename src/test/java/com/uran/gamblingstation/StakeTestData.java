@@ -69,10 +69,7 @@ public class StakeTestData {
     }
 
     public static Stake getUpdated() {
-        return new Stake(STAKE_1_ID, USER_1, HORSE_6, RACE_1, 100.0, of(2016, Month.MAY, 30, 10, 0).truncatedTo(ChronoUnit.SECONDS), false, 0.0, false);
+        return new Stake(STAKE_1_ID, USER_1, HORSE_6, RACE_1, 100.0, of(2016, Month.MAY, 30, 10, 0).truncatedTo(ChronoUnit.SECONDS), false, 0.0, true);
     }
 
-    public static Stake getEditable() {
-        return new Stake(null, USER_1, HORSE_1, RACE_4, 80.25, of(2016, Month.OCTOBER, 3, 10, 35).truncatedTo(ChronoUnit.SECONDS), false, 0.0, true);
-    }
 }

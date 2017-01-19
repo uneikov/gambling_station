@@ -2,7 +2,7 @@ package com.uran.gamblingstation.controller.horse;
 
 import com.uran.gamblingstation.model.Horse;
 import com.uran.gamblingstation.service.HorseService;
-import com.uran.gamblingstation.to.HorseDTO;
+import com.uran.gamblingstation.dto.HorseDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -35,18 +35,20 @@ function updateRow(id) {
             form.find("input[name='" + key + "']").val(value);
         });
     });
-    if (form_title == 'stake') {
-        updateModal(id);
-    }
-    if (form_title == 'horse' || form_title == 'user') {
-        $.get(ajaxRacesUrl + 'can', function (editable) {
-            if (editable == 'editable') {
-                $('#editRow').modal();
-            } else {
-                notEditableNoty('common.not_editable');
-                updateTable();
-            }
-        });
+    switch (form_title) {
+        case 'horse':
+        case 'user':
+            $.get(ajaxRacesUrl + 'can', function (editable) {
+                if (editable == 'editable') {
+                    $('#editRow').modal();
+                } else {
+                    notEditableNoty('common.not_editable');
+                }
+            });
+            break;
+        case 'stake':
+            updateModal(id);
+            break;
     }
 }
 
@@ -60,7 +62,6 @@ function checkDelete(id) {
                     deleteRow(id);
                 } else {
                     notEditableNoty('common.not_editable');
-                    updateTable();
                 }
             });
             break;
@@ -82,14 +83,21 @@ function deleteRow(id) {
 }
 
 function enable(chkbox, id) {
-    var enabled = chkbox.is(":checked");
-    $.ajax({
-        url: ajaxUrl + id,
-        type: 'POST',
-        data: 'enabled=' + enabled,
-        success: function () {
-            chkbox.closest('tr').fadeTo(300, enabled ? 1 : 0.3);
-            successNoty(enabled ? 'common.enabled' : 'common.disabled');
+    $.get(ajaxRacesUrl + 'can', function (editable) {
+        if (editable === 'editable') {
+            var enabled = chkbox.is(":checked");
+            $.ajax({
+                url: ajaxUrl + id,
+                type: 'POST',
+                data: 'enabled=' + enabled,
+                success: function () {
+                    chkbox.closest('tr').fadeTo(300, enabled ? 1 : 0.3);
+                    successNoty(enabled ? 'common.enabled' : 'common.disabled');
+                }
+            });
+        } else {
+            notEditableNoty('common.not_editable');
+            updateTable();
         }
     });
 }

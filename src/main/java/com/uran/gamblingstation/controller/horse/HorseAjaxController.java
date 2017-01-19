@@ -1,7 +1,7 @@
 package com.uran.gamblingstation.controller.horse;
 
 import com.uran.gamblingstation.model.Horse;
-import com.uran.gamblingstation.to.HorseDTO;
+import com.uran.gamblingstation.dto.HorseDTO;
 import com.uran.gamblingstation.util.horse.HorseUtil;
 import org.springframework.web.bind.annotation.*;
 

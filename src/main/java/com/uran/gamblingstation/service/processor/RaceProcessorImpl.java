@@ -33,7 +33,6 @@ public class RaceProcessorImpl implements RaceProcessor {
     @Override
     @Transactional
     public void process(final int horseId, final int raceId) {
-        stakeService.setNotEditable(raceId);
         horseService.update(horseService.get(horseId).addWins());
         stakeService.setWinningStakes(horseId, raceId);
         final Double allCash = stakeService.getAllCash(raceId);
@@ -50,5 +49,10 @@ public class RaceProcessorImpl implements RaceProcessor {
         } else {
             LOG.info("Nobody wins, station revenue: {}", allCash);
         }
+    }
+
+    @Override
+    public void forbidStakeEditing(final int raceId) {
+        stakeService.setNotEditable(raceId);
     }
 }

@@ -38,8 +38,8 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
         return get().userDTO.getId();
     }
 
-    public void update(UserDTO newTo) {
-        userDTO = newTo;
+    public void update(UserDTO newDTO) {
+        userDTO = newDTO;
     }
 
     public UserDTO getUserDTO() {

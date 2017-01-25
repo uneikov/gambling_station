@@ -52,7 +52,10 @@ $ mvn test
 <p>Access the deployed web application at: http://localhost:8080/gamblingstation/</p>
 
 <h2><a id="user-content-note" class="anchor" href="#note" aria-hidden="true"></a>Note:</h2>
-<p>This application deployed to heroku and you can taste it <a href="http://gamblingstation.herokuapp.com/">here</a></p>
+<p>This application is deployed on heroku and you can taste it <a href="http://gamblingstation.herokuapp.com/">here</a></p>
+<p>Application have scheduler to schedule three time intervals for gambling, race itself and service time and 
+due to free heroku account limitation this app going to sleep after 30 minutes of inactivity, so if you want to
+get full functionality, you need to wait until new hour starts.</p>
 
 <p>By default all integration tests use heroku postgres database and:</p>
 
